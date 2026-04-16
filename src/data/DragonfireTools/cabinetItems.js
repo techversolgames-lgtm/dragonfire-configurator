@@ -161,7 +161,7 @@ const mediumCabinetOptions = [
 const standingCabinetOptions = [
   {
     label: "Locker",
-    image: "/images/dragonfire-tools/tool_cabinets/locker_cabinet.png",
+    image: "/images/dragonfire-tools/tool_cabinets/webp/Locker-cabinet.webp",
     id: 8,
     itemType: "floor",
     color: "rgb(128, 0, 255)",
@@ -175,7 +175,7 @@ const standingCabinetOptions = [
   },
   {
     label: "6 Drawer",
-    image: "/images/dragonfire-tools/tool_cabinets/6D.png",
+    image: "/images/dragonfire-tools/tool_cabinets/webp/6-drawer-cabinet.webp",
     id: 9,
     itemType: "floor",
     color: "rgb(128, 128, 0)",
@@ -207,7 +207,7 @@ const standingCabinetOptions = [
   },
   {
     label: "Lower Corner",
-    image: "/images/dragonfire-tools/tool_cabinets/lower_corner.png",
+    image: "/images/dragonfire-tools/tool_cabinets/webp/lower-corner-cabinet.webp",
     id: 11,
     itemType: "floor",
     bIsCornerCabinet: true,
@@ -227,7 +227,7 @@ const standingCabinetOptions = [
   },
   {
     label: "Upper Corner",
-    image: "/images/dragonfire-tools/tool_cabinets/upper_corner.png",
+    image: "/images/dragonfire-tools/tool_cabinets/webp/upper-corner-cabinet.webp",
     id: 12,
     itemType: "wall",
     bIsCornerCabinet: true,
@@ -243,7 +243,7 @@ const standingCabinetOptions = [
   },
   {
     label: "Wall Cabinet",
-    image: "/images/dragonfire-tools/tool_cabinets/wall_cabinet.png",
+    image: "/images/dragonfire-tools/tool_cabinets/webp/wall-cabinet.webp",
     id: 13,
     itemType: "wall",
     color: "rgb(128, 255, 128)",
@@ -259,7 +259,7 @@ const standingCabinetOptions = [
 
   {
     label: "3 Wall Cabinets",
-    image: "/images/dragonfire-tools/tool_cabinets/3_set_wall.png",
+    image: "/images/dragonfire-tools/tool_cabinets/webp/wall-cabinet.webp",
     id: 14,
     itemType: "wall",
     color: "rgb(128, 255, 255)",
@@ -274,7 +274,7 @@ const standingCabinetOptions = [
   },
   {
     label: "4 Wall Cabinets",
-    image: "/images/dragonfire-tools/tool_cabinets/4_set_wall.png",
+    image: "/images/dragonfire-tools/tool_cabinets/webp/wall-cabinet.webp",
     id: 15,
     itemType: "wall",
     color: "rgb(255, 0, 0)",

@@ -1,0 +1,844 @@
+{
+  "manufacturers": [
+    {
+      "title": "badass-workbench",
+      "slug": "badass-workbench",
+      "path": "/badass-workbench",
+      "video": null,
+      "pages": [
+        {
+          "title": "Badass Workbench",
+          "slug": "welding-tables",
+          "path": "/badass-workbench\\welding-tables",
+          "video": null,
+          "pages": [
+            {
+              "path": "/badass-workbench\\welding-tables\\index",
+              "title": "Badass Workbench",
+              "slug": "badass-workbench\\welding-tables\\index",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "bec-defense",
+      "slug": "bec-defense",
+      "path": "/bec-defense",
+      "video": null,
+      "pages": [
+        {
+          "title": "Renegade APC",
+          "slug": "renegade-apc",
+          "path": "/bec-defense\\renegade-apc",
+          "video": null,
+          "pages": [
+            {
+              "path": "/bec-defense\\renegade-apc\\index",
+              "title": "Renegade APC",
+              "slug": "bec-defense\\renegade-apc\\index",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "beretta",
+      "slug": "beretta",
+      "path": "/beretta",
+      "video": null,
+      "pages": [
+        {
+          "title": "Beretta Firearms",
+          "slug": "customize-product",
+          "path": "/beretta\\customize-product",
+          "video": null,
+          "pages": [
+            {
+              "path": "/beretta\\customize-product\\index",
+              "title": "Beretta Firearms",
+              "slug": "beretta\\customize-product\\index",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "blue-torus",
+      "slug": "blue-torus",
+      "path": "/blue-torus",
+      "video": null,
+      "pages": [
+        {
+          "title": "Office Chair",
+          "slug": "office-chair",
+          "path": "/blue-torus\\office-chair",
+          "video": null,
+          "pages": [
+            {
+              "path": "/blue-torus\\office-chair\\index",
+              "title": "Office Chair",
+              "slug": "blue-torus\\office-chair\\index",
+              "video": null
+            }
+          ]
+        },
+        {
+          "title": "Box",
+          "slug": "box",
+          "path": "/blue-torus\\box",
+          "video": null,
+          "pages": [
+            {
+              "path": "/blue-torus\\box\\index",
+              "title": "Box",
+              "slug": "blue-torus\\box\\index",
+              "video": null
+            },
+            {
+              "path": "/blue-torus\\box\\index-copy",
+              "title": "Box",
+              "slug": "blue-torus\\box\\index-copy",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Camtech",
+      "slug": "camtech",
+      "path": "/camtech",
+      "video": "/videos/camtech-10x12-boxes.mp4",
+      "pages": [
+        {
+          "path": "/camtech\\index",
+          "title": "Camtech",
+          "slug": "camtech\\index",
+          "video": null
+        },
+        {
+          "title": "Camtech Boxes",
+          "slug": "camtech-boxes",
+          "path": "/camtech\\camtech-boxes",
+          "video": "/videos/camtech-camtech-boxes.mp4",
+          "pages": [
+            {
+              "path": "/camtech\\camtech-boxes\\index",
+              "title": "Camtech Boxes",
+              "slug": "camtech\\camtech-boxes\\index",
+              "video": null
+            },
+            {
+              "path": "/camtech\\camtech-boxes\\iframe",
+              "title": "Cabinet",
+              "slug": "camtech\\camtech-boxes\\iframe",
+              "video": null
+            },
+            {
+              "path": "/camtech\\camtech-boxes\\deploy_tests",
+              "title": "Camtech Boxes",
+              "slug": "camtech\\camtech-boxes\\deploy_tests",
+              "video": null
+            }
+          ]
+        },
+        {
+          "title": "Camtech 10x12 Box",
+          "slug": "10x12-boxes",
+          "path": "/camtech\\10x12-boxes",
+          "video": "/videos/camtech-10x12-boxes.mp4",
+          "pages": [
+            {
+              "path": "/camtech\\10x12-boxes\\index",
+              "title": "Camtech 10x12 Box",
+              "slug": "camtech\\10x12-boxes\\index",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "dragonfire-tools",
+      "slug": "dragonfire-tools",
+      "path": "/dragonfire-tools",
+      "video": null,
+      "pages": [
+        {
+          "title": "Plan Cabinet Layout",
+          "slug": "room-layout-planner",
+          "path": "/dragonfire-tools\\room-layout-planner",
+          "video": null,
+          "pages": [
+            {
+              "path": "/dragonfire-tools\\room-layout-planner\\index",
+              "title": "Plan Cabinet Layout",
+              "slug": "dragonfire-tools\\room-layout-planner\\index",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "earnest-machine",
+      "slug": "earnest-machine",
+      "path": "/earnest-machine",
+      "video": null,
+      "pages": [
+        {
+          "title": "Custom Fastener",
+          "slug": "custom-fastener",
+          "path": "/earnest-machine\\custom-fastener",
+          "video": null,
+          "pages": [
+            {
+              "path": "/earnest-machine\\custom-fastener\\index",
+              "title": "Custom Fastener",
+              "slug": "earnest-machine\\custom-fastener\\index",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Forgeline",
+      "slug": "forgeline",
+      "path": "/forgeline",
+      "video": null,
+      "pages": [
+        {
+          "path": "/forgeline\\index",
+          "title": "Forgeline",
+          "slug": "forgeline\\index",
+          "video": null
+        },
+        {
+          "title": "Forgeline DE3C Concave",
+          "slug": "de3c-concave",
+          "path": "/forgeline\\de3c-concave",
+          "video": "/videos/forgeline-de3c-concave.mp4",
+          "pages": [
+            {
+              "path": "/forgeline\\de3c-concave\\index",
+              "title": "Forgeline DE3C Concave",
+              "slug": "forgeline\\de3c-concave\\index",
+              "video": null
+            }
+          ]
+        },
+        {
+          "title": "Forgeline Custom Wheels",
+          "slug": "custom-wheels",
+          "path": "/forgeline\\custom-wheels",
+          "video": null,
+          "pages": [
+            {
+              "path": "/forgeline\\custom-wheels\\index",
+              "title": "Forgeline Custom Wheels",
+              "slug": "forgeline\\custom-wheels\\index",
+              "video": null
+            },
+            {
+              "path": "/forgeline\\custom-wheels\\iframe",
+              "title": "Forgeline Custom Wheels",
+              "slug": "forgeline\\custom-wheels\\iframe",
+              "video": null
+            },
+            {
+              "path": "/forgeline\\custom-wheels\\deploy_tests",
+              "title": "Wheels",
+              "slug": "forgeline\\custom-wheels\\deploy_tests",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Box",
+      "slug": "hasharen-engine",
+      "path": "/hasharen-engine",
+      "video": null,
+      "pages": [
+        {
+          "title": "Hasharen Core Editor",
+          "slug": "slice-tests",
+          "path": "/hasharen-engine\\slice-tests",
+          "video": null,
+          "pages": [
+            {
+              "path": "/hasharen-engine\\slice-tests\\index",
+              "title": "Hasharen Core Editor",
+              "slug": "hasharen-engine\\slice-tests\\index",
+              "video": null
+            }
+          ]
+        },
+        {
+          "title": "Box",
+          "slug": "player",
+          "path": "/hasharen-engine\\player",
+          "video": null,
+          "pages": [
+            {
+              "path": "/hasharen-engine\\player\\index",
+              "title": "Box",
+              "slug": "hasharen-engine\\player\\index",
+              "video": null
+            }
+          ]
+        },
+        {
+          "path": "/hasharen-engine\\index",
+          "title": "Box",
+          "slug": "hasharen-engine\\index",
+          "video": null
+        },
+        {
+          "title": "SPKB Creator",
+          "slug": "editor",
+          "path": "/hasharen-engine\\editor",
+          "video": null,
+          "pages": [
+            {
+              "path": "/hasharen-engine\\editor\\old",
+              "title": "Hasharen Core Editor",
+              "slug": "hasharen-engine\\editor\\old",
+              "video": null
+            },
+            {
+              "path": "/hasharen-engine\\editor\\index",
+              "title": "SPKB Creator",
+              "slug": "hasharen-engine\\editor\\index",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Keizer-Aluminium",
+      "slug": "keizer-aluminium",
+      "path": "/keizer-aluminium",
+      "video": "/videos/keizer-aluminium-15-pror-beurt-wide-forged-bl.mp4",
+      "pages": [
+        {
+          "path": "/keizer-aluminium\\index",
+          "title": "Keizer-Aluminium",
+          "slug": "keizer-aluminium\\index",
+          "video": null
+        },
+        {
+          "title": "Keizer Aluminum Wheels",
+          "slug": "custom-wheels",
+          "path": "/keizer-aluminium\\custom-wheels",
+          "video": null,
+          "pages": [
+            {
+              "path": "/keizer-aluminium\\custom-wheels\\index",
+              "title": "Keizer Aluminum Wheels",
+              "slug": "keizer-aluminium\\custom-wheels\\index",
+              "video": null
+            }
+          ]
+        },
+        {
+          "title": "15\" ProR Beurt Wide Forged BL",
+          "slug": "15-pror-beurt-wide-forged-bl",
+          "path": "/keizer-aluminium\\15-pror-beurt-wide-forged-bl",
+          "video": "/videos/keizer-aluminium-15-pror-beurt-wide-forged-bl.mp4",
+          "pages": [
+            {
+              "path": "/keizer-aluminium\\15-pror-beurt-wide-forged-bl\\index",
+              "title": "15\" ProR Beurt Wide Forged BL",
+              "slug": "keizer-aluminium\\15-pror-beurt-wide-forged-bl\\index",
+              "video": null
+            },
+            {
+              "path": "/keizer-aluminium\\15-pror-beurt-wide-forged-bl\\iframe",
+              "title": "15\" ProR Beurt Wide Forged BL",
+              "slug": "keizer-aluminium\\15-pror-beurt-wide-forged-bl\\iframe",
+              "video": null
+            },
+            {
+              "path": "/keizer-aluminium\\15-pror-beurt-wide-forged-bl\\deploy_tests",
+              "title": "15\" ProR Beurt Wide Forged BL",
+              "slug": "keizer-aluminium\\15-pror-beurt-wide-forged-bl\\deploy_tests",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mezco",
+      "slug": "mezco",
+      "path": "/mezco",
+      "video": "/videos/mezco-base-plate.mp4",
+      "pages": [
+        {
+          "title": "L Bracket",
+          "slug": "l-bracket",
+          "path": "/mezco\\l-bracket",
+          "video": "/videos/mezco-l-bracket.mp4",
+          "pages": [
+            {
+              "path": "/mezco\\l-bracket\\index",
+              "title": "L Bracket",
+              "slug": "mezco\\l-bracket\\index",
+              "video": null
+            },
+            {
+              "path": "/mezco\\l-bracket\\iframe",
+              "title": "L Bracket",
+              "slug": "mezco\\l-bracket\\iframe",
+              "video": null
+            },
+            {
+              "path": "/mezco\\l-bracket\\deploy_tests",
+              "title": "Mezco L Bracket",
+              "slug": "mezco\\l-bracket\\deploy_tests",
+              "video": null
+            }
+          ]
+        },
+        {
+          "path": "/mezco\\index",
+          "title": "Mezco",
+          "slug": "mezco\\index",
+          "video": null
+        },
+        {
+          "title": "C Bracket",
+          "slug": "c-bracket",
+          "path": "/mezco\\c-bracket",
+          "video": "/videos/mezco-c-bracket.mp4",
+          "pages": [
+            {
+              "path": "/mezco\\c-bracket\\index",
+              "title": "C Bracket",
+              "slug": "mezco\\c-bracket\\index",
+              "video": null
+            },
+            {
+              "path": "/mezco\\c-bracket\\iframe",
+              "title": "C Bracket",
+              "slug": "mezco\\c-bracket\\iframe",
+              "video": null
+            },
+            {
+              "path": "/mezco\\c-bracket\\deploy_tests",
+              "title": "Mezco C Bracket",
+              "slug": "mezco\\c-bracket\\deploy_tests",
+              "video": null
+            }
+          ]
+        },
+        {
+          "title": "Base Plate",
+          "slug": "base-plate",
+          "path": "/mezco\\base-plate",
+          "video": "/videos/mezco-base-plate.mp4",
+          "pages": [
+            {
+              "path": "/mezco\\base-plate\\index",
+              "title": "Base Plate",
+              "slug": "mezco\\base-plate\\index",
+              "video": null
+            },
+            {
+              "path": "/mezco\\base-plate\\iframe",
+              "title": "Base Plate",
+              "slug": "mezco\\base-plate\\iframe",
+              "video": null
+            },
+            {
+              "path": "/mezco\\base-plate\\deploy_tests",
+              "title": "Base Plate",
+              "slug": "mezco\\base-plate\\deploy_tests",
+              "video": null
+            }
+          ]
+        },
+        {
+          "title": "Z Bracket",
+          "slug": "z-bracket",
+          "path": "/mezco\\z-bracket",
+          "video": "/videos/mezco-z-bracket.mp4",
+          "pages": [
+            {
+              "path": "/mezco\\z-bracket\\deploy_tests",
+              "title": "Mezco Z Bracket",
+              "slug": "mezco\\z-bracket\\deploy_tests",
+              "video": null
+            },
+            {
+              "path": "/mezco\\z-bracket\\iframe",
+              "title": "Z Bracket",
+              "slug": "mezco\\z-bracket\\iframe",
+              "video": null
+            },
+            {
+              "path": "/mezco\\z-bracket\\index",
+              "title": "Z Bracket",
+              "slug": "mezco\\z-bracket\\index",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mob Armor",
+      "slug": "mob-armor",
+      "path": "/mob-armor",
+      "video": null,
+      "pages": [
+        {
+          "title": "Mobnetic Maxx",
+          "slug": "mobnetic-maxx",
+          "path": "/mob-armor\\mobnetic-maxx",
+          "video": null,
+          "pages": [
+            {
+              "path": "/mob-armor\\mobnetic-maxx\\index",
+              "title": "Mobnetic Maxx",
+              "slug": "mob-armor\\mobnetic-maxx\\index",
+              "video": null
+            },
+            {
+              "path": "/mob-armor\\mobnetic-maxx\\iframe",
+              "title": "Mobnetic Maxx",
+              "slug": "mob-armor\\mobnetic-maxx\\iframe",
+              "video": null
+            },
+            {
+              "path": "/mob-armor\\mobnetic-maxx\\deploy_tests",
+              "title": "Mob Armor Mobnetic Maxx",
+              "slug": "mob-armor\\mobnetic-maxx\\deploy_tests",
+              "video": null
+            }
+          ]
+        },
+        {
+          "path": "/mob-armor\\index",
+          "title": "Mob Armor",
+          "slug": "mob-armor\\index",
+          "video": null
+        }
+      ]
+    },
+    {
+      "title": "Nexafence",
+      "slug": "nexafence",
+      "path": "/nexafence",
+      "video": null,
+      "pages": [
+        {
+          "path": "/nexafence\\index",
+          "title": "Nexafence",
+          "slug": "nexafence\\index",
+          "video": null
+        },
+        {
+          "title": "Custom Fence",
+          "slug": "custom-fence",
+          "path": "/nexafence\\custom-fence",
+          "video": null,
+          "pages": [
+            {
+              "path": "/nexafence\\custom-fence\\index",
+              "title": "Custom Fence",
+              "slug": "nexafence\\custom-fence\\index",
+              "video": null
+            },
+            {
+              "path": "/nexafence\\custom-fence\\iframe",
+              "title": "Custom Fence",
+              "slug": "nexafence\\custom-fence\\iframe",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "PL Custom",
+      "slug": "pl-custom",
+      "path": "/pl-custom",
+      "video": null,
+      "pages": [
+        {
+          "path": "/pl-custom\\index",
+          "title": "PL Custom",
+          "slug": "pl-custom\\index",
+          "video": null
+        },
+        {
+          "title": "Walk Around",
+          "slug": "walk-around",
+          "path": "/pl-custom\\walk-around",
+          "video": "/videos/pl-custom-walk-around.mp4",
+          "pages": [
+            {
+              "path": "/pl-custom\\walk-around\\deploy_tests",
+              "title": "Walk Around",
+              "slug": "pl-custom\\walk-around\\deploy_tests",
+              "video": null
+            },
+            {
+              "path": "/pl-custom\\walk-around\\iframe",
+              "title": "Walk Around",
+              "slug": "pl-custom\\walk-around\\iframe",
+              "video": null
+            },
+            {
+              "path": "/pl-custom\\walk-around\\index",
+              "title": "Walk Around",
+              "slug": "pl-custom\\walk-around\\index",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Rive Loader",
+      "slug": "rive-loader",
+      "path": "/rive-loader",
+      "video": null,
+      "pages": [
+        {
+          "path": "/rive-loader\\index",
+          "title": "Rive Loader",
+          "slug": "rive-loader\\index",
+          "video": null
+        }
+      ]
+    },
+    {
+      "title": "spokbee",
+      "slug": "spokbee",
+      "path": "/spokbee",
+      "video": null,
+      "pages": [
+        {
+          "title": "Spokbee Material Editor",
+          "slug": "material-editor",
+          "path": "/spokbee\\material-editor",
+          "video": null,
+          "pages": [
+            {
+              "path": "/spokbee\\material-editor\\index",
+              "title": "Spokbee Material Editor",
+              "slug": "spokbee\\material-editor\\index",
+              "video": null
+            }
+          ]
+        },
+        {
+          "title": "Spokbee AI tests",
+          "slug": "ai-tests",
+          "path": "/spokbee\\ai-tests",
+          "video": null,
+          "pages": [
+            {
+              "path": "/spokbee\\ai-tests\\index",
+              "title": "Spokbee AI tests",
+              "slug": "spokbee\\ai-tests\\index",
+              "video": null
+            }
+          ]
+        },
+        {
+          "title": "AI Testing ",
+          "slug": "ai-test",
+          "path": "/spokbee\\ai-test",
+          "video": null,
+          "pages": [
+            {
+              "path": "/spokbee\\ai-test\\pricing",
+              "title": "Pricing - AI Test",
+              "slug": "spokbee\\ai-test\\pricing",
+              "video": null
+            },
+            {
+              "path": "/spokbee\\ai-test\\music",
+              "title": "Music Generation - AI Test",
+              "slug": "spokbee\\ai-test\\music",
+              "video": null
+            },
+            {
+              "path": "/spokbee\\ai-test\\index",
+              "title": "AI Testing ",
+              "slug": "spokbee\\ai-test\\index",
+              "video": null
+            },
+            {
+              "path": "/spokbee\\ai-test\\image",
+              "title": "Image Generation - AI Test",
+              "slug": "spokbee\\ai-test\\image",
+              "video": null
+            },
+            {
+              "path": "/spokbee\\ai-test\\checkout",
+              "title": "Checkout - AI Test",
+              "slug": "spokbee\\ai-test\\checkout",
+              "video": null
+            },
+            {
+              "title": "checkout",
+              "slug": "checkout",
+              "path": "/spokbee\\ai-test\\checkout",
+              "video": null,
+              "pages": [
+                {
+                  "path": "/spokbee\\ai-test\\checkout\\success",
+                  "title": "Payment Successful - AI Test",
+                  "slug": "spokbee\\ai-test\\checkout\\success",
+                  "video": null
+                }
+              ]
+            },
+            {
+              "path": "/spokbee\\ai-test\\chat",
+              "title": "Chat - AI Test",
+              "slug": "spokbee\\ai-test\\chat",
+              "video": null
+            },
+            {
+              "path": "/spokbee\\ai-test\\video",
+              "title": "Video Generation - AI Test",
+              "slug": "spokbee\\ai-test\\video",
+              "video": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Storloc",
+      "slug": "storloc",
+      "path": "/storloc",
+      "video": null,
+      "pages": [
+        {
+          "path": "/storloc\\test-pdf",
+          "title": "PDF-lib Test",
+          "slug": "storloc\\test-pdf",
+          "video": null
+        },
+        {
+          "title": "Pen Holder",
+          "slug": "pen-holder",
+          "path": "/storloc\\pen-holder",
+          "video": "/videos/storloc-pen-holder.mp4",
+          "pages": [
+            {
+              "path": "/storloc\\pen-holder\\index",
+              "title": "Pen Holder",
+              "slug": "storloc\\pen-holder\\index",
+              "video": null
+            },
+            {
+              "path": "/storloc\\pen-holder\\iframe",
+              "title": "Pen Holder",
+              "slug": "storloc\\pen-holder\\iframe",
+              "video": null
+            },
+            {
+              "path": "/storloc\\pen-holder\\deploy_tests",
+              "title": "Pen Holder",
+              "slug": "storloc\\pen-holder\\deploy_tests",
+              "video": null
+            }
+          ]
+        },
+        {
+          "path": "/storloc\\index",
+          "title": "Storloc",
+          "slug": "storloc\\index",
+          "video": null
+        },
+        {
+          "title": "Cabinet",
+          "slug": "cabinet",
+          "path": "/storloc\\cabinet",
+          "video": "/videos/storloc-cabinet.mp4",
+          "pages": [
+            {
+              "path": "/storloc\\cabinet\\index",
+              "title": "Cabinet",
+              "slug": "storloc\\cabinet\\index",
+              "video": null
+            },
+            {
+              "path": "/storloc\\cabinet\\iframe",
+              "title": "Cabinet",
+              "slug": "storloc\\cabinet\\iframe",
+              "video": null
+            },
+            {
+              "path": "/storloc\\cabinet\\deploy_tests",
+              "title": "Cabinet",
+              "slug": "storloc\\cabinet\\deploy_tests",
+              "video": null
+            }
+          ]
+        },
+        {
+          "path": "/storloc\\bkp-dfp_bkp",
+          "title": "PDF-lib Test",
+          "slug": "storloc\\bkp-dfp_bkp",
+          "video": null
+        }
+      ]
+    },
+    {
+      "title": "Tafel Home",
+      "slug": "tafel-home",
+      "path": "/tafel-home",
+      "video": null,
+      "pages": [
+        {
+          "title": "Single Framed Table",
+          "slug": "single-framed-table",
+          "path": "/tafel-home\\single-framed-table",
+          "video": "/videos/tafel-home-single-framed-table.mp4",
+          "pages": [
+            {
+              "path": "/tafel-home\\single-framed-table\\index",
+              "title": "Single Framed Table",
+              "slug": "tafel-home\\single-framed-table\\index",
+              "video": null
+            },
+            {
+              "path": "/tafel-home\\single-framed-table\\iframe",
+              "title": "Single Framed Table",
+              "slug": "tafel-home\\single-framed-table\\iframe",
+              "video": null
+            },
+            {
+              "path": "/tafel-home\\single-framed-table\\deploy_tests",
+              "title": "Single Framed Table",
+              "slug": "tafel-home\\single-framed-table\\deploy_tests",
+              "video": null
+            }
+          ]
+        },
+        {
+          "path": "/tafel-home\\index",
+          "title": "Tafel Home",
+          "slug": "tafel-home\\index",
+          "video": null
+        }
+      ]
+    }
+  ]
+}

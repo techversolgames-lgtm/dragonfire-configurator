@@ -45,7 +45,7 @@ function NavCubeMesh(props) {
   const { camera } = props;
   const { invalidate } = useThree();
 
-  const { nodes, materials } = useGLTF("/models/nav_cube.glb");
+  const { nodes, materials } = useGLTF("/models/dragonfire-tools/nav_cube.glb");
   const navCubeRef = useRef();
   const [selectedMesh, setSelectedMesh] = useState(null);
   const [selectedMeshName, setSelectedMeshName] = useState(null);
@@ -564,7 +564,7 @@ function NavCubeMesh(props) {
   );
 }
 
-useGLTF.preload("/models/nav_cube.glb");
+useGLTF.preload("/models/dragonfire-tools/nav_cube.glb");
 
 export { NavCubeContainer as NavCube };
 
