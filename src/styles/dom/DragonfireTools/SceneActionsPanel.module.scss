@@ -1,0 +1,52 @@
+.panel {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  pointer-events: none;
+  z-index: 10;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.deleteButton {
+  padding: 0.5rem 0.75rem;
+  background-color: rgba(39, 51, 73, 0.91);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: rgba(180, 60, 60, 0.9);
+  }
+}
+
+.quoteButton {
+  padding: 0.6rem 0.8rem;
+  background-color: rgb(255, 147, 21);
+  color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: rgb(245, 135, 18);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}

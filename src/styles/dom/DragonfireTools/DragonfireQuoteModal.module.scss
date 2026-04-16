@@ -1,0 +1,122 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modalContent {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 32px 24px;
+  min-width: 520px;
+  max-width: 680px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  position: relative;
+  text-align: center;
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: #888;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 8px 0;
+  text-align: left;
+}
+
+.subtitle {
+  margin: 0 0 18px 0;
+  color: #4a5568;
+  font-size: 1.02rem;
+  text-align: left;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+.input,
+.textarea {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: #f9fafb;
+}
+
+.textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.downloadButton {
+  display: block;
+  width: 100%;
+  background: rgb(255, 147, 21);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+  }
+}
+
+.successMessage {
+  color: #218838;
+  background: #e9fbe8;
+  border: 1px solid #b6e2b7;
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-size: 1.05rem;
+  font-weight: 650;
+  margin: 8px 0 14px;
+  text-align: center;
+}
+
+.errorMessage {
+  color: #b71c1c;
+  background: #fbeaea;
+  border: 1px solid #e2b6b6;
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-size: 1.05rem;
+  font-weight: 650;
+  margin: 8px 0 14px;
+  text-align: center;
+}
+
+.errorText {
+  margin: -6px 0 2px 0;
+  color: #b71c1c;
+  font-size: 0.9rem;
+}
+

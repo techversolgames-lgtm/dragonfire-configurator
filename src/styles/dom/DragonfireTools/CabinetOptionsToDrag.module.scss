@@ -1,0 +1,209 @@
+@use "./dragonfire-vars" as v;
+
+.wrapper {
+  position: fixed;
+  top: 90px;
+  right: 0;
+  height: calc(100vh - 90px);
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  user-select: none;
+}
+
+.contentArea {
+  overflow: hidden;
+  transition: width 0.25s ease;
+  background-color: v.$panel-bg;
+  border-left: 1px solid v.$panel-border;
+  border-top-left-radius: v.$radius-panel;
+  border-bottom-left-radius: v.$radius-panel;
+  box-shadow: v.$panel-shadow;
+  display: flex;
+  flex-direction: column;
+}
+
+.contentOpen {
+  width: 320px;
+}
+
+.contentClosed {
+  width: 0;
+  min-width: 0;
+  border-left-color: transparent;
+}
+
+.inner {
+  width: 320px;
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.logoArea {
+  flex-shrink: 0;
+  width: 320px;
+  padding: 12px 10px 6px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 190px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.toggleTab {
+  flex-shrink: 0;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background-color: v.$toggle-tab-bg;
+  color: v.$text-primary;
+  border: none;
+  border-left: 1px solid v.$panel-border;
+  border-top-left-radius: v.$radius-panel;
+  border-bottom-left-radius: v.$radius-panel;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background-color: darken(v.$toggle-tab-bg, 4%);
+    color: v.$accent;
+  }
+
+  &:focus-visible {
+    outline: 2px solid v.$accent;
+    outline-offset: 2px;
+  }
+}
+
+.title {
+  margin-bottom: 4px;
+  font-weight: bold;
+  text-align: center;
+  color: v.$text-primary;
+}
+
+.subtitle {
+  margin-bottom: 16px;
+  font-size: 11px;
+  text-align: center;
+  color: v.$text-secondary;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.stepSection {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.stepSection:last-of-type {
+  margin-bottom: 0;
+}
+
+.stepLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: v.$text-primary;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.categorySelect {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 13px;
+  color: v.$text-primary;
+  background-color: v.$panel-bg;
+  border: 1px solid v.$panel-border;
+  border-radius: v.$radius-control;
+  cursor: pointer;
+  appearance: auto;
+  accent-color: v.$text-primary;
+
+  &:focus {
+    outline: 2px solid v.$accent;
+    outline-offset: 1px;
+  }
+}
+
+.optionsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.option {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  cursor: grab;
+  user-select: none;
+  /* Prevent Safari/mobile from treating drag as a page scroll gesture */
+  touch-action: none;
+  padding: 8px;
+  border: 1px solid v.$panel-border;
+  border-radius: v.$radius-panel;
+  box-sizing: border-box;
+  background-color: v.$panel-bg;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: darken(v.$panel-border, 12%);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  img {
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+    background-color: v.$control-bg;
+    border: 1px solid v.$panel-border;
+    border-radius: v.$radius-control;
+    object-fit: contain;
+    padding: 6px;
+    /* Avoid iOS drag/preview behavior */
+    -webkit-user-drag: none;
+  }
+
+  .imageLabel {
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    flex: 1;
+    min-width: 0;
+    color: v.$text-primary;
+  }
+}

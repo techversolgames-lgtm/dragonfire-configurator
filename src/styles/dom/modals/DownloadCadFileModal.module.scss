@@ -1,0 +1,127 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px 48px 32px 48px;
+  min-width: 600px;
+  max-width: 700px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  position: relative;
+  text-align: center;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 8px 0;
+  text-align: left;
+  width: 100%;
+}
+
+.closeButton {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1;
+  margin-left: 0;
+}
+
+.subtitle {
+  margin: 0 0 20px 0;
+  color: #4a5568;
+  font-size: 1.02rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+
+.input,
+.textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  background: #f9fafb;
+  transition: border 0.2s;
+  outline: none;
+}
+
+.textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.downloadButton {
+  display: block;
+  margin-left: 0;
+  width: 300px;
+  background: rgb(255, 147, 21);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.downloadButton:hover {
+  background: #ff9800;
+}
+
+.successMessage {
+  color: #218838;
+  background: #e9fbe8;
+  border: 1px solid #b6e2b7;
+  border-radius: 8px;
+  padding: 20px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.errorMessage {
+  color: #b71c1c;
+  background: #fbeaea;
+  border: 1px solid #e2b6b6;
+  border-radius: 8px;
+  padding: 20px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
