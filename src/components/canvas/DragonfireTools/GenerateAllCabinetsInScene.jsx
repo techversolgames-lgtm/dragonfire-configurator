@@ -43,13 +43,13 @@ import {
   draggedFloorSnapResultRef,
 } from "./outlineRefs";
 import ItemToWallDimensionLines from "./ItemToWallDimensionLines";
+import SelectedObjectGizmo from "@/components/dom/DragonfireTools/SelectedObjectGizmo";
 import { applyFloorDropSnap } from "./applyFloorDropSnap";
 import { DOOR_BOUNDING_BOX_OFFSET } from "./RoomItemModels/DoorModel";
 import {
   SCALE_REFERENCE_ID,
   DEFAULT_SCALE_REFERENCE_PLACEMENT,
 } from "./scaleCharacterPlacementSync";
-
 const minWallCabinetY = 1.3+0.07 ;
 
 /** Lerp toward target angle (radians) taking shortest path. t in [0,1] or use delta * speed. */
@@ -311,6 +311,7 @@ const GenerateAllCabinetsInScene = () => {
   );
   const selectedDeckItem = useDragNDropStore((state) => state.selectedDeckItem);
   const dragPointNormal = useDragNDropStore((state) => state.dragPointNormal);
+  const selectedPlacedIndex = useDragNDropStore((state) => state.selectedPlacedIndex);
   const showScaleCharacter =
     useAnimationStore((state) => state.showScaleCharacter) ?? false;
 
@@ -472,7 +473,7 @@ const GenerateAllCabinetsInScene = () => {
     : { x: 10000000000, y: 10000000000, z: 10000000000 };
 
   const selectedDeckItemColor = selectedDeckItem
-    ? reverseIdMap[selectedDeckItem.id].color
+    ? reverseIdMap[selectedDeckItem.id]?.color ?? "red"
     : "red";
   const { boundingBox } = reverseIdMap[selectedDeckItem?.id] || {};
   const {
@@ -713,6 +714,12 @@ const GenerateAllCabinetsInScene = () => {
                 ...(isDoor ? { boundingBoxLocalOffset: DOOR_BOUNDING_BOX_OFFSET } : {}),
               }}
             >
+              {_ === selectedPlacedIndex && (
+                <SelectedObjectGizmo
+                  position={[0, effectiveHeight + 0.15, 0]}
+                  visible={true}
+                />
+              )}
               <group
                 ref={(el) => {
                   if (_ === draggedCabinetIndex && !isOnWall && el) {

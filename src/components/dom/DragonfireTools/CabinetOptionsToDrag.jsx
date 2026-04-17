@@ -1,149 +1,225 @@
-import { useState } from "react";
+import { useState, useRef, useMemo } from "react";
 import styles from "@/styles/dom/DragonfireTools/CabinetOptionsToDrag.module.scss";
 import useDragNDropStore from "@/stores/useDragNDropStore";
-import { tabs, tabsDataMap } from "@/data/DragonfireTools/cabinetItems";
+import {
+  mainCategories,
+  cabinetSubCategories,
+  shortCabinetOptions,
+  mediumCabinetOptions,
+  standingCabinetOptions,
+  roomItemsOptions,
+} from "@/data/DragonfireTools/cabinetItems";
 
+/* ICONS */
 const ChevronLeft = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <polyline points="15 18 9 12 15 6" />
+  <svg viewBox="0 0 24 24" fill="none">
+    <path
+      d="M15 6L9 12L15 18"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
 const ChevronRight = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <polyline points="9 18 15 12 9 6" />
+  <svg viewBox="0 0 24 24" fill="none">
+    <path
+      d="M9 6L15 12L9 18"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
 const CabinetOptionsToDrag = () => {
-  // Default category should be "Cabinets" (not the first tab "Room items").
-  const defaultCabinetTabIndex = Math.max(0, tabs.indexOf("Cabinets"));
-  const [activeTab, setActiveTab] = useState(defaultCabinetTabIndex);
-  const [isOpen, setIsOpen] = useState(true);
+  /* ---------------- STATE ---------------- */
+  const [step, setStep] = useState(1);
+
+  const [selection, setSelection] = useState({
+    category: null,
+    subCategory: null,
+    item: null,
+  });
+
+  const sliderRef = useRef(null);
 
   const setSelectedDeckItem = useDragNDropStore(
-    (state) => state.setSelectedDeckItem,
+    (state) => state.setSelectedDeckItem
   );
 
-  const handleStart = (option) => {
-    setSelectedDeckItem(option);
+  /* ---------------- HELPERS ---------------- */
+  const slideLeft = () =>
+    sliderRef.current?.scrollBy({ left: -160, behavior: "smooth" });
+
+  const slideRight = () =>
+    sliderRef.current?.scrollBy({ left: 160, behavior: "smooth" });
+
+  const handleDragStart = (option) => setSelectedDeckItem(option);
+  const handleDragEnd = () => setSelectedDeckItem(null);
+
+  const updateSelection = (key, value) => {
+    setSelection((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
   };
 
-  const handleEnd = () => {
-    setSelectedDeckItem(null);
+  const goNext = () => setStep((s) => Math.min(s + 1, 3));
+  const goBack = () => setStep((s) => Math.max(s - 1, 1));
+
+  /* ---------------- OPTIONS LOGIC ---------------- */
+  const optionsToShow = useMemo(() => {
+    if (step === 1) return mainCategories;
+
+    if (step === 2) {
+      if (selection.category === "cabinet") return cabinetSubCategories;
+
+      if (selection.category === "workbench") {
+        return [
+          { label: "With Cabinet", type: "with", image: "/images/dragonfire-tools/combo/worktable_package.png",},
+          { label: "Without Cabinet", type: "without", image: "/images/dragonfire-tools/pro-series-worktable",},
+        ];
+      }
+
+      if (selection.category === "room") return roomItemsOptions;
+    }
+
+    if (step === 3) {
+      switch (selection.subCategory) {
+        case "7ft":
+          return shortCabinetOptions;
+
+        case "9ft":
+          return mediumCabinetOptions;
+
+        case "drawer":
+          return standingCabinetOptions.filter((i) =>
+            i.label.toLowerCase().includes("drawer")
+          );
+
+        case "wall":
+          return standingCabinetOptions.filter((i) => i.itemType === "wall");
+
+        case "corner":
+          return standingCabinetOptions.filter((i) => i.bIsCornerCabinet);
+
+        default:
+          return [];
+      }
+    }
+
+    return [];
+  }, [step, selection]);
+
+  /* ---------------- RENDER HELPERS ---------------- */
+  const isActive = (option) => {
+    if (step === 1) return selection.category === option.type;
+    if (step === 2) return selection.subCategory === option.type;
+    if (step === 3) return selection.item === option;
+    return false;
   };
 
-  const currentCategory = tabs[activeTab];
-  const optionsInCategory = tabsDataMap[currentCategory] || [];
+  /* ---------------- CLICK HANDLER ---------------- */
+  const handleClick = (option) => {
+    if (step === 1) {
+      updateSelection("category", option.type);
+      return;
+    }
+
+    if (step === 2) {
+      updateSelection("subCategory", option.type);
+
+      // UX smooth transition
+      setTimeout(() => {
+        setStep(3);
+      }, 180);
+
+      return;
+    }
+
+    if (step === 3) {
+      updateSelection("item", option);
+      handleDragStart(option);
+    }
+  };
 
   return (
-    <div className={styles.wrapper} data-dragonfire-tutorial="items-library">
-      <div className={`${styles.contentArea} ${isOpen ? styles.contentOpen : styles.contentClosed}`}>
-        <div className={styles.logoArea}>
-          <img
-            className={styles.logo}
-            src="/logos/Dragon%20Fire%20UI%20Logo.png"
-            alt="Dragon Fire"
-          />
+    <div className={styles.wrapper}>
+      <div className={styles.panel}>
+        {/* HEADER */}
+        <div className={styles.header}>
+          {step > 1 && (
+            <button className={styles.backBtn} onClick={goBack}>
+              Back
+            </button>
+          )}
+
+          <h3 className={styles.title}>
+            {step === 1 && "Select Category"}
+            {step === 2 && "Choose Configuration"}
+            {step === 3 && "Drag & Place Item"}
+          </h3>
         </div>
 
-        <div className={styles.inner}>
-          <div className={styles.title}>Items library</div>
-          <div className={styles.subtitle}>
-            Choose a category, then click an item to pick it and place it in the
-            room (or drag onto the floor or wall).
+        {/* SLIDER */}
+        <div className={styles.sliderWrapper}>
+          <button onClick={slideLeft} className={styles.navBtnLeft}>
+            <ChevronLeft />
+          </button>
+
+          <div className={styles.slider} ref={sliderRef}>
+            {optionsToShow.map((option, index) => (
+              <div
+                key={index}
+                className={`${styles.card} ${
+                  isActive(option) ? styles.active : ""
+                }`}
+                onClick={() => handleClick(option)}
+                onMouseDown={() => handleDragStart(option)}
+                onMouseUp={handleDragEnd}
+                onTouchStart={() => handleDragStart(option)}
+                onTouchEnd={handleDragEnd}
+              >
+                <img
+                  src={option.image || "/images/placeholder.png"}
+                  alt={option.label}
+                />
+                <p>{option.label}</p>
+              </div>
+            ))}
           </div>
 
-          <section className={styles.stepSection} aria-label="Choose category">
-            <label className={styles.stepLabel} htmlFor="category-select">
-              Choose category
-            </label>
-            <select
-              id="category-select"
-              className={styles.categorySelect}
-              value={currentCategory}
-              onChange={(e) => {
-                const idx = tabs.indexOf(e.target.value);
-                if (idx !== -1) setActiveTab(idx);
+          <button onClick={slideRight} className={styles.navBtnRight}>
+            <ChevronRight />
+          </button>
+        </div>
+
+        {/* BOTTOM */}
+        <div className={styles.bottomArea}>
+          {(step === 1 || step === 2) && (
+            <button
+              className={styles.exploreBtn}
+              disabled={step === 1 && !selection.category}
+              onClick={() => {
+                if (step === 1 && selection.category) goNext();
+                else if (step === 2 && selection.subCategory) goNext();
               }}
             >
-              {tabs.map((tab) => (
-                <option key={tab} value={tab}>
-                  {tab}
-                </option>
-              ))}
-            </select>
-          </section>
+              Continue
+            </button>
+          )}
 
-          <section
-            className={styles.stepSection}
-            aria-label="Choose item in category"
-            aria-describedby="items-grid-hint"
-          >
-            <span className={styles.stepLabel}>In this category</span>
-            <p id="items-grid-hint" className={styles.srOnly}>
-              Click an item to select it, then click in the room to place it, or
-              drag it onto the floor or wall.
-            </p>
-            <div className={styles.optionsGrid}>
-              {optionsInCategory.map((option, index) => (
-                <div
-                  className={styles.option}
-                  key={index}
-                  onPointerDown={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleStart(option);
-                  }}
-                  onPointerUp={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleEnd();
-                  }}
-                  onMouseDown={(e) => {
-                    // Safari sometimes fails pointer events on small screens; mouse events are more reliable.
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleStart(option);
-                  }}
-                  onMouseUp={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleEnd();
-                  }}
-                  onTouchStart={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleStart(option);
-                  }}
-                  onTouchEnd={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleEnd();
-                  }}
-                  onTouchCancel={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleEnd();
-                  }}
-                >
-                  <img src={option.image} alt={option.label} />
-                  <div className={styles.imageLabel}>{option.label}</div>
-                </div>
-              ))}
+          {step === 3 && (
+            <div className={styles.dragInfo}>
+              Click & drag item to place it on layout
             </div>
-          </section>
+          )}
         </div>
       </div>
-      <button
-        type="button"
-        className={styles.toggleTab}
-        onClick={() => setIsOpen((prev) => !prev)}
-        aria-label={isOpen ? "Close items library" : "Open items library"}
-        title="Items library"
-      >
-        {isOpen ? <ChevronLeft /> : <ChevronRight />}
-      </button>
     </div>
   );
 };
