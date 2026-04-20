@@ -15,16 +15,6 @@
   user-select: none;
 }
 
-.contentArea {
-  overflow: hidden;
-  transition: width 0.25s ease;
-  background-color: v.$panel-bg;
-  border-right: 1px solid v.$panel-border;
-  border-top-right-radius: v.$radius-panel;
-  border-bottom-right-radius: v.$radius-panel;
-  box-shadow: v.$panel-shadow;
-}
-
 .contentOpen {
   width: 52px;
   display: flex;
@@ -41,56 +31,58 @@
   border-right-color: transparent;
 }
 
-.toolbar {
-  flex-shrink: 0;
-  width: 52px;
+/* Wrapper (floating position + spacing from top/bottom) */
+.toolbarWrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* Main floating container */
+.toolbarContainer {
+  width: 60px;
+  padding: 10px 6px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 8px 0;
-  gap: 4px;
-  background-color: v.$panel-bg;
-  border-right: 1px solid v.$panel-border;
-  border-top-right-radius: v.$radius-panel;
-  border-bottom-right-radius: v.$radius-panel;
+  gap: 12px;
+  background: v.$panel-bg;
+  border-radius: 18px;
+   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.586);
 }
 
-.toolbarIcon {
+/* Buttons */
+.toolBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  background: transparent;
-  color: v.$text-secondary;
-  border: none;
-  border-radius: v.$radius-control;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.toolbarIcon:hover {
-  background-color: v.$hover-bg;
-  color: v.$text-primary;
+/* Hover */
+.toolBtn:hover {
+  background: #e9e9e9;
 }
 
-.toolbarIconActive {
-  background-color: v.$hover-bg;
-  color: v.$accent;
+/* Active (GREEN like image) */
+.toolBtnActive {
+  background: #42697d94;
+  color: #000;
 }
 
-.toolbarIcon:focus-visible {
-  outline: 2px solid v.$accent;
-  outline-offset: 2px;
-}
-
-.toolbarResetButton {
+/* Reset button bottom spacing */
+.resetBtn {
   margin-top: auto;
-}
-
-.toolbarGroupStart {
-  margin-top: 10px;
 }
 
 .sectionPanel {
@@ -100,7 +92,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-color: v.$panel-bg;
+  background: v.$panel-bg;
 }
 
 .sectionPanelHeader {

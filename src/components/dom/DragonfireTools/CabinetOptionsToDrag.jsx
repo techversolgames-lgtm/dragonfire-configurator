@@ -179,10 +179,10 @@ const CabinetOptionsToDrag = () => {
                   isActive(option) ? styles.active : ""
                 }`}
                 onClick={() => handleClick(option)}
-                onMouseDown={() => handleDragStart(option)}
-                onMouseUp={handleDragEnd}
-                onTouchStart={() => handleDragStart(option)}
-                onTouchEnd={handleDragEnd}
+                onMouseDown={() => step === 3 && handleDragStart(option)}
+                onMouseUp={step === 3 ? handleDragEnd : undefined}
+                onTouchStart={() => step === 3 && handleDragStart(option)}
+                onTouchEnd={step === 3 ? handleDragEnd : undefined}
               >
                 <img
                   src={option.image || "/images/placeholder.png"}

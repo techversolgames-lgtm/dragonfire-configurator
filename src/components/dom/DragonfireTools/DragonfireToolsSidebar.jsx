@@ -154,7 +154,7 @@ export default function DragonfireToolsSidebar() {
   const dimensionLabelFontSize = useAnimationStore(
     (state) => state.dimensionLabelFontSize ?? 24,
   );
- 
+
   const unitSystem = useAnimationStore((state) => state.unitSystem);
   const floorMaterialId =
     useAnimationStore((state) => state.floorMaterialId) ?? DEFAULT_FLOOR_MATERIAL_ID;
@@ -332,7 +332,7 @@ export default function DragonfireToolsSidebar() {
       min: 8,
       max: 72,
     },
-   
+
     toggleDimensionLinesButton: {
       type: "button",
       label: "Dimension lines",
@@ -554,13 +554,6 @@ export default function DragonfireToolsSidebar() {
     setActiveSection("items");
   }, [selectedPlacedIndex, placedPositions]);
 
-  // Open Cabinet / Room item options when user drags a new item from the deck
-  useEffect(() => {
-    if (!selectedDeckItem) return;
-    if (selectedDeckItem.id === SCALE_REFERENCE_ID) return;
-    setActiveSection("items");
-  }, [selectedDeckItem]);
-
   const placement =
     selectedPlacedIndex != null
       ? placedPositions[selectedPlacedIndex]
@@ -653,11 +646,11 @@ export default function DragonfireToolsSidebar() {
   const currentCabinetRotDeg = normalizeDegrees(
     placement?.dragPointNormal
       ? (Math.atan2(
-          placement.dragPointNormal.x,
-          placement.dragPointNormal.z,
-        ) *
-          180) /
-          Math.PI
+        placement.dragPointNormal.x,
+        placement.dragPointNormal.z,
+      ) *
+        180) /
+      Math.PI
       : 0,
   );
   const rotationSliderMinDeg = 0;
@@ -673,7 +666,7 @@ export default function DragonfireToolsSidebar() {
     Math.min(
       rotationDropdownMaxDeg,
       Math.round(Math.abs(currentCabinetRotDeg) / rotationDropdownStepDeg) *
-        rotationDropdownStepDeg,
+      rotationDropdownStepDeg,
     ),
   );
   // Slider is 0..360 only. Convert normalized [-180..180] to [0..360).
@@ -683,7 +676,7 @@ export default function DragonfireToolsSidebar() {
     Math.min(
       rotationSliderMaxDeg,
       Math.round(currentCabinetRotDeg360 / rotationSliderStepDeg) *
-        rotationSliderStepDeg,
+      rotationSliderStepDeg,
     ),
   );
 
@@ -691,7 +684,7 @@ export default function DragonfireToolsSidebar() {
     {
       length:
         (rotationDropdownMaxDeg - rotationDropdownMinDeg) /
-          rotationDropdownStepDeg +
+        rotationDropdownStepDeg +
         1,
     },
     (_, i) => rotationDropdownMinDeg + i * rotationDropdownStepDeg,
@@ -933,34 +926,33 @@ export default function DragonfireToolsSidebar() {
 
   return (
     <div className={styles.wrapper}>
-      <div
-          className={`${styles.contentArea} ${styles.contentOpen} ${activeSection ? styles.contentOpenWithPanel : ""}`}
-        >
-        <div className={styles.toolbar}>
-          {TOOLBAR_SECTIONS.map(({ id, label, icon: Icon }) => (
+        <div className={styles.toolbarWrapper}>
+          <div className={styles.toolbarContainer}>
+            {TOOLBAR_SECTIONS.map(({ id, label, icon: Icon }, index) => (
+              <button
+                key={id}
+                type="button"
+                className={`${styles.toolBtn} ${activeSection === id ? styles.toolBtnActive : ""
+                  }`}
+                onClick={() =>
+                  setActiveSection((prev) => (prev === id ? null : id))
+                }
+                title={label}
+              >
+                <Icon size={18} />
+              </button>
+            ))}
+
+            {/* Reset button */}
             <button
-              key={id}
               type="button"
-              data-dragonfire-tutorial={id}
-              className={`${styles.toolbarIcon} ${activeSection === id ? styles.toolbarIconActive : ""} ${id === "items" ? styles.toolbarGroupStart : ""}`}
-              onClick={() => setActiveSection((prev) => (prev === id ? null : id))}
-              title={label}
-              aria-label={label}
-              aria-pressed={activeSection === id}
+              className={`${styles.toolBtn} ${styles.resetBtn}`}
+              onClick={handleResetRoom}
+              title="Reset"
             >
-              <Icon size={22} aria-hidden />
+              <FaTrash size={16} />
             </button>
-          ))}
-          <button
-            type="button"
-            className={`${styles.toolbarIcon} ${styles.toolbarResetButton}`}
-            onClick={handleResetRoom}
-            title="Reset room (delete all)"
-            aria-label="Reset room (delete all)"
-          >
-            <FaTrash size={22} aria-hidden />
-          </button>
-        </div>
+          </div>
         {activeSection && (
           <div className={styles.sectionPanel}>
             <button
@@ -1215,11 +1207,10 @@ export default function DragonfireToolsSidebar() {
                                     <button
                                       key={opt.value}
                                       type="button"
-                                      className={`${styles.cabinetColorSwatch} ${
-                                        active
+                                      className={`${styles.cabinetColorSwatch} ${active
                                           ? styles.cabinetColorSwatchActive
                                           : ""
-                                      }`}
+                                        }`}
                                       onClick={() =>
                                         handleCabinetBottomColorChange({
                                           target: { value: opt.value },
@@ -1270,9 +1261,8 @@ export default function DragonfireToolsSidebar() {
                                   <button
                                     key={opt.value}
                                     type="button"
-                                    className={`${styles.cabinetColorSwatch} ${
-                                      active ? styles.cabinetColorSwatchActive : ""
-                                    }`}
+                                    className={`${styles.cabinetColorSwatch} ${active ? styles.cabinetColorSwatchActive : ""
+                                      }`}
                                     onClick={() =>
                                       handleLockerColorChange({
                                         target: { value: opt.value },
@@ -1520,7 +1510,7 @@ export default function DragonfireToolsSidebar() {
                 )
               )}
             </div>
-            {CUSTOM_CONTENT_SECTION_IDS.includes(activeSection) && (
+            {/* {CUSTOM_CONTENT_SECTION_IDS.includes(activeSection) && (
               <div className={styles.sectionPanelFooter}>
                 Powered by{" "}
                 <img
@@ -1529,7 +1519,7 @@ export default function DragonfireToolsSidebar() {
                   src="/logos/spokbee.png"
                 />
               </div>
-            )}
+            )} */}
           </div>
         )}
       </div>
