@@ -8,6 +8,7 @@ import ThirtyDrawersTemplate from "./9ftCabinets/30DrawersTemplate";
 import LockerTemplate from "./standingCabinets/LockerTemplate";
 import SixDrawersTemplate from "./standingCabinets/6DrawersTemplate";
 import ElevenDrawersTemplate from "./standingCabinets/11DrawersTemplate";
+import TwentyTwoDrawersTemplate from "./standingCabinets/22DrawersTemplate";
 import LowerCornerTemplate from "./standingCabinets/LowerCornerTemplate";
 import UpperCornerTemplate from "./standingCabinets/UpperCornerTemplate";
 import WallCabinetTemplate from "./standingCabinets/WallCabinetTemplate";
@@ -35,7 +36,7 @@ const cabinetModelsMap = {
   7: ThirtyDrawersTemplate,
   8: LockerTemplate,
   9: SixDrawersTemplate,
-  10: ElevenDrawersTemplate,
+  10: TwentyTwoDrawersTemplate,
   11: LowerCornerTemplate,
   12: UpperCornerTemplate,
   13: WallCabinetTemplate,
@@ -52,6 +53,7 @@ const cabinetModelsMap = {
   101: DoorModel,
   102: WindowModel,
   103: CharacterModel,
+  300: FiftySixInchTemplate,
 };
 
 export default cabinetModelsMap;

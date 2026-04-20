@@ -28,6 +28,7 @@ const worktableOptions = [
     label: '56" Worktable',
     image: "/images/dragonfire-tools/pro-series-worktable.png",
     id: 1,
+    type: "workbench",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 1.42, height: 0.95, depth: 0.672 },
@@ -41,6 +42,7 @@ const shortCabinetOptions = [
     label: "12 Drawer",
     image: "/images/dragonfire-tools/7ft_workbench/12D.png",
     id: 2,
+    type: "workbench",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 2.14, height: 0.95, depth: 0.65 },
@@ -50,6 +52,7 @@ const shortCabinetOptions = [
     label: "17 Drawer",
     image: "/images/dragonfire-tools/7ft_workbench/17D.png",
     id: 3,
+    type: "workbench",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 2.14, height: 0.95, depth: 0.645 },
@@ -59,6 +62,7 @@ const shortCabinetOptions = [
     label: "24 Drawer",
     image: "/images/dragonfire-tools/7ft_workbench/24D.png",
     id: 4,
+    type: "workbench",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 2.15, height: 0.95, depth: 0.65 },
@@ -72,6 +76,7 @@ const mediumCabinetOptions = [
     label: "18 Drawer",
     image: "/images/dragonfire-tools/9ft_workbenches/18D.png",
     id: 5,
+    type: "workbench",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 2.85, height: 0.95, depth: 0.65 },
@@ -81,6 +86,7 @@ const mediumCabinetOptions = [
     label: "20 Drawer",
     image: "/images/dragonfire-tools/9ft_workbenches/20D.png",
     id: 6,
+    type: "workbench",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 2.85, height: 0.95, depth: 0.65 },
@@ -90,9 +96,23 @@ const mediumCabinetOptions = [
     label: "30 Drawer",
     image: "/images/dragonfire-tools/9ft_workbenches/30D.png",
     id: 7,
+    type: "workbench",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 2.85, height: 0.95, depth: 0.63 },
+    scale: 1,
+  },
+];
+/* ---------------- WITHOUT CABINET ---------------- */
+const withoutCabinetOptions = [
+  {
+    label: "Without Cabinet",
+    image: "/images/dragonfire-tools/pro-series-worktable.png",
+    id: 300,
+    type: "workbench",
+    itemType: "floor",
+    modelURL: "/models/dragonfire-tools/work_table.glb",
+    boundingBox: { width: 1.5, height: 0.95, depth: 0.7 },
     scale: 1,
   },
 ];
@@ -103,6 +123,7 @@ const cabinetPackageOptions = [
     label: "12 Drawer Package",
     image: "/images/dragonfire-tools/combo/12DP.png",
     id: 17,
+    type: "workbench",
     itemType: "floor",
     isCabinetPackage: true,
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
@@ -117,16 +138,7 @@ const cabinetPackageOptions = [
 
 /* ---------------- CABINET SUB-CATEGORIES ---------------- */
 const cabinetSubCategories = [
-  {
-    label: "7ft Workbench",
-    type: "7ft",
-    image: "/images/dragonfire-tools/7ft_workbench/12D.png",
-  },
-  {
-    label: "9ft Workbench",
-    type: "9ft",
-    image: "/images/dragonfire-tools/9ft_workbenches/18D.png",
-  },
+
   {
     label: "Drawer Cabinets",
     type: "drawer",
@@ -150,7 +162,8 @@ const standingCabinetOptions = [
   {
     label: "6 Drawer Cabinet",
     image: "/images/dragonfire-tools/tool_cabinets/webp/6-drawer-cabinet.webp",
-    id: 201,
+    id: 9,
+    type: "cabinet",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 0.9, height: 1.8, depth: 0.5 },
@@ -159,7 +172,8 @@ const standingCabinetOptions = [
   {
     label: "22 Drawer Cabinet",
     image: "/images/dragonfire-tools/tool_cabinets/webp/22-drawer.webp",
-    id: 202,
+    id: 10,
+    type: "cabinet",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 0.9, height: 1.8, depth: 0.5 },
@@ -168,7 +182,8 @@ const standingCabinetOptions = [
   {
     label: "Locker Cabinet",
     image: "/images/dragonfire-tools/tool_cabinets/webp/Locker-cabinet.webp",
-    id: 203,
+    id: 8,
+    type: "cabinet",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 0.9, height: 1.8, depth: 0.5 },
@@ -178,7 +193,8 @@ const standingCabinetOptions = [
   {
     label: "Wall Cabinet",
     image: "/images/dragonfire-tools/tool_cabinets/webp/wall-cabinet.webp",
-    id: 204,
+    id: 13,
+    type: "cabinet",
     itemType: "wall",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 0.9, height: 0.6, depth: 0.35 },
@@ -187,7 +203,8 @@ const standingCabinetOptions = [
   {
     label: "3 Set Wall Cabinet",
     image: "/images/dragonfire-tools/tool_cabinets/3_set_wall.png",
-    id: 205,
+    id: 14,
+    type: "cabinet",
     itemType: "wall",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 2.7, height: 0.6, depth: 0.35 },
@@ -196,7 +213,8 @@ const standingCabinetOptions = [
   {
     label: "4 Set Wall Cabinet",
     image: "/images/dragonfire-tools/tool_cabinets/4_set_wall.png",
-    id: 206,
+    id: 15,
+    type: "cabinet",
     itemType: "wall",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 3.6, height: 0.6, depth: 0.35 },
@@ -206,7 +224,8 @@ const standingCabinetOptions = [
   {
     label: "Lower Corner Cabinet",
     image: "/images/dragonfire-tools/tool_cabinets/webp/lower-corner-cabinet.webp",
-    id: 207,
+    id: 11,
+    type: "cabinet",
     itemType: "floor",
     bIsCornerCabinet: true,
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
@@ -216,7 +235,8 @@ const standingCabinetOptions = [
   {
     label: "Upper Corner Cabinet",
     image: "/images/dragonfire-tools/tool_cabinets/webp/upper-corner-cabinet.webp",
-    id: 208,
+    id: 12,
+    type: "cabinet",
     itemType: "wall",
     bIsCornerCabinet: true,
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
@@ -257,6 +277,8 @@ const reverseIdMap = {};
 
 [
   workbenchAllOptions,
+  standingCabinetOptions,
+  withoutCabinetOptions,
   roomItemsOptions,
 ].forEach((list) => {
   list.forEach((item) => {
@@ -276,7 +298,7 @@ reverseIdMap[103] = {
 /* ---------------- EXPORT ---------------- */
 export {
   items,
-  workbenchAllOptions, 
+  workbenchAllOptions,
   shortCabinetOptions,
   mediumCabinetOptions,
   cabinetPackageOptions,
@@ -285,4 +307,5 @@ export {
   roomItemsOptions,
   mainCategories,
   reverseIdMap,
+  withoutCabinetOptions,
 };

@@ -8,6 +8,7 @@ import {
   mediumCabinetOptions,
   standingCabinetOptions,
   roomItemsOptions,
+  withoutCabinetOptions,
 } from "@/data/DragonfireTools/cabinetItems";
 
 /* ICONS */
@@ -59,7 +60,6 @@ const CabinetOptionsToDrag = () => {
     sliderRef.current?.scrollBy({ left: 160, behavior: "smooth" });
 
   const handleDragStart = (option) => setSelectedDeckItem(option);
-  const handleDragEnd = () => setSelectedDeckItem(null);
 
   const updateSelection = (key, value) => {
     setSelection((prev) => ({
@@ -80,21 +80,36 @@ const CabinetOptionsToDrag = () => {
 
       if (selection.category === "workbench") {
         return [
-          { label: "With Cabinet", type: "with", image: "/images/dragonfire-tools/combo/worktable_package.png",},
-          { label: "Without Cabinet", type: "without", image: "/images/dragonfire-tools/pro-series-worktable",},
+          {
+            label: "7ft Workbench",
+            type: "7ft",
+            image: "/images/dragonfire-tools/7ft_workbench/12D.png",
+          },
+          {
+            label: "9ft Workbench",
+            type: "9ft",
+            image: "/images/dragonfire-tools/9ft_workbenches/18D.png",
+          },
+          { label: "With Cabinet", type: "with", image: "/images/dragonfire-tools/combo/worktable_package.png", },
+          { label: "Without Cabinet", type: "without", image: "/images/dragonfire-tools/pro-series-worktable.png", },
+
         ];
       }
-
-      if (selection.category === "room") return roomItemsOptions;
     }
 
     if (step === 3) {
+      if (selection.category === "room") {
+        return roomItemsOptions;
+      }
       switch (selection.subCategory) {
         case "7ft":
           return shortCabinetOptions;
 
         case "9ft":
           return mediumCabinetOptions;
+
+        case "without":
+          return withoutCabinetOptions;
 
         case "drawer":
           return standingCabinetOptions.filter((i) =>
@@ -107,9 +122,11 @@ const CabinetOptionsToDrag = () => {
         case "corner":
           return standingCabinetOptions.filter((i) => i.bIsCornerCabinet);
 
+
         default:
           return [];
       }
+
     }
 
     return [];
@@ -127,8 +144,19 @@ const CabinetOptionsToDrag = () => {
   const handleClick = (option) => {
     if (step === 1) {
       updateSelection("category", option.type);
+
+      if (option.type === "room") {
+        setSelection({
+          category: "room",
+          subCategory: null,
+          item: null,
+        });
+        setStep(3);
+      }
+
       return;
     }
+
 
     if (step === 2) {
       updateSelection("subCategory", option.type);
@@ -175,14 +203,11 @@ const CabinetOptionsToDrag = () => {
             {optionsToShow.map((option, index) => (
               <div
                 key={index}
-                className={`${styles.card} ${
-                  isActive(option) ? styles.active : ""
-                }`}
+                className={`${styles.card} ${isActive(option) ? styles.active : ""
+                  }`}
                 onClick={() => handleClick(option)}
                 onMouseDown={() => step === 3 && handleDragStart(option)}
-                onMouseUp={step === 3 ? handleDragEnd : undefined}
                 onTouchStart={() => step === 3 && handleDragStart(option)}
-                onTouchEnd={step === 3 ? handleDragEnd : undefined}
               >
                 <img
                   src={option.image || "/images/placeholder.png"}

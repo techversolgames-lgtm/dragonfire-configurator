@@ -34,9 +34,9 @@
 /* Wrapper (floating position + spacing from top/bottom) */
 .toolbarWrapper {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 10px;
+  // top: 20px;
+  // bottom: 20px;
+  left: 20px;
   display: flex;
   align-items: center;
 }

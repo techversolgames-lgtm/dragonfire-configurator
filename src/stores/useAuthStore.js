@@ -7,8 +7,8 @@ const useAuthStore = create(
     (set) => ({
       // authorizedManufacturers: new Set(),
       authorizedManufacturer: null,
-      currentUser: "guest",
-      userImage: "/guest.png",
+      // currentUser: "guest",
+      // userImage: "/guest.png",
 
       validUsers: {
         nikolatesla: {

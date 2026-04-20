@@ -26,6 +26,7 @@ const roomItemsOptions = [
   {
     id: 100,
     label: "TV",
+    type: "room",
     itemType: "wall",
     color: "rgb(40, 40, 45)",
     image: `${ROOM_ITEMS_IMAGE_BASE}/TV.png`,
@@ -39,6 +40,7 @@ const roomItemsOptions = [
   {
     id: 101,
     label: "Door",
+    type: "room",
     itemType: "wall",
     color: "rgb(139, 90, 43)",
     image: `${ROOM_ITEMS_IMAGE_BASE}/Door.png`,
@@ -54,6 +56,7 @@ const roomItemsOptions = [
   {
     id: 102,
     label: "Window",
+    type: "room",
     itemType: "wall",
     color: "rgb(200, 220, 240)",
     image: `${ROOM_ITEMS_IMAGE_BASE}/Window.png`,

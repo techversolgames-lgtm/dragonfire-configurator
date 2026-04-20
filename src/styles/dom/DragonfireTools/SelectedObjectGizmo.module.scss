@@ -52,7 +52,6 @@
 .centerBox {
   width: 70px;
   height: 70px;
-  border: 2px solid #22c55e; // green selection box like your image
   border-radius: 10px;
   position: relative;
   display: flex;
@@ -62,14 +61,21 @@
 
 /* CLOSE BUTTON */
 .closeBtn {
-  width: 28px;
-  height: 28px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
-  background: white;
-  border: 1px solid #ddd;
+  background: rgba(123, 120, 120, 0.823);
+  border: 1px solid #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   font-weight: bold;
+}
+.closeBtn {
+  &:hover {
+    background: #980e0e96;
+    color: white;
+    border: none;
+  }
 }

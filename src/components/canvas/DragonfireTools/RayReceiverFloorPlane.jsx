@@ -551,6 +551,7 @@ const RayReceiverFloorPlane = () => {
       }
       useDragNDropStore.setState({
         floorPoint: { x: 10000000000000, y: 10000000000000, z: 10000000000000 },
+        selectedDeckItem: null,
       });
 
       isPointerDownRef.current = false;

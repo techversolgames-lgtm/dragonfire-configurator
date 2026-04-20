@@ -14,7 +14,7 @@ const Breadcrumbs = ({ breadcrumbsIsVisible = true }) => {
 
   return (
     <nav className={styles.breadcrumbs}>
-      {breadcrumbsIsVisible ? (
+      {/* {breadcrumbsIsVisible ? (
         <ul className={styles.list}>
           <li className={styles.item}>
             <Link href="/">Manufacturers</Link>
@@ -39,7 +39,7 @@ const Breadcrumbs = ({ breadcrumbsIsVisible = true }) => {
         </ul>
       ) : (
         ""
-      )}
+      )} */}
     </nav>
   );
 };

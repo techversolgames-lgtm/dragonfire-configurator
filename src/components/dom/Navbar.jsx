@@ -123,9 +123,9 @@ function Navbar({ searchIsVisible = true, hasBackButton = true }) {
         </button>
       )}
       {/* change to link */}
-      <Link className={styles.logoContainer} href="/">
+      {/* <Link className={styles.logoContainer} href="/">
         <img alt="Spokbee Logo" src="/logo.png" className={styles.logo} />
-      </Link>
+      </Link> */}
       {/* {searchIsVisible ? ( */}
       {/*   <section className={styles.searchBoxWrapper} ref={searchContainerRef}> */}
       {/*     <div className={styles.searchBoxContainer}> */}
@@ -200,7 +200,7 @@ function Navbar({ searchIsVisible = true, hasBackButton = true }) {
       {/*   "" */}
       {/* )} */}
 
-      <section className={styles.userProfileSection}>
+      {/* <section className={styles.userProfileSection}>
         <div className={styles.userAvatar}>
           <img
             src={userImage}
@@ -209,7 +209,7 @@ function Navbar({ searchIsVisible = true, hasBackButton = true }) {
           />
         </div>
         <span className={styles.username}>{currentUser}</span>
-      </section>
+      </section> */} 
     </nav>
   );
 }

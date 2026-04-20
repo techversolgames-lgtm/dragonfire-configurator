@@ -19,9 +19,9 @@ export default function SelectedObjectGizmo({
   if (!visible || selectedPlacedIndex == null) return null;
 
   return (
-    <Html position={position} center transform occlude>
+    <Html position={position} center distanceFactor={8}>
       <div className={styles.wrapper}>
-        
+
         {/* TOP CONTROLS */}
         <div className={styles.topRow}>
           <button className={styles.btn} onClick={onMoveUpDown}>
@@ -33,6 +33,7 @@ export default function SelectedObjectGizmo({
           <button className={styles.btn} onClick={onFavorite}>
             ❤
           </button>
+          
         </div>
 
         {/* CENTER BOX (DELETE / CLOSE) */}
