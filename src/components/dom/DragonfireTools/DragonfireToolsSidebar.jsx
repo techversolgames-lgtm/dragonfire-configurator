@@ -117,6 +117,7 @@ function normalizeDegrees(deg) {
 
 export default function DragonfireToolsSidebar() {
   const [activeSection, setActiveSection] = useState(null);
+  const [activeTab, setActiveTab] = useState("cabinet");
   const [roomPresetId, setRoomPresetId] = useState("");
   const { openFullTutorial, openTopicByStepId } = useDragonfireTutorial();
   const selectedPlacedIndex = useDragNDropStore(
@@ -926,33 +927,33 @@ export default function DragonfireToolsSidebar() {
 
   return (
     <div className={styles.wrapper}>
-        <div className={styles.toolbarWrapper}>
-          <div className={styles.toolbarContainer}>
-            {TOOLBAR_SECTIONS.map(({ id, label, icon: Icon }, index) => (
-              <button
-                key={id}
-                type="button"
-                className={`${styles.toolBtn} ${activeSection === id ? styles.toolBtnActive : ""
-                  }`}
-                onClick={() =>
-                  setActiveSection((prev) => (prev === id ? null : id))
-                }
-                title={label}
-              >
-                <Icon size={18} />
-              </button>
-            ))}
-
-            {/* Reset button */}
+      <div className={styles.toolbarWrapper}>
+        <div className={styles.toolbarContainer}>
+          {TOOLBAR_SECTIONS.map(({ id, label, icon: Icon }, index) => (
             <button
+              key={id}
               type="button"
-              className={`${styles.toolBtn} ${styles.resetBtn}`}
-              onClick={handleResetRoom}
-              title="Reset"
+              className={`${styles.toolBtn} ${activeSection === id ? styles.toolBtnActive : ""
+                }`}
+              onClick={() =>
+                setActiveSection((prev) => (prev === id ? null : id))
+              }
+              title={label}
             >
-              <FaTrash size={16} />
+              <Icon size={18} />
             </button>
-          </div>
+          ))}
+
+          {/* Reset button */}
+          <button
+            type="button"
+            className={`${styles.toolBtn} ${styles.resetBtn}`}
+            onClick={handleResetRoom}
+            title="Reset"
+          >
+            <FaTrash size={16} />
+          </button>
+        </div>
         {activeSection && (
           <div className={styles.sectionPanel}>
             <button
@@ -1160,241 +1161,185 @@ export default function DragonfireToolsSidebar() {
                   </div>
                 ) : (
                   <div className={styles.cabinetOptionPanel}>
-                    {isCabinet && placement && (
-                      <p className={styles.selectionContext} aria-live="polite">
-                        Editing: {reverseIdMap[placement.cabinetId]?.label ?? "Cabinet"}
-                      </p>
+
+                    {/* HEADER TABS */}
+                    <div className={styles.cabinetTabs}>
+                      <button
+                        className={`${styles.tabBtn} ${activeTab === "cabinet" ? styles.activeTab : ""}`}
+                        onClick={() => setActiveTab("cabinet")}
+                      >
+                        Cabinet options
+                      </button>
+
+                      <button
+                        className={`${styles.tabBtn} ${activeTab === "view" ? styles.activeTab : ""}`}
+                        onClick={() => setActiveTab("view")}
+                      >
+                        View options
+                      </button>
+                      {activeTab === "view" && showBase && (
+                        <div className={styles.cabinetOptionRow}>
+                          <span className={styles.cabinetOptionLabel}>Base</span>
+                          <select
+                            value={placement.baseOption ?? "none"}
+                            onChange={handleCabinetBaseOptionChange}
+                            className={styles.cabinetOptionSelect}
+                          >
+                            <option value="none">None</option>
+                            <option value="wheel">Wheel</option>
+                            <option value="riser">Leveling feet</option>
+                            <option value="riserLowProfile">
+                              Leveling feet low profile
+                            </option>
+                          </select>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* STATE SEGMENT */}
+                    <div className={styles.stateSegment}>
+                      <span className={styles.segmentLabel}>State</span>
+
+                      <div className={styles.segmentButtons}>
+                        <button className={`${styles.segmentBtn} `}>
+                          Default
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* PROPERTIES */}
+                    <div className={styles.sectionBlock}>
+                      <h4 className={styles.sectionTitle}>Properties</h4>
+
+                      <label className={styles.toggleRow}>
+                        <span>Backsplash</span>
+                        <input type="checkbox" className={styles.toggleSwitch} />
+                      </label>
+                    </div>
+
+                    {/* COLORS */}
+                    <div className={styles.sectionBlock}>
+                      <h4 className={styles.sectionTitle}>Colors</h4>
+
+                      <div className={styles.colorRow}>
+                        <div className={styles.colorItem}>
+                          <span>Drawer color</span>
+                          <div className={styles.colorBox}>
+                            <span style={{ background: "#4A4A4A" }} />
+                            <small>#4A4A4A</small>
+                          </div>
+                        </div>
+
+                        <div className={styles.colorItem}>
+                          <span>Drawer color</span>
+                          <div className={styles.colorBox}>
+                            <span style={{ background: "#000000" }} />
+                            <small>#000000</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {showBase && (
+                      <div className={styles.cabinetOptionRow}>
+                        <span className={styles.cabinetOptionLabel}>Base</span>
+                        <select
+                          value={placement.baseOption ?? "none"}
+                          onChange={handleCabinetBaseOptionChange}
+                          className={styles.cabinetOptionSelect}
+                        >
+                          <option value="none" title="No base option">
+                            None
+                          </option>
+                          <option
+                            value="wheel"
+                            title="Cabinet on casters for mobility"
+                          >
+                            Wheel
+                          </option>
+                          <option
+                            value="riser"
+                            title="Raises cabinet on adjustable leveling feet"
+                          >
+                            Leveling feet
+                          </option>
+                          <option
+                            value="riserLowProfile"
+                            title="Leveling feet with lower profile (2 in. lower height)"
+                          >
+                            Leveling feet low profile (2 in. lower)
+                          </option>
+                        </select>
+                      </div>
                     )}
-                    <p className={styles.cabinetOptionTitle}>
-                      {is17D ? "17D Cabinet options" : "Cabinet options"}
-                    </p>
-                    {isCabinet ? (
-                      <>
-                        <label className={styles.cabinetOptionRow}>
-                          <input
-                            type="checkbox"
-                            checked={placement.backsplash !== false}
-                            onChange={handleCabinetBacksplashChange}
-                          />
-                          <span>Backsplash</span>
-                        </label>
-                        {is56Worktable && (
-                          <>
-                            <label className={styles.cabinetOptionRow}>
-                              <input
-                                type="checkbox"
-                                checked={(placement.baseOption ?? "smallLegs") !== "none"}
-                                onChange={handle56WorktableLegsToggle}
-                              />
-                              <span>Legs</span>
-                            </label>
-                            <div className={styles.cabinetColorPickerRow}>
-                              <span className={styles.cabinetOptionLabel}>
-                                Bottom color
-                              </span>
-                              <div
-                                className={styles.cabinetColorPalette}
-                                role="radiogroup"
-                                aria-label="Bottom color"
-                              >
-                                {LOCKER_COLOR_OPTIONS.map((opt) => {
-                                  const current =
-                                    placement.bottomColor === "black"
-                                      ? "glossBlack"
-                                      : placement.bottomColor ?? "gunmetal";
-                                  const active = current === opt.value;
-                                  return (
-                                    <button
-                                      key={opt.value}
-                                      type="button"
-                                      className={`${styles.cabinetColorSwatch} ${active
-                                          ? styles.cabinetColorSwatchActive
-                                          : ""
-                                        }`}
-                                      onClick={() =>
-                                        handleCabinetBottomColorChange({
-                                          target: { value: opt.value },
-                                        })
-                                      }
-                                      aria-label={opt.label}
-                                      aria-pressed={active}
-                                      title={opt.label}
-                                    >
-                                      <span
-                                        className={styles.cabinetColorSwatchFill}
-                                        style={{ backgroundColor: opt.hex }}
-                                      />
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          </>
-                        )}
-                        {is56WorktablePackage && (
-                          <label className={styles.cabinetOptionRow}>
-                            <input
-                              type="checkbox"
-                              checked={
-                                (placement.baseOption ?? "smallLegs") !== "none"
-                              }
-                              onChange={handle56WorktablePackageLegsToggle}
-                            />
-                            <span>Legs</span>
-                          </label>
-                        )}
-                        {showLockerColorPicker && (
-                          <div className={styles.cabinetColorPickerRow}>
-                            <span className={styles.cabinetOptionLabel}>
-                              {isLocker ? "Door color" : "Drawer color"}
-                            </span>
-                            <div
-                              className={styles.cabinetColorPalette}
-                              role="radiogroup"
-                              aria-label={isLocker ? "Door color" : "Drawer color"}
-                            >
-                              {LOCKER_COLOR_OPTIONS.map((opt) => {
-                                const active =
-                                  (placement.lockerColor ?? DEFAULT_LOCKER_COLOR) ===
-                                  opt.value;
-                                return (
-                                  <button
-                                    key={opt.value}
-                                    type="button"
-                                    className={`${styles.cabinetColorSwatch} ${active ? styles.cabinetColorSwatchActive : ""
-                                      }`}
-                                    onClick={() =>
-                                      handleLockerColorChange({
-                                        target: { value: opt.value },
-                                      })
-                                    }
-                                    aria-label={opt.label}
-                                    aria-pressed={active}
-                                    title={opt.label}
-                                  >
-                                    <span
-                                      className={styles.cabinetColorSwatchFill}
-                                      style={{ backgroundColor: opt.hex }}
-                                    />
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        )}
-                        {showBase && (
+                    {hasMiddleWorkbenchFeetOption && (
+                      <div
+                        className={`${styles.cabinetOptionRow} ${styles.packageFeetOptionRow}`}
+                      >
+                        <span className={styles.cabinetOptionLabel}>
+                          Middle workbench feet
+                        </span>
+                        <select
+                          value={placement.packageWorkbenchFeetOption ?? "riser"}
+                          onChange={handlePackageWorkbenchFeetChange}
+                          className={styles.cabinetOptionSelect}
+                        >
+                          <option value="riserLowProfile">
+                            Low feet profile
+                          </option>
+                          <option value="riser">Standard feet</option>
+                        </select>
+                      </div>
+                    )}
+                    {canRotateCabinet && (
+                      <div
+                        className={styles.rotationTutorialWrap}
+                        data-dragonfire-tutorial="rotation-controls"
+                      >
+                        <div className={styles.rotationControl}>
+
                           <div className={styles.cabinetOptionRow}>
-                            <span className={styles.cabinetOptionLabel}>Base</span>
-                            <select
-                              value={placement.baseOption ?? "none"}
-                              onChange={handleCabinetBaseOptionChange}
-                              className={styles.cabinetOptionSelect}
+                            <span
+                              className={styles.cabinetOptionLabel}
+                              style={{ visibility: "hidden" }}
                             >
-                              <option value="none" title="No base option">
-                                None
-                              </option>
-                              <option
-                                value="wheel"
-                                title="Cabinet on casters for mobility"
-                              >
-                                Wheel
-                              </option>
-                              <option
-                                value="riser"
-                                title="Raises cabinet on adjustable leveling feet"
-                              >
-                                Leveling feet
-                              </option>
-                              <option
-                                value="riserLowProfile"
-                                title="Leveling feet with lower profile (2 in. lower height)"
-                              >
-                                Leveling feet low profile (2 in. lower)
-                              </option>
-                            </select>
-                          </div>
-                        )}
-                        {hasMiddleWorkbenchFeetOption && (
-                          <div
-                            className={`${styles.cabinetOptionRow} ${styles.packageFeetOptionRow}`}
-                          >
-                            <span className={styles.cabinetOptionLabel}>
-                              Middle workbench feet
+                              Rotation
                             </span>
-                            <select
-                              value={placement.packageWorkbenchFeetOption ?? "riser"}
-                              onChange={handlePackageWorkbenchFeetChange}
-                              className={styles.cabinetOptionSelect}
-                            >
-                              <option value="riserLowProfile">
-                                Low feet profile
-                              </option>
-                              <option value="riser">Standard feet</option>
-                            </select>
+                            <input
+                              type="range"
+                              min={rotationSliderMinDeg}
+                              max={rotationSliderMaxDeg}
+                              step={rotationSliderStepDeg}
+                              value={rotationSliderDeg}
+                              onChange={(e) =>
+                                setCabinetRotationDeg(Number(e.target.value))
+                              }
+                              className={styles.roomItemSlider}
+                            />
                           </div>
-                        )}
-                        {canRotateCabinet && (
-                          <div
-                            className={styles.rotationTutorialWrap}
-                            data-dragonfire-tutorial="rotation-controls"
+                        </div>
+                        <div className={styles.cabinetOptionRow}>
+                          <span className={styles.cabinetOptionLabel}>
+                            Rotation preset
+                          </span>
+                          <select
+                            value={rotationDropdownDeg}
+                            onChange={(e) =>
+                              setCabinetRotationDeg(Number(e.target.value))
+                            }
+                            className={styles.cabinetOptionSelect}
                           >
-                            <div className={styles.rotationControl}>
-                              <div className={styles.cabinetOptionRow}>
-                                <span className={styles.cabinetOptionLabel}>
-                                  Rotation
-                                </span>
-                                <input
-                                  type="number"
-                                  min={rotationSliderMinDeg}
-                                  max={rotationSliderMaxDeg}
-                                  step={rotationSliderStepDeg}
-                                  value={rotationSliderDeg}
-                                  onChange={(e) =>
-                                    setCabinetRotationDeg(Number(e.target.value))
-                                  }
-                                  className={styles.roomItemNumberInput}
-                                />
-                              </div>
-                              <div className={styles.cabinetOptionRow}>
-                                <span
-                                  className={styles.cabinetOptionLabel}
-                                  style={{ visibility: "hidden" }}
-                                >
-                                  Rotation
-                                </span>
-                                <input
-                                  type="range"
-                                  min={rotationSliderMinDeg}
-                                  max={rotationSliderMaxDeg}
-                                  step={rotationSliderStepDeg}
-                                  value={rotationSliderDeg}
-                                  onChange={(e) =>
-                                    setCabinetRotationDeg(Number(e.target.value))
-                                  }
-                                  className={styles.roomItemSlider}
-                                />
-                              </div>
-                            </div>
-                            <div className={styles.cabinetOptionRow}>
-                              <span className={styles.cabinetOptionLabel}>
-                                Rotation preset
-                              </span>
-                              <select
-                                value={rotationDropdownDeg}
-                                onChange={(e) =>
-                                  setCabinetRotationDeg(Number(e.target.value))
-                                }
-                                className={styles.cabinetOptionSelect}
-                              >
-                                {rotationDropdownOptions.map((deg) => (
-                                  <option key={deg} value={deg}>
-                                    {deg} deg
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
-                          </div>
-                        )}
+                            {rotationDropdownOptions.map((deg) => (
+                              <option key={deg} value={deg}>
+                                {deg} deg
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    )}
+                    {placement ? (
+                      <>
                         <button
                           type="button"
                           className={styles.cabinetOptionZoomButton}
