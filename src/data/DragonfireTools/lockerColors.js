@@ -1,5 +1,6 @@
 export const LOCKER_GREY_RAL7015_HEX = "#51565c";
 export const LOCKER_BODY_GREY_RAL7021_HEX = "#2f3234";
+export const LOCKER_WHITE_RAL7021_HEX = "#ffffff";
 
 /**
  * Locker cabinet color options (value, label, hex).
@@ -9,6 +10,7 @@ export const LOCKER_BODY_GREY_RAL7021_HEX = "#2f3234";
 export const LOCKER_COLOR_OPTIONS = [
   { value: "gunmetal", label: "Gunmetal Gray (RAL 7015)", hex: LOCKER_GREY_RAL7015_HEX },
   { value: "glossBlack", label: "Gloss Black (RAL 9005)", hex: "#0a0a0a" },
+  { value: "white", label: "White (RAL 9010)", hex: LOCKER_WHITE_RAL7021_HEX },
 ];
 
 export const DEFAULT_LOCKER_COLOR = "gunmetal";

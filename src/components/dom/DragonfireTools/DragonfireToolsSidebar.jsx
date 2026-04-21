@@ -37,7 +37,7 @@ import {
   syncScaleCharacterPlacements,
   clearScaleCharacterPlacementCache,
 } from "@/components/canvas/DragonfireTools/scaleCharacterPlacementSync";
-import {CabinetOptionsToDrag} from "@/components/dom/DragonfireTools/CabinetOptionsToDrag";
+import { CabinetOptionsToDrag } from "@/components/dom/DragonfireTools/CabinetOptionsToDrag";
 
 
 const TOOLBAR_SECTIONS = [
@@ -950,7 +950,7 @@ export default function DragonfireToolsSidebar() {
               ) : (
                 <Icon size={18} />
               )}
-              
+
             </button>
           ))}
 
@@ -1384,63 +1384,74 @@ export default function DragonfireToolsSidebar() {
                   />
                 </div>
               ) : activeSection === "help" ? (
-                <div className={styles.helpPanel}>
-                  <p className={styles.cabinetOptionText}>
-                    Open a topic to play that part of the tutorial, or replay
-                    the full tour from the start.
-                  </p>
-                  <button
-                    type="button"
-                    className={styles.helpReplayButton}
-                    onClick={() => {
-                      openFullTutorial();
-                      setActiveSection(null);
-                    }}
-                  >
-                    Replay full tutorial
-                  </button>
-                  <ul className={styles.helpTopicList} role="list">
-                    {TUTORIAL_STEPS.map((step) => (
-                      <li key={step.id}>
-                        <button
-                          type="button"
-                          className={styles.helpTopicButton}
-                          onClick={() => {
-                            openTopicByStepId(step.id);
-                            setActiveSection(null);
-                          }}
-                        >
-                          {step.title}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
+              <div className={styles.helpPanel}>
+
+                {/* HEADER */}
+                <div className={styles.helpHeader}>
+                  <h3>Need Help?</h3>
+                  <p>Learn how to use the tool step by step.</p>
                 </div>
+
+                {/* MAIN BUTTON */}
+                <button
+                  className={styles.helpMainBtn}
+                  onClick={() => {
+                    openFullTutorial();
+                    setActiveSection(null);
+                  }}
+                >
+                  Replay full tutorial
+                </button>
+
+                {/* TOPICS */}
+                <div className={styles.helpTopics}>
+                  {TUTORIAL_STEPS.map((step, index) => (
+                    <div
+                      key={step.id}
+                      className={styles.helpCard}
+                      onClick={() => {
+                        openTopicByStepId(step.id);
+                        setActiveSection(null);
+                      }}
+                    >
+                      <div className={styles.helpCardNumber}>
+                        {index + 1}
+                      </div>
+
+                      <div className={styles.helpCardText}>
+                        {step.title}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+              
               ) : activeSection === "scale" ? (
-                <div className={styles.roomItemOptionPanel}>
-                  <p className={styles.cabinetOptionTitle}>Scale Character</p>
-                  <label className={styles.cabinetOptionRow}>
-                    <input
-                      type="checkbox"
-                      checked={showScaleCharacter}
-                      onChange={handleShowScaleCharacterToggle}
-                    />
-                    <span>Show scale character</span>
-                  </label>
-                  <p className={styles.cabinetOptionText}>
-                    This reference character is shown at room center by default.
-                    You can drag it in the scene to reposition.
-                  </p>
-                </div>
-              ) : activeSection === "quote" ? (
-                <DragonfireQuoteSidebarPanel />
-              ) : (
-                sectionData[activeSection] && (
-                  <CustomSidebar
-                    data={sectionData[activeSection]}
-                    customStyles={`${styles.sidebarOverride} ${styles.sidebarWhiteTheme}`}
+              <div className={styles.roomItemOptionPanel}>
+                <p className={styles.cabinetOptionTitle}>Scale Character</p>
+                <label className={styles.cabinetOptionRow}>
+                  <input
+                    type="checkbox"
+                    checked={showScaleCharacter}
+                    onChange={handleShowScaleCharacterToggle}
                   />
-                )
+                  <span>Show scale character</span>
+                </label>
+                <p className={styles.cabinetOptionText}>
+                  This reference character is shown at room center by default.
+                  You can drag it in the scene to reposition.
+                </p>
+              </div>
+              ) : activeSection === "quote" ? (
+              <DragonfireQuoteSidebarPanel />
+              ) : (
+              sectionData[activeSection] && (
+              <CustomSidebar
+                data={sectionData[activeSection]}
+                customStyles={`${styles.sidebarOverride} ${styles.sidebarWhiteTheme}`}
+              />
+              )
               )}
             </div>
             {/* {CUSTOM_CONTENT_SECTION_IDS.includes(activeSection) && (
