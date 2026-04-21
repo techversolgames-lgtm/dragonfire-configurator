@@ -117,45 +117,6 @@ const withoutCabinetOptions = [
   },
 ];
 
-/* ---------------- PACKAGES ---------------- */
-const cabinetPackageOptions = [
-  {
-    label: "12 Drawer Package",
-    image: "/images/dragonfire-tools/combo/12DP.png",
-    id: 17,
-    type: "workbench",
-    itemType: "floor",
-    isCabinetPackage: true,
-    modelURL: "/models/dragonfire-tools/chair_blue.glb",
-    boundingBox: {
-      width: 2.14 + 2 * 0.9,
-      height: 2.12,
-      depth: 0.65,
-    },
-    scale: 1,
-  },
-];
-
-/* ---------------- CABINET SUB-CATEGORIES ---------------- */
-const cabinetSubCategories = [
-
-  {
-    label: "Drawer Cabinets",
-    type: "drawer",
-    image: "/images/dragonfire-tools/tool_cabinets/webp/6-drawer-cabinet.webp",
-  },
-  {
-    label: "Wall Cabinets",
-    type: "wall",
-    image: "/images/dragonfire-tools/tool_cabinets/webp/wall-cabinet.webp",
-  },
-  {
-    label: "Corner Cabinets",
-    type: "corner",
-    image: "/images/dragonfire-tools/tool_cabinets/webp/lower-corner-cabinet.webp",
-  },
-];
-
 /* ---------------- STANDING CABINET OPTIONS ---------------- */
 const standingCabinetOptions = [
   // Drawer cabinets
@@ -166,7 +127,7 @@ const standingCabinetOptions = [
     type: "cabinet",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
-    boundingBox: { width: 0.9, height: 1.8, depth: 0.5 },
+    boundingBox: { width: 1.18, height: 1.02, depth: 0.66 },
     scale: 1,
   },
   {
@@ -176,7 +137,7 @@ const standingCabinetOptions = [
     type: "cabinet",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
-    boundingBox: { width: 0.9, height: 1.8, depth: 0.5 },
+    boundingBox: { width: 1.18, height: 1.02, depth: 0.66 },
     scale: 1,
   },
   {
@@ -186,7 +147,7 @@ const standingCabinetOptions = [
     type: "cabinet",
     itemType: "floor",
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
-    boundingBox: { width: 0.9, height: 1.8, depth: 0.5 },
+    boundingBox: { width: 1.18, height: 1.02, depth: 0.66 },
     scale: 1,
   },
   // Wall cabinets
@@ -221,6 +182,7 @@ const standingCabinetOptions = [
     scale: 1,
   },
   // Corner cabinets
+
   {
     label: "Lower Corner Cabinet",
     image: "/images/dragonfire-tools/tool_cabinets/webp/lower-corner-cabinet.webp",
@@ -228,8 +190,18 @@ const standingCabinetOptions = [
     type: "cabinet",
     itemType: "floor",
     bIsCornerCabinet: true,
+    bIsCornerCabinet: true,
+    boundingBox: {
+      width: 1.031,
+      height: 0.95,
+      depth: 1.102,
+    },
+    centerOffsetPosition: {
+      x: 0.031,
+      z: -0.035,
+    },
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
-    boundingBox: { width: 0.9, height: 0.95, depth: 0.9 },
+
     scale: 1,
   },
   {
@@ -242,6 +214,47 @@ const standingCabinetOptions = [
     modelURL: "/models/dragonfire-tools/chair_blue.glb",
     boundingBox: { width: 0.9, height: 0.6, depth: 0.9 },
     scale: 1,
+  },
+];
+
+/* ---------------- PACKAGES ---------------- */
+const cabinetPackageOptions = [
+  {
+    label: "12 Drawer Package",
+    image: "/images/dragonfire-tools/combo/12DP.png",
+    id: 17,
+    type: "workbench",
+    itemType: "floor",
+    isCabinetPackage: true,
+    modelURL: "/models/dragonfire-tools/chair_blue.glb",
+    boundingBox: {
+      width:
+        shortCabinetOptions[0].boundingBox.width +
+        2 * standingCabinetOptions[0].boundingBox.width,
+      height: standingCabinetOptions[0].boundingBox.height,
+      depth: shortCabinetOptions[0].boundingBox.depth,
+    },
+    scale: 1,
+  },
+];
+
+/* ---------------- CABINET SUB-CATEGORIES ---------------- */
+const cabinetSubCategories = [
+
+  {
+    label: "Drawer Cabinets",
+    type: "drawer",
+    image: "/images/dragonfire-tools/tool_cabinets/webp/6-drawer-cabinet.webp",
+  },
+  {
+    label: "Wall Cabinets",
+    type: "wall",
+    image: "/images/dragonfire-tools/tool_cabinets/webp/wall-cabinet.webp",
+  },
+  {
+    label: "Corner Cabinets",
+    type: "corner",
+    image: "/images/dragonfire-tools/tool_cabinets/webp/lower-corner-cabinet.webp",
   },
 ];
 

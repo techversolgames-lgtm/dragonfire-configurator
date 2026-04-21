@@ -24,6 +24,7 @@ import {
   FLOOR_Y,
   getFloorCabinetBaseY,
   getBaseOptionForFloorCabinet,
+  getFloorOffsetY,
 } from "./CabinetModelComponents/CabinetFeet";
 import {
   SNAP_DISTANCE_THRESHOLD_WALL,
@@ -43,14 +44,14 @@ import {
   draggedFloorSnapResultRef,
 } from "./outlineRefs";
 import ItemToWallDimensionLines from "./ItemToWallDimensionLines";
-import SelectedObjectGizmo from "@/components/dom/DragonfireTools/SelectedObjectGizmo";
 import { applyFloorDropSnap } from "./applyFloorDropSnap";
 import { DOOR_BOUNDING_BOX_OFFSET } from "./RoomItemModels/DoorModel";
 import {
   SCALE_REFERENCE_ID,
   DEFAULT_SCALE_REFERENCE_PLACEMENT,
 } from "./scaleCharacterPlacementSync";
-const minWallCabinetY = 1.3 + 0.07;
+
+const minWallCabinetY = 1.3+0.07 ;
 
 /** Lerp toward target angle (radians) taking shortest path. t in [0,1] or use delta * speed. */
 function lerpAngle(current, target, t) {
@@ -311,7 +312,6 @@ const GenerateAllCabinetsInScene = () => {
   );
   const selectedDeckItem = useDragNDropStore((state) => state.selectedDeckItem);
   const dragPointNormal = useDragNDropStore((state) => state.dragPointNormal);
-  const selectedPlacedIndex = useDragNDropStore((state) => state.selectedPlacedIndex);
   const showScaleCharacter =
     useAnimationStore((state) => state.showScaleCharacter) ?? false;
 
@@ -396,19 +396,7 @@ const GenerateAllCabinetsInScene = () => {
     return () => cancelAnimationFrame(id);
   }, [placedPositions]);
 
-
-  // DEBUG: log gizmo-relevant state once per second
-  const debugFrameTimeRef = useRef(0);
-  useFrame((state, delta) => {
-    debugFrameTimeRef.current += delta;
-    if (debugFrameTimeRef.current >= 1) {
-      debugFrameTimeRef.current = 0;
-      const { selectedPlacedIndex: spi, activeSceneItem, placedPositions: pp } = useDragNDropStore.getState();
-      const placement = spi != null ? pp[spi] : null;
-      // console.log('[GizmoDebug] selectedPlacedIndex:', spi, '| activeSceneItem:', activeSceneItem, '| placement:', placement);
-    }
-  });
-
+ 
   useFrame((state, delta) => {
     const tRot = delta * ROTATION_LERP_SPEED;
     currentGhostYRef.current = lerpAngle(
@@ -485,7 +473,7 @@ const GenerateAllCabinetsInScene = () => {
     : { x: 10000000000, y: 10000000000, z: 10000000000 };
 
   const selectedDeckItemColor = selectedDeckItem
-    ? reverseIdMap[selectedDeckItem.id]?.color ?? "red"
+    ? reverseIdMap[selectedDeckItem.id].color
     : "red";
   const { boundingBox } = reverseIdMap[selectedDeckItem?.id] || {};
   const {
@@ -517,12 +505,12 @@ const GenerateAllCabinetsInScene = () => {
   const ghostFloorY =
     selectedDeckItemId != null && !isOnWall
       ? getFloorCabinetBaseY(
-        getBaseOptionForFloorCabinet(
-          selectedDeckItemId,
-          getDefaultBaseOptionForLibraryFloorItem(selectedDeckItemId),
-        ),
-        { cabinetId: selectedDeckItemId },
-      )
+          getBaseOptionForFloorCabinet(
+            selectedDeckItemId,
+            getDefaultBaseOptionForLibraryFloorItem(selectedDeckItemId),
+          ),
+          { cabinetId: selectedDeckItemId },
+        )
       : null;
   const yWallPosition = isOnWall
     ? isDoorGhost
@@ -591,9 +579,9 @@ const GenerateAllCabinetsInScene = () => {
                 ? (isDoorGhost || tvOrWindowGhost)
                   ? yWallPosition + (ghostSnapOffsetRef.current.y ?? 0)
                   : Math.max(
-                    minWallCabinetY,
-                    yWallPosition + (ghostSnapOffsetRef.current.y ?? 0),
-                  )
+                      minWallCabinetY,
+                      yWallPosition + (ghostSnapOffsetRef.current.y ?? 0),
+                    )
                 : yWallPosition + (ghostSnapOffsetRef.current.y ?? 0),
               0,
             ]}
@@ -619,7 +607,7 @@ const GenerateAllCabinetsInScene = () => {
           dragPointNormal,
         } = onePosition;
         const {
-          boundingBox: { width, height, depth } = {},
+          boundingBox: { width, height, depth },
           itemType,
           label,
         } = reverseIdMap[onePosition.cabinetId] || {};
@@ -664,12 +652,12 @@ const GenerateAllCabinetsInScene = () => {
               ? y
               : minWallCabinetY
           : getFloorCabinetBaseY(
-            getBaseOptionForFloorCabinet(
-              onePosition.cabinetId,
-              onePosition.baseOption,
-            ),
-            onePosition,
-          );
+                getBaseOptionForFloorCabinet(
+                  onePosition.cabinetId,
+                  onePosition.baseOption,
+                ),
+                onePosition,
+              );
 
         const roomItemScale =
           isRoomItemPlaced && (onePosition.roomItemWidth != null || onePosition.roomItemHeight != null)
@@ -704,10 +692,10 @@ const GenerateAllCabinetsInScene = () => {
               position={
                 _ === draggedCabinetIndex && !isOnWall
                   ? [
-                    currentDraggedFloorPosRef.current.x,
-                    currentDraggedFloorPosRef.current.y,
-                    currentDraggedFloorPosRef.current.z,
-                  ]
+                      currentDraggedFloorPosRef.current.x,
+                      currentDraggedFloorPosRef.current.y,
+                      currentDraggedFloorPosRef.current.z,
+                    ]
                   : [x + dragSnapOffX, yWallPosition, z + dragSnapOffZ]
               }
               userData={{
@@ -716,6 +704,9 @@ const GenerateAllCabinetsInScene = () => {
                 boundingBoxHeight: effectiveHeight,
                 boundingBoxWidth: effectiveWidth,
                 boundingBoxDepth: depth,
+                boundingBoxYOffset: isOnWall ? 0 : getFloorOffsetY(
+                  getBaseOptionForFloorCabinet(onePosition.cabinetId, onePosition.baseOption)
+                ),
                 isCabinet: onePosition.cabinetId >= 1 && onePosition.cabinetId <= 22,
                 isRoomItem:
                   onePosition.cabinetId === 100 ||
@@ -726,14 +717,6 @@ const GenerateAllCabinetsInScene = () => {
                 ...(isDoor ? { boundingBoxLocalOffset: DOOR_BOUNDING_BOX_OFFSET } : {}),
               }}
             >
-              {_ === selectedPlacedIndex && (
-                // DEBUG
-                // console.log('[GizmoDebug] Rendering SelectedObjectGizmo for index:', _, '| selectedPlacedIndex:', selectedPlacedIndex, '| effectiveHeight:', effectiveHeight, '| position: [0,', effectiveHeight, ', 0]', '| activeSceneItem:', useDragNDropStore.getState().activeSceneItem) ||
-                <SelectedObjectGizmo
-                  position={[0, effectiveHeight, 0]}
-                  visible={true}
-                />
-              )}
               <group
                 ref={(el) => {
                   if (_ === draggedCabinetIndex && !isOnWall && el) {
@@ -753,7 +736,7 @@ const GenerateAllCabinetsInScene = () => {
               >
                 {/* Full-volume hitbox so any visible cabinet area (top/center/bottom/front/back) starts drag reliably. */}
                 <mesh
-                  position={[0, effectiveHeight / 2, 0]}
+                  position={[0, (isOnWall ? 0 : getFloorOffsetY(getBaseOptionForFloorCabinet(onePosition.cabinetId, onePosition.baseOption))) + effectiveHeight / 2, 0]}
                   visible={false}
                 >
                   <boxGeometry args={[effectiveWidth, effectiveHeight, depth]} />

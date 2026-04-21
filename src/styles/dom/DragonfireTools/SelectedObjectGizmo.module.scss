@@ -1,81 +1,81 @@
-.wrapper {
-  position: relative;
-  width: 160px;
-  height: 160px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// .wrapper {
+//   position: relative;
+//   width: 160px;
+//   height: 160px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
 
-/* TOP BUTTONS */
-.topRow {
-  position: absolute;
-  top: -55px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-}
+// /* TOP BUTTONS */
+// .topRow {
+//   position: absolute;
+//   top: -55px;
+//   left: 50%;
+//   transform: translateX(-50%);
+//   display: flex;
+//   gap: 10px;
+// }
 
-/* SIDE BUTTONS */
-.sideRow {
-  position: absolute;
-  right: -55px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+// /* SIDE BUTTONS */
+// .sideRow {
+//   position: absolute;
+//   right: -55px;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10px;
+// }
 
-/* BUTTON STYLE */
-.btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: none;
-  background: white;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  transition: 0.2s ease;
+// /* BUTTON STYLE */
+// .btn {
+//   width: 42px;
+//   height: 42px;
+//   border-radius: 50%;
+//   border: none;
+//   background: white;
+//   box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+//   cursor: pointer;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 16px;
+//   transition: 0.2s ease;
 
-  &:hover {
-    transform: scale(1.1);
-  }
-}
+//   &:hover {
+//     transform: scale(1.1);
+//   }
+// }
 
-/* CENTER BOX (X BUTTON) */
-.centerBox {
-  width: 70px;
-  height: 70px;
-  border-radius: 10px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// /* CENTER BOX (X BUTTON) */
+// .centerBox {
+//   width: 70px;
+//   height: 70px;
+//   border-radius: 10px;
+//   position: relative;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
 
-/* CLOSE BUTTON */
-.closeBtn {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background: rgba(123, 120, 120, 0.823);
-  border: 1px solid #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-weight: bold;
-}
-.closeBtn {
-  &:hover {
-    background: #980e0e96;
-    color: white;
-    border: none;
-  }
-}
+// /* CLOSE BUTTON */
+// .closeBtn {
+//   width: 35px;
+//   height: 35px;
+//   border-radius: 50%;
+//   background: rgba(123, 120, 120, 0.823);
+//   border: 1px solid #ffffff;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+//   font-weight: bold;
+// }
+// .closeBtn {
+//   &:hover {
+//     background: #980e0e96;
+//     color: white;
+//     border: none;
+//   }
+// }
