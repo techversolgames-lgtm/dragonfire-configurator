@@ -1,9 +1,5 @@
 @use "./dragonfire-vars" as v;
 
-/* =========================
-   WRAPPER / LAYOUT
-========================= */
-
 .wrapper {
   position: fixed;
   bottom: 0;
@@ -15,10 +11,6 @@
   flex-direction: row;
   user-select: none;
 }
-
-/* =========================
-   TOOLBAR
-========================= */
 
 .toolbarWrapper {
   position: absolute;
@@ -52,26 +44,20 @@
   transition: 0.2s ease;
 }
 
-.toolBtn:hover {
-  background: #6a9099;
-}
-
+.toolBtn:hover,
 .toolBtnActive {
-  background: #6a9099;
+  background: #7ea6afa9;
 }
 
 .resetBtn {
   margin-top: auto;
 }
 
-/* =========================
-   PANEL CONTAINER (MAIN FIX)
-========================= */
+/* PANEL */
 
 .sectionPanel {
   position: relative;
   flex: 1;
-  min-width: 0;
   display: flex;
   flex-direction: column;
   background: #f4f4f4;
@@ -80,41 +66,27 @@
   overflow: hidden;
 }
 
-/* =========================
-   HEADER
-========================= */
-
 .sectionPanelHeader {
-  flex-shrink: 0;
   padding: 14px 18px;
   border-bottom: 1px solid #e5e5e5;
-  display: flex;
-  align-items: center;
-  background: #f4f4f4;
 }
 
 .sectionPanelHeading {
-  margin: 0;
   font-size: 14px;
   font-weight: 500;
-  color: #000;
 }
 
 .panelCloseButton {
   position: absolute;
   top: 10px;
   right: 10px;
-  min-width: 36px;
-  min-height: 36px;
+  width: 36px;
+  height: 36px;
   background: #eaeaea;
   border: none;
   border-radius: 10px;
   cursor: pointer;
 }
-
-/* =========================
-   INNER SCROLL
-========================= */
 
 .sidebarInner {
   width: 280px;
@@ -123,34 +95,15 @@
   padding: 16px;
 }
 
-/* =========================
-   CABINET PANEL
-========================= */
+/* CABINET PANEL */
 
 .cabinetOptionPanel {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  color: #000;
 }
 
-/* =========================
-   DROPDOWN
-========================= */
-
-.cabinetOptionSelect {
-  height: 42px;
-  border-radius: 12px;
-  background: #ededed;
-  border: 1px solid #ddd;
-  padding: 0 12px;
-  font-size: 14px;
-  width: 100%;
-}
-
-/* =========================
-   TABS (TEXT STYLE)
-========================= */
+/* TABS */
 
 .cabinetTabs {
   display: flex;
@@ -173,47 +126,83 @@
   border-bottom: 2px solid #000;
 }
 
-/* =========================
-   STATE SEGMENT (PILL)
-========================= */
+.selectionContext {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  background: #e2e1e18c;
+  padding: 8px 12px;
+  border-left: 4px solid #4a6f8181;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
 
-.stateSegment {
+/* SECTION BLOCK (IMPORTANT FOR UI MATCH) */
+
+.sectionBlock {
+  background: #e2e1e18c;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* EDITING TEXT */
+
+.editingText {
+  font-size: 12px;
+  color: #666;
+  margin-top: 6px;
+}
+
+/* INPUTS */
+
+.cabinetOptionSelect {
+  height: 42px;
+  border-radius: 12px;
+  background: #ededed;
+  border: 1px solid #ddd;
+  padding: 0 12px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.cabinetOptionRow {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.segmentLabel {
-  font-size: 12px;
-  color: #777;
+.cabinetOptionLabel {
+  font-size: 13px;
+  color: #444;
 }
 
-.segmentButtons {
-  display: flex;
-  background: #e9e9e9;
-  padding: 4px;
-  border-radius: 20px;
+.cabinetOptionSelect {
+  height: 42px;
+  border-radius: 10px;
+  background: #f1f1f1;
+  border: 1px solid #ddd;
+  padding: 0 12px;
+  font-size: 14px;
+  width: 100%;
+  outline: none;
+  transition: 0.2s ease;
 }
 
-.segmentBtn {
-  flex: 1;
-  padding: 6px 8px;
-  font-size: 12px;
-  border: none;
-  background: transparent;
-  border-radius: 20px;
-  cursor: pointer;
+.cabinetOptionSelect:focus {
+  border-color: #6a9099;
+  box-shadow: 0 0 0 2px rgba(106, 144, 153, 0.15);
+}
+.cabinetOptionLabel {
+  font-size: 13px;
 }
 
-.segmentBtn.active {
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  font-weight: 500;
-}
-
-/* =========================
-   TOGGLE SWITCH
-========================= */
+/* TOGGLE */
 
 .toggleRow {
   display: flex;
@@ -253,42 +242,58 @@
   transform: translateX(18px);
 }
 
-/* =========================
-   COLORS
-========================= */
-
+/* COLORS */
+/* ROW */
 .colorRow {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
+/* ITEM */
 .colorItem {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 12px;
-  color: #666;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  padding: 5px;
+  transition: all 0.2s ease;
 }
 
+/* actual color box */
+.colorBox {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+}
+
+/* HOVER */
+.colorItem:hover {
+  transform: scale(1.1);
+  border-color: #6a9099;
+}
+
+/* SELECTED */
+.colorItem.activeColor {
+  border-color: #6a9099;
+  box-shadow: 0 0 0 2px rgba(106, 144, 153, 0.25);
+}
+
+/* INNER BOX */
 .colorBox {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 8px;
-  background: #eaeaea;
-  border-radius: 10px;
 }
 
+
 .colorBox span {
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   border-radius: 4px;
 }
 
-/* =========================
-   BUTTONS
-========================= */
+/* BUTTONS */
 
 .cabinetOptionZoomButton {
   width: 100%;
@@ -311,6 +316,8 @@
   cursor: pointer;
 }
 
+/* VIEW OPTIONS (unchanged but cleaned) */
+
 .viewOptionsPanel {
   display: flex;
   flex-direction: column;
@@ -328,95 +335,121 @@
   font-weight: 600;
 }
 
-/* AXIS SWITCH */
-.axisRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.axisSwitch {
-  display: flex;
-  background: #e9e9e9;
-  padding: 4px;
-  border-radius: 20px;
-}
-
-.axisSwitch button {
-  border: none;
-  background: transparent;
-  padding: 6px 12px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.axisSwitch .active {
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* SLIDER */
-.sliderBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
 .sliderRow {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.sliderRow input {
+.customAngleSlider {
   flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background: #d9d9d9;
+
+  /* 🔥 important */
+  appearance: none;
+  -webkit-appearance: none;
+  accent-color: #6a9099;
+  /* fallback browsers */
+  cursor: pointer;
+}
+
+/* TRACK (webkit) */
+.customAngleSlider::-webkit-slider-runnable-track {
+  height: 4px;
+  background: #d9d9d9;
+  border-radius: 4px;
+}
+
+/* THUMB */
+.customAngleSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #6a9099;
+  border: 2px solid #fff;
+  margin-top: -6px;
+  /* center align */
+  box-shadow: 0 0 0 2px rgba(106, 144, 153, 0.2);
+  transition: 0.2s ease;
+}
+
+/* HOVER FEEL */
+.customAngleSlider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+/* FIREFOX SUPPORT */
+.customAngleSlider::-moz-range-track {
+  height: 4px;
+  background: #d9d9d9;
+  border-radius: 4px;
+}
+
+.customAngleSlider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #6a9099;
+  border: 2px solid #fff;
 }
 
 .angleInput {
-  width: 60px;
-  padding: 6px;
+  width: 45px;
+  padding: 4px;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
 
-/* PRESETS */
-.presets {
+
+
+.presenceButtons {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
 
-.presetBtns {
-  display: flex;
-  gap: 8px;
-}
-
-.presetBtns button {
+.presenceBtn {
   flex: 1;
-  padding: 8px;
+  padding: 8px 0;
   border-radius: 10px;
   border: none;
-  background: #e0e0e0;
+  background: #e9e9e9;
   cursor: pointer;
 }
 
-.presetBtns button:hover {
-  background: #d5d5d5;
+.presenceBtn:hover {
+  background: #dcdcdc;
 }
 
-.sectionBlock {
-  background: transparent;
-  border: none;
-  padding: 0;
+.activePresence {
+  background: #d0d0d0;
+  box-shadow: inset 0 0 0 2px #999;
 }
 
-/* =========================
-   OTHER (UNCHANGED)
-========================= */
+/* OTHER PANELS */
 
 .helpPanel,
 .wallsPanel {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.sidebarWhiteTheme :global(select) {
+  accent-color: v.$text-primary !important;
+}
+
+.sidebarWhiteTheme :global(select:focus) {
+  outline: 2px solid v.$accent !important;
+  outline-offset: 1px;
+}
+
+.sidebarWhiteTheme :global(input[type="range"])::-webkit-slider-runnable-track {
+  background: v.$panel-border !important;
+}
+
+.sidebarWhiteTheme :global(input[type="range"])::-webkit-slider-thumb {
+  background-color: v.$accent !important;
 }

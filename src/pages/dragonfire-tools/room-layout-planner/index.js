@@ -1,5 +1,5 @@
 import BaseCanvas from "@/components/canvas/DragonfireTools/BaseCanvas";
-import Navbar from "@/components/dom/Navbar";
+// import Navbar from "@/components/dom/Navbar";
 import Breadcrumbs from "@/components/dom/Breadcrumbs";
 import Head from "next/head";
 import DragonfireToolsSidebar from "@/components/dom/DragonfireTools/DragonfireToolsSidebar";
@@ -16,7 +16,7 @@ export default function RoomLayoutPlanner(props) {
         <Head>
           <title>Plan Cabinet Layout</title>
         </Head>
-        <Navbar hasBackButton={false} />
+        {/* <Navbar hasBackButton={false} /> */}
         <Breadcrumbs />
         {/* eslint-disable-next-line react/no-unknown-property */}
         <style global jsx>

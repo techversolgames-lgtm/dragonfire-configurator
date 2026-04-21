@@ -37,6 +37,8 @@ import {
   syncScaleCharacterPlacements,
   clearScaleCharacterPlacementCache,
 } from "@/components/canvas/DragonfireTools/scaleCharacterPlacementSync";
+import {CabinetOptionsToDrag} from "@/components/dom/DragonfireTools/CabinetOptionsToDrag";
+
 
 const TOOLBAR_SECTIONS = [
   { id: "help", label: "Help", icon: FaQuestionCircle },
@@ -47,11 +49,11 @@ const TOOLBAR_SECTIONS = [
   { id: "scale", label: "Scale Character", icon: FaUser },
   { id: "items", label: "Cabinet / Room item options", icon: FaToolbox },
   { id: "quote", label: "Quote", icon: FaFileAlt },
+  { id: "config", label: "Configuration", icon: '/icons/items.png' },
 ];
 
 /** Section IDs that render custom content (no CustomSidebar). These get the shared Spokbee footer; add new tool sections here. */
 const CUSTOM_CONTENT_SECTION_IDS = ["scale", "items", "quote"];
-
 const ROOM_ITEM_IDS = [100, 101, 102];
 const TV_ID = 100;
 const INCHES_PER_M = 1 / 0.0254;
@@ -225,6 +227,7 @@ export default function DragonfireToolsSidebar() {
       front: nextLengthM,
       back: nextLengthM,
     };
+
     useAnimationStore.setState({
       wallWidthValues: nextWallWidthValues,
       selectedWallWidthValue: nextWallWidthValues[selected] ?? nextLengthM,
@@ -579,6 +582,7 @@ export default function DragonfireToolsSidebar() {
   const isCabinetPackageSelected = Boolean(
     placement && reverseIdMap[placement.cabinetId]?.isCabinetPackage,
   );
+
   const hasMiddleWorkbenchFeetOption =
     isCabinetPackageSelected &&
     MIDDLE_WORKBENCH_PACKAGE_IDS.includes(placement?.cabinetId);
@@ -603,6 +607,7 @@ export default function DragonfireToolsSidebar() {
     placement && baseOptionCabinetIds.includes(placement.cabinetId);
   const canRotateCabinet =
     isCabinet && reverseIdMap[placement?.cabinetId]?.itemType !== "wall";
+  const selectedColor = placement?.lockerColor ?? DEFAULT_LOCKER_COLOR;
 
   const handleCabinetBacksplashChange = (e) => {
     if (selectedPlacedIndex == null || !placement) return;
@@ -940,7 +945,12 @@ export default function DragonfireToolsSidebar() {
               }
               title={label}
             >
-              <Icon size={18} />
+              {typeof Icon === "string" ? (
+                <img src={Icon} alt={label} width={18} height={18} />
+              ) : (
+                <Icon size={18} />
+              )}
+              
             </button>
           ))}
 
@@ -974,11 +984,7 @@ export default function DragonfireToolsSidebar() {
               {activeSection === "items" ? (
                 isRoomItemForPanel ? (
                   <div className={styles.roomItemOptionPanel}>
-                    {isRoomItem && roomItemMeta && (
-                      <p className={styles.selectionContext} aria-live="polite">
-                        Editing: {roomItemMeta.label}
-                      </p>
-                    )}
+
                     <p className={styles.cabinetOptionTitle}>
                       {roomItemMeta?.label ?? "Room item"} — dimensions
                     </p>
@@ -1161,7 +1167,11 @@ export default function DragonfireToolsSidebar() {
                   </div>
                 ) : (
                   <div className={styles.cabinetOptionPanel}>
-
+                    {placement && (
+                      <p className={styles.selectionContext}>
+                        Editing: {reverseIdMap[placement.cabinetId]?.label}
+                      </p>
+                    )}
                     {/* HEADER TABS */}
                     <div className={styles.cabinetTabs}>
                       <button
@@ -1177,164 +1187,142 @@ export default function DragonfireToolsSidebar() {
                       >
                         View options
                       </button>
-                      {activeTab === "view" && showBase && (
-                        <div className={styles.cabinetOptionRow}>
-                          <span className={styles.cabinetOptionLabel}>Base</span>
-                          <select
-                            value={placement.baseOption ?? "none"}
-                            onChange={handleCabinetBaseOptionChange}
-                            className={styles.cabinetOptionSelect}
-                          >
-                            <option value="none">None</option>
-                            <option value="wheel">Wheel</option>
-                            <option value="riser">Leveling feet</option>
-                            <option value="riserLowProfile">
-                              Leveling feet low profile
-                            </option>
-                          </select>
+
+                    </div>
+                    {/* TAB CONTENT */}
+                    {activeTab === "cabinet" && (
+                      <>
+                        {isRoomItem && roomItemMeta && (
+                          <p className={styles.selectionContext} aria-live="polite">
+                            Editing: {roomItemMeta.label}
+                          </p>
+                        )}
+                        {/* PROPERTIES */}
+                        <div className={styles.sectionBlock}>
+                          <h4 className={styles.sectionTitle}>Properties</h4>
+
+                          <label className={styles.toggleRow}>
+                            <span>Backsplash</span>
+                            <input
+                              type="checkbox"
+                              checked={placement?.backsplash ?? false}
+                              onChange={handleCabinetBacksplashChange}
+                            />
+                          </label>
+
+                          {showBase && (
+                            <div className={styles.cabinetOptionRow}>
+                              <span className={styles.cabinetOptionLabel}>Base</span>
+                              <select
+                                value={placement.baseOption ?? "none"}
+                                onChange={handleCabinetBaseOptionChange}
+                                className={styles.cabinetOptionSelect}
+                              >
+                                <option value="none">None</option>
+                                <option value="wheel">Wheel</option>
+                                <option value="riser">Leveling feet</option>
+                                <option value="riserLowProfile">
+                                  Leveling feet low profile
+                                </option>
+                              </select>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
-
-                    {/* STATE SEGMENT */}
-                    <div className={styles.stateSegment}>
-                      <span className={styles.segmentLabel}>State</span>
-
-                      <div className={styles.segmentButtons}>
-                        <button className={`${styles.segmentBtn} `}>
-                          Default
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* PROPERTIES */}
-                    <div className={styles.sectionBlock}>
-                      <h4 className={styles.sectionTitle}>Properties</h4>
-
-                      <label className={styles.toggleRow}>
-                        <span>Backsplash</span>
-                        <input type="checkbox" className={styles.toggleSwitch} />
-                      </label>
-                    </div>
-
-                    {/* COLORS */}
-                    <div className={styles.sectionBlock}>
-                      <h4 className={styles.sectionTitle}>Colors</h4>
-
-                      <div className={styles.colorRow}>
-                        <div className={styles.colorItem}>
-                          <span>Drawer color</span>
-                          <div className={styles.colorBox}>
-                            <span style={{ background: "#4A4A4A" }} />
-                            <small>#4A4A4A</small>
-                          </div>
-                        </div>
-
-                        <div className={styles.colorItem}>
-                          <span>Drawer color</span>
-                          <div className={styles.colorBox}>
-                            <span style={{ background: "#000000" }} />
-                            <small>#000000</small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {showBase && (
-                      <div className={styles.cabinetOptionRow}>
-                        <span className={styles.cabinetOptionLabel}>Base</span>
-                        <select
-                          value={placement.baseOption ?? "none"}
-                          onChange={handleCabinetBaseOptionChange}
-                          className={styles.cabinetOptionSelect}
-                        >
-                          <option value="none" title="No base option">
-                            None
-                          </option>
-                          <option
-                            value="wheel"
-                            title="Cabinet on casters for mobility"
+                        {hasMiddleWorkbenchFeetOption && (
+                          <div
+                            className={`${styles.cabinetOptionRow} ${styles.packageFeetOptionRow}`}
                           >
-                            Wheel
-                          </option>
-                          <option
-                            value="riser"
-                            title="Raises cabinet on adjustable leveling feet"
-                          >
-                            Leveling feet
-                          </option>
-                          <option
-                            value="riserLowProfile"
-                            title="Leveling feet with lower profile (2 in. lower height)"
-                          >
-                            Leveling feet low profile (2 in. lower)
-                          </option>
-                        </select>
-                      </div>
-                    )}
-                    {hasMiddleWorkbenchFeetOption && (
-                      <div
-                        className={`${styles.cabinetOptionRow} ${styles.packageFeetOptionRow}`}
-                      >
-                        <span className={styles.cabinetOptionLabel}>
-                          Middle workbench feet
-                        </span>
-                        <select
-                          value={placement.packageWorkbenchFeetOption ?? "riser"}
-                          onChange={handlePackageWorkbenchFeetChange}
-                          className={styles.cabinetOptionSelect}
-                        >
-                          <option value="riserLowProfile">
-                            Low feet profile
-                          </option>
-                          <option value="riser">Standard feet</option>
-                        </select>
-                      </div>
-                    )}
-                    {canRotateCabinet && (
-                      <div
-                        className={styles.rotationTutorialWrap}
-                        data-dragonfire-tutorial="rotation-controls"
-                      >
-                        <div className={styles.rotationControl}>
-
-                          <div className={styles.cabinetOptionRow}>
-                            <span
-                              className={styles.cabinetOptionLabel}
-                              style={{ visibility: "hidden" }}
-                            >
-                              Rotation
+                            <span className={styles.cabinetOptionLabel}>
+                              Middle workbench feet
                             </span>
+                            <select
+                              value={placement.packageWorkbenchFeetOption ?? "riser"}
+                              onChange={handlePackageWorkbenchFeetChange}
+                              className={styles.cabinetOptionSelect}
+                            >
+                              <option value="riserLowProfile">
+                                Low feet profile
+                              </option>
+                              <option value="riser">Standard feet</option>
+                            </select>
+                          </div>
+                        )}
+                        {/* COLORS */}
+                        {showLockerColorPicker && (
+                          <div className={styles.sectionBlock}>
+                            <h4 className={styles.sectionTitle}>Colors</h4>
+
+                            <div className={styles.colorRow}>
+                              {LOCKER_COLOR_OPTIONS.map((color) => {
+                                const isActive = selectedColor === color.value;
+
+                                return (
+                                  <div
+                                    key={color.value}
+                                    className={`${styles.colorItem} ${isActive ? styles.activeColor : ""
+                                      }`}
+                                    onClick={() => handleLockerColorChange({ target: { value: color.value } })}
+                                  >
+                                    <div className={styles.colorBox}>
+                                      <span style={{ background: color.hex }} />
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
+
+                    {activeTab === "view" && canRotateCabinet && (
+                      <div className={styles.viewOptionsPanel}>
+                        {/* CUSTOM ANGLE */}
+                        <div className={styles.sectionBlock}>
+                          <h4>Custom Angle</h4>
+
+                          <div className={styles.sliderRow}>
                             <input
                               type="range"
-                              min={rotationSliderMinDeg}
-                              max={rotationSliderMaxDeg}
-                              step={rotationSliderStepDeg}
-                              value={rotationSliderDeg}
+                              min={-180}
+                              max={180}
+                              step={1}
+                              value={currentCabinetRotDeg}
                               onChange={(e) =>
                                 setCabinetRotationDeg(Number(e.target.value))
                               }
-                              className={styles.roomItemSlider}
+                              className={styles.customAngleSlider}
+                            />
+
+                            <input
+                              type="number"
+                              value={currentCabinetRotDeg}
+                              onChange={(e) =>
+                                setCabinetRotationDeg(Number(e.target.value))
+                              }
+                              className={styles.angleInput}
                             />
                           </div>
                         </div>
-                        <div className={styles.cabinetOptionRow}>
-                          <span className={styles.cabinetOptionLabel}>
-                            Rotation preset
-                          </span>
-                          <select
-                            value={rotationDropdownDeg}
-                            onChange={(e) =>
-                              setCabinetRotationDeg(Number(e.target.value))
-                            }
-                            className={styles.cabinetOptionSelect}
-                          >
-                            {rotationDropdownOptions.map((deg) => (
-                              <option key={deg} value={deg}>
-                                {deg} deg
-                              </option>
+
+                        {/* PRESENCES */}
+                        <div className={styles.viewSection}>
+                          <h4>Presences</h4>
+
+                          <div className={styles.presenceButtons}>
+                            {[0, 90, 180, 270].map((deg) => (
+                              <button
+                                key={deg}
+                                className={`${styles.presenceBtn} ${Math.round(currentCabinetRotDeg) === deg
+                                  ? styles.activePresence
+                                  : ""
+                                  }`}
+                                onClick={() => setCabinetRotationDeg(deg)}
+                              >
+                                {deg}°
+                              </button>
                             ))}
-                          </select>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -1468,6 +1456,6 @@ export default function DragonfireToolsSidebar() {
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 }

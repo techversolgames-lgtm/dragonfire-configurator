@@ -1,4 +1,4 @@
-.navbar {
+/* .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -161,9 +161,9 @@
   color: red;
   margin-top: 5px;
   text-align: center;
-}
+} */
 
-
+/* 
 @media (max-aspect-ratio: 1/1) {
   .navbar {
     padding: 10px 20px;
@@ -174,9 +174,9 @@
 
   }
 
-  .searchBoxWrapper {
+  .searchBoxWrapper { */
     /* disable search box for now */
-    display: none; 
+    /* display: none; 
     transform: translateX(0px);
   }
-}
+} */
