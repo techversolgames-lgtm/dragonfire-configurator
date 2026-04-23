@@ -7,3 +7,45 @@
   margin: 0;
   scrollbar-width: thin;
 }
+
+/******** Range input - Firefox ********/
+input[type="range"]::-moz-range-track {
+  background: #3e434f;
+  height: 0.13rem;
+}
+
+input[type="range"]:disabled::-moz-range-track {
+  background: #585c66;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+  background-color: #585c66;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  border-radius: 2px;
+  background-color: #1b6ecd;
+  height: 18px;
+  width: 8px;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  border: 1px solid #053a5f;
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+  border: 1px solid #053a5f;
+}
+
+input[type="checkbox"]:disabled:hover {
+  cursor: not-allowed;
+}
+
+input[type="checkbox"]:hover {
+  cursor: pointer;
+}

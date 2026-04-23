@@ -22,12 +22,12 @@ const CustomRange = ({ key, styles, value, setData, measurementUnits }) => {
   // Note: condition logic removed as it was tied to useAnimationStore
 
   const inputStyle = {
-    backgroundColor: condition ? "#585c66" : "#4e5465",
-    padding: "7px",
+    backgroundColor: condition ? "#040404" : "#3b61764d",
+    padding: "8px",
     marginTop: "-7px",
     borderRadius: "3px",
-    fontSize: "10px",
-    width: "40px",
+    fontSize: "11px",
+    width: "60px",
     border: "none",
     color: "inherit",
     textAlign: "center",

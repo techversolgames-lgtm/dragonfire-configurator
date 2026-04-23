@@ -4,386 +4,236 @@
   top: 120px;
   right: 20px;
   width: 300px;
-  background-color: #1d252b;
-  // background-color: #38352edf;
-  padding: 0px 0px 0px 0px;
-  border-radius: 8px;
-  box-shadow: 0 0 14px 4px rgba(0, 0, 0, 0.5);
-  z-index: 4;
-  color: #ddd;
-  // border: 2px solid rgb(200, 137, 0);
-  font-size: small;
+  background: rgba(20, 28, 33, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  color: #e6edf3;
+  font-size: 13px;
   max-height: 70%;
-  display: block;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
-  scrollbar-width: none;
-  scrollbar-color: transparent transparent;
-  transition: scrollbar-color 0.3s ease-in;
+  transition: all 0.25s ease;
 }
+
+/* ===== Scrollbar (theme matched) ===== */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #2a4e55;
+  border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #6a9099;
+}
+
+/* ===== Global Inputs ===== */
+.sidebar input,
+.sidebar select {
+  width: 100%;
+  height: 36px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(106, 144, 153, 0.2);
+
+  color: #e6edf3;
+  border-radius: 10px;
+
+  padding: 6px 10px;
+  font-size: 13px;
+
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.sidebar input:focus,
+.sidebar select:focus {
+  border-color: #6a9099;
+  box-shadow: 0 0 0 2px rgba(106, 144, 153, 0.2);
+}
+
+/* ===== spacing fix ===== */
 .sidebar > *:not(.pricing) {
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-/* Sidebar styling variations */
-.sidebar:not(.hasPricing) {
-  padding-top: 30px;
-}
-
-.sidebar:hover {
-  transition: 0.3s ease-in;
-}
-
-.dragHandle {
-  cursor: move;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 30px;
-  background-color: #ddd;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
+/* ===== labels ===== */
 .sidebar label {
+  font-size: 13px;
+  color: #000000;
+  margin-bottom: 4px;
   display: block;
 }
 
-.inputContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  position: relative;
-  column-gap: 10px;
-
-  input[type="range"] {
-    width: 77%;
-    position: absolute;
-    left: 5px;
-    -webkit-appearance: none;
-    appearance: none;
-    background: transparent;
-    cursor: pointer;
-  }
-
-  /***** Track Styles *****/
-  /***** Chrome, Safari, Opera, and Edge Chromium *****/
-  input[type="range"]::-webkit-slider-runnable-track {
-    background: #3e434f;
-    margin-top: 6px; /* Centers thumb on the track */
-    height: 0.13rem;
-  }
-
-  /******** Firefox ********/
-  input[type="range"]::-moz-range-track {
-    background: #3e434f;
-    height: 0.13rem;
-  }
-  input[type="range"]:disabled::-moz-range-track {
-    background: #585c66;
-  }
-
-  /***** Thumb Styles *****/
-  /***** Chrome, Safari, Opera, and Edge Chromium *****/
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
-    appearance: none; /* Standard property for compatibility */
-    margin-top: -7px; /* Centers thumb on the track */
-    border-radius: 2px; /*Removes default border-radius that FF applies*/
-    background-color: #1b6ecd;
-    height: 18px;
-    width: 8px;
-  }
-
-  input[type="range"]:disabled::-webkit-slider-thumb {
-    background-color: #585c66;
-  }
-
-  /***** Thumb Styles *****/
-  /***** Firefox *****/
-  input[type="range"]::-moz-range-thumb {
-    border: none; /*Removes extra border that FF applies*/
-    border-radius: 2px; /*Removes default border-radius that FF applies*/
-    background-color: #1b6ecd;
-    height: 18px;
-    width: 8px;
-  }
-
-  /***** Focus Styles *****/
-  /* Removes default focus */
-  input[type="range"]:focus {
-    outline: none;
-  }
-
-  /***** Chrome, Safari, Opera, and Edge Chromium *****/
-  input[type="range"]:focus::-webkit-slider-thumb {
-    border: 1px solid #053a5f;
-    // outline: 3px solid #053a5f;
-    // outline-offset: 0.125rem;
-  }
-
-  /******** Firefox ********/
-  input[type="range"]:focus::-moz-range-thumb {
-    border: 1px solid #053a5f;
-    // outline: 3px solid #053a5f;
-    // outline-offset: 0.125rem;
-  }
-  /**************************************************************/
-  input[type="checkbox"]:disabled:hover {
-    cursor: not-allowed;
-  }
-  input[type="checkbox"]:hover {
-    cursor: pointer;
-  }
-}
+/* ===== option blocks ===== */
 .optionContainer {
-  hr {
-    border: 1px dotted rgba(255, 255, 255, 0.1);
-    width: 200%;
-    margin-left: -50%;
-  }
+  margin-bottom: 16px;
 }
 
-.select {
-  width: 100%;
-  // display: flex;
-  justify-content: flex-end;
-  font-size: 11px;
-}
-
-/**
-BUTTON
-*/
-.normalButton {
-  width: 100%;
-  background-color: #3790f6;
-  padding: 7px;
-  color: white;
-  border: 2px #11335500 solid;
-  border-radius: 7px;
-}
-.normalButton:hover {
-  background-color: #1b6ecd;
-  cursor: pointer;
-  padding: 7px;
-  color: white;
-  border: 2px #3a8adb solid;
-  border-radius: 7px;
-}
-.normalButton:active {
-  background-color: #0f4f76;
-  cursor: pointer;
-  padding: 7px;
-  color: white;
-  border: 2px #43b0d1 solid;
-  border-radius: 7px;
-}
-.normalButton:disabled {
-  // background-color: #ccc !important;
-  // color: #444;
-  opacity: 0.8;
-  cursor: not-allowed;
-  border: none;
-}
-
-.labelContainer {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-bottom: 5px;
-}
-
+/* ===== pricing card ===== */
 .pricing {
   position: sticky;
   top: 0;
+
+  width: 100%;
+  height: 130px;
+
   display: flex;
   flex-direction: column;
-  color: #1d252bf4;
-  background-color: #ffffff;
-  height: 130px;
-  width: 300px;
   justify-content: space-between;
-  font-size: small;
 
-  max-height: 70%;
-  z-index: 4;
-  padding: 15px 30px 10px 30px;
-  margin-bottom: 10px;
+  padding: 15px 20px;
 
-  p {
-    margin: 5px 0;
-    font-weight: 500;
-  }
+  background: linear-gradient(135deg, #f7f9fb, #e9eef2);
+  color: #1d252b;
+
+  border-radius: 14px;
+  border-bottom: 1px solid #d8dee3;
+
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }
 
-.iconsContainer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 2px;
-  margin-bottom: 2px;
-  flex-shrink: 0;
-}
-
-.icon {
-  color: #888888;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  padding: 6px;
-  border-radius: 7px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover {
-    color: #ef9500;
-    background-color: rgba(27, 110, 205, 0.18);
-  }
-}
-
-.price {
-  font-size: 35px;
-  color: #ef9500;
-  font-weight: bold;
-}
-
-.skeletonContainer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dollarSkeleton {
-  display: inline-block;
-  width: 20px;
-  height: 40px;
-  background-color: #e0e0e0;
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-
-.priceSkeleton {
-  display: inline-block;
-  width: 200px;
-  height: 40px;
-  background-color: #e0e0e0;
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-
-.skeletonShimmer {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* ===== buttons ===== */
+.normalButton {
   width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(239, 149, 0, 0.25) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  animation: shimmer 1.5s infinite;
+  padding: 10px;
+
+  border-radius: 10px;
+  border: none;
+
+  background: linear-gradient(135deg, #6a9099, #4a6f81);
+  color: #fff;
+
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
 }
 
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+.normalButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(74, 111, 129, 0.35);
 }
 
+.normalButton:active {
+  transform: scale(0.98);
+}
+
+/* ===== ICONS ===== */
+.icon {
+  color: #8fa3b0;
+  transition: 0.2s ease;
+}
+
+.icon:hover {
+  color: #6a9099;
+  transform: scale(1.1);
+}
+
+/* ===== SCALE ROW ===== */
+.scaleRow {
+  background: rgba(106, 144, 153, 0.08);
+  border: 1px solid rgba(106, 144, 153, 0.2);
+
+  border-radius: 12px;
+  padding: 10px;
+
+  transition: 0.2s ease;
+}
+
+.scaleRow:hover {
+  transform: translateY(-2px);
+  background: rgba(106, 144, 153, 0.15);
+  border-color: #6a9099;
+}
+
+/* ===== RANGE SLIDER (FIXED & THEMED) ===== */
+.sidebar input[type="range"] {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+
+  height: 4px;
+  border-radius: 10px;
+
+  background: rgba(106, 144, 153, 0.25);
+  cursor: pointer;
+}
+
+/* track */
+.sidebar input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: rgba(106, 144, 153, 0.25);
+  border-radius: 10px;
+}
+
+/* thumb */
+.sidebar input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+
+  width: 14px;
+  height: 14px;
+
+  border-radius: 50%;
+  background: #6a9099;
+
+  border: 2px solid #fff;
+  margin-top: -5px;
+
+  box-shadow: 0 0 0 3px rgba(106, 144, 153, 0.2);
+  transition: 0.2s ease;
+}
+
+.sidebar input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+/* Firefox */
+.sidebar input[type="range"]::-moz-range-track {
+  background: rgba(106, 144, 153, 0.25);
+  height: 4px;
+  border-radius: 10px;
+}
+
+.sidebar input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #6a9099;
+  border: 2px solid #fff;
+}
+
+/* ===== TEXT FIELD ===== */
 .textField {
   width: 100%;
-  background-color: #4e5465;
-  border-radius: 4px;
-  height: 30px;
-  border: none;
-  color: #fff;
-  padding-left: 5px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  height: 32px;
+  // border: 1px solid rgba(106, 144, 153, 0.2);
+  color: #242424;
+  padding-left: 8px;
 }
 
-.text {
-  width: 100%;
-  padding-left: 15px;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.poweredBy {
-  border-top: 5px solid #4e5465;
-  position: sticky;
-  bottom: -2px;
-  background-color: #242e35;
-  padding: 13px 0px 15px 0px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  color: #aaa;
-  align-items: center;
-}
-
-/* Portrait mode styles (width < height) */
+/* ===== mobile ===== */
 @media (max-aspect-ratio: 1/1) {
   .sidebar {
-    position: absolute;
     top: auto;
     bottom: 0;
     left: 0;
-    margin: 0 auto;
+
     width: 100vw;
     height: 40vh;
-    border-radius: 10px 10px 0px 0px;
+
+    border-radius: 14px 14px 0 0;
   }
 
-  .inputContainer {
-    width: 100%;
-  }
   .pricing {
     width: 100vw;
     height: 110px;
   }
-  .price {
-    font-size: 25px;
-    margin-bottom: 10px;
-  }
-  .dollarSkeleton {
-    height: 35px;
-  }
-
-  .priceSkeleton {
-    height: 35px;
-  }
-  .poweredBy {
-    justify-content: center;
-  }
-}
-.spokbeeLogo {
-  height: 15px;
-}
-
-.error {
-  color: #ef4444;
-  font-size: 0.875rem;
-  text-align: left;
-}
-
-.numberInput {
-  /* Remove spinner arrows for Chrome, Safari, Edge, Opera */
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  /* Remove spinner arrows for Firefox */
-  -moz-appearance: textfield;
-  appearance: textfield;
 }

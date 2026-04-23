@@ -18,7 +18,7 @@ const CustomCheckbox = ({ key, styles, value, setData }) => {
       </div>
 
       {/* <br /> */}
-      <div className={styles.inputContainer} style={{ width: "20%" }}>
+      <div className={styles.inputContainer} style={{ width: "8%" }}>
         <input
           type="checkbox"
           checked={currentValue !== undefined ? currentValue : value.defaultValue}
