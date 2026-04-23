@@ -39,18 +39,25 @@ import {
 } from "@/components/canvas/DragonfireTools/scaleCharacterPlacementSync";
 import { CabinetOptionsToDrag } from "@/components/dom/DragonfireTools/CabinetOptionsToDrag";
 
-
 const TOOLBAR_SECTIONS = [
   { id: "help", label: "Help", icon: FaQuestionCircle },
-  { id: "units", label: "Units", icon: FaRuler },
+  { id: "units", label: "Units & Grid", icon: FaRuler },
   { id: "walls", label: "Walls", icon: FaVectorSquare },
-  { id: "grid", label: "Grid & Dimensions", icon: FaBorderAll },
   { id: "floor", label: "Floor", icon: FaLayerGroup },
   { id: "scale", label: "Scale Character", icon: FaUser },
   { id: "items", label: "Cabinet / Room item options", icon: FaToolbox },
   { id: "quote", label: "Quote", icon: FaFileAlt },
-  { id: "config", label: "Configuration", icon: '/icons/items.png' },
 ];
+// const TOOLBAR_SECTIONS = [
+//   { id: "help", label: "Help", icon: '/icons/help.png' },
+//   { id: "units", label: "Units & Grid", icon: '/icons/scale.png' },
+//   { id: "walls", label: "Walls", icon: FaVectorSquare },
+//   { id: "floor", label: "Floor", icon: FaLayerGroup },
+//   { id: "scale", label: "Scale Character", icon: '/icons/character.png' },
+//   { id: "items", label: "Cabinet / Room item options", icon: FaToolbox },
+//   { id: "quote", label: "Quote", icon: '/icons/form.png' },
+//   { id: "config", label: "Configuration", icon: '/icons/items.png' },
+// ];
 
 /** Section IDs that render custom content (no CustomSidebar). These get the shared Spokbee footer; add new tool sections here. */
 const CUSTOM_CONTENT_SECTION_IDS = ["scale", "items", "quote"];
@@ -384,18 +391,16 @@ export default function DragonfireToolsSidebar() {
     units: {
       unitSystem: sidebarData.unitSystem,
       measurementUnits: sidebarData.measurementUnits,
+      showFloorGrid: sidebarData.showFloorGrid,
+      dimensionUnits: sidebarData.dimensionUnits,
+      toggleDimensionLinesButton: sidebarData.toggleDimensionLinesButton,
+      dimensionLabelFontSize: sidebarData.dimensionLabelFontSize,
     },
     walls: {
       selectedWallHeightValue: sidebarData.selectedWallHeightValue,
       selectedWallWidthValue: sidebarData.selectedWallWidthValue,
       disableWall: sidebarData.disableWall,
       applyToAllWalls: sidebarData.applyToAllWalls,
-    },
-    grid: {
-      showFloorGrid: sidebarData.showFloorGrid,
-      dimensionUnits: sidebarData.dimensionUnits,
-      toggleDimensionLinesButton: sidebarData.toggleDimensionLinesButton,
-      dimensionLabelFontSize: sidebarData.dimensionLabelFontSize,
     },
     floor: {
       floorMaterial: sidebarData.floorMaterial,
@@ -557,6 +562,13 @@ export default function DragonfireToolsSidebar() {
     }
     setActiveSection("items");
   }, [selectedPlacedIndex, placedPositions]);
+
+  // Open Cabinet / Room item options when user drags a new item from the deck
+  useEffect(() => {
+    if (!selectedDeckItem) return;
+    if (selectedDeckItem.id === SCALE_REFERENCE_ID) return;
+    setActiveSection("items");
+  }, [selectedDeckItem]);
 
   const placement =
     selectedPlacedIndex != null
@@ -938,18 +950,19 @@ export default function DragonfireToolsSidebar() {
             <button
               key={id}
               type="button"
-              className={`${styles.toolBtn} ${activeSection === id ? styles.toolBtnActive : ""
-                }`}
+              className={`${styles.toolBtn} ${activeSection === id ? styles.toolBtnActive : ""}`}
+              title={label}
               onClick={() =>
                 setActiveSection((prev) => (prev === id ? null : id))
               }
-              title={label}
             >
-              {typeof Icon === "string" ? (
-                <img src={Icon} alt={label} width={18} height={18} />
-              ) : (
-                <Icon size={18} />
-              )}
+              <span className={styles.iconWrapper}>
+                {typeof Icon === "string" ? (
+                  <img src={Icon} alt={label} />
+                ) : (
+                  <Icon />
+                )}
+              </span>
 
             </button>
           ))}
@@ -961,7 +974,7 @@ export default function DragonfireToolsSidebar() {
             onClick={handleResetRoom}
             title="Reset"
           >
-            <FaTrash size={16} />
+            <FaTrash size={22} aria-hidden />
           </button>
         </div>
         {activeSection && (
@@ -981,480 +994,537 @@ export default function DragonfireToolsSidebar() {
               </h2>
             </div>
             <div className={styles.sidebarInner}>
-              {activeSection === "items" ? (
-                isRoomItemForPanel ? (
-                  <div className={styles.roomItemOptionPanel}>
+              <div className={styles.panelContent}>
+                {activeSection === "items" ? (
+                  isRoomItemForPanel ? (
+                    <div className={`${styles.roomItemOptionPanel} ${styles.panelSection}`}>
 
-                    <p className={styles.cabinetOptionTitle}>
-                      {roomItemMeta?.label ?? "Room item"} — dimensions
-                    </p>
-                    {isRoomItem ? (
-                      <>
-                        {isTV ? (
-                          <div className={styles.roomItemOptionRow}>
-                            <span className={styles.cabinetOptionLabel}>
-                              Size (diagonal)
-                            </span>
-                            <select
-                              value={tvSizeInches}
-                              onChange={handleTvSizeChange}
-                              className={styles.cabinetOptionSelect}
-                            >
-                              {TV_SIZE_INCHES.map((size) => (
-                                <option key={size} value={size}>
-                                  {size} inch
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        ) : (
-                          <>
+                      {isRoomItem && roomItemMeta && (
+                        <p className={styles.selectionContext} aria-live="polite">
+                          Editing: {roomItemMeta.label}
+                        </p>
+                      )}
+                      <p className={styles.cabinetOptionTitle}>
+                        {roomItemMeta?.label ?? "Room item"} — dimensions
+                      </p>
+                      {isRoomItem ? (
+                        <>
+                          {isTV ? (
                             <div className={styles.roomItemOptionRow}>
                               <span className={styles.cabinetOptionLabel}>
-                                Length ({dimUnit})
+                                Size (diagonal)
                               </span>
-                              <input
-                                type="number"
-                                min={widthRange.min}
-                                max={widthRange.max}
-                                value={roomItemWidthDisplay}
-                                onChange={handleRoomItemWidthInput}
-                                className={styles.roomItemNumberInput}
-                                step={isMetric ? 0.01 : 0.5}
-                              />
+                              <select
+                                value={tvSizeInches}
+                                onChange={handleTvSizeChange}
+                                className={styles.cabinetOptionSelect}
+                              >
+                                {TV_SIZE_INCHES.map((size) => (
+                                  <option key={size} value={size}>
+                                    {size} inch
+                                  </option>
+                                ))}
+                              </select>
                             </div>
-                            <div className={styles.roomItemRangeControl}>
+                          ) : (
+                            <>
                               <div className={styles.roomItemOptionRow}>
-                                <span
-                                  className={styles.cabinetOptionLabel}
-                                  style={{ visibility: "hidden" }}
-                                >
+                                <span className={styles.cabinetOptionLabel}>
                                   Length ({dimUnit})
                                 </span>
                                 <input
-                                  type="range"
+                                  type="number"
                                   min={widthRange.min}
                                   max={widthRange.max}
-                                  step={widthRange.step}
-                                  value={Math.max(
-                                    widthRange.min,
-                                    Math.min(
-                                      widthRange.max,
-                                      roomItemWidthDisplay,
-                                    ),
-                                  )}
-                                  onChange={handleRoomItemWidthSlider}
-                                  className={styles.roomItemSlider}
+                                  value={roomItemWidthDisplay}
+                                  onChange={handleRoomItemWidthInput}
+                                  className={styles.roomItemNumberInput}
+                                  step={isMetric ? 0.01 : 0.5}
                                 />
                               </div>
-                            </div>
-                            <div className={styles.roomItemOptionRow}>
-                              <span className={styles.cabinetOptionLabel}>
-                                Height ({dimUnit})
-                              </span>
-                              <input
-                                type="number"
-                                min={heightRange.min}
-                                max={heightRange.max}
-                                value={roomItemHeightDisplay}
-                                onChange={handleRoomItemHeightInput}
-                                className={styles.roomItemNumberInput}
-                                step={isMetric ? 0.01 : 0.5}
-                              />
-                            </div>
-                            <div className={styles.roomItemRangeControl}>
+                              <div className={styles.roomItemRangeControl}>
+                                <div className={styles.roomItemOptionRow}>
+                                  <span
+                                    className={styles.cabinetOptionLabel}
+                                    style={{ visibility: "hidden" }}
+                                  >
+                                    Length ({dimUnit})
+                                  </span>
+                                  <input
+                                    type="range"
+                                    min={widthRange.min}
+                                    max={widthRange.max}
+                                    step={widthRange.step}
+                                    value={Math.max(
+                                      widthRange.min,
+                                      Math.min(
+                                        widthRange.max,
+                                        roomItemWidthDisplay,
+                                      ),
+                                    )}
+                                    onChange={handleRoomItemWidthSlider}
+                                    className={styles.roomItemSlider}
+                                  />
+                                </div>
+                              </div>
                               <div className={styles.roomItemOptionRow}>
-                                <span
-                                  className={styles.cabinetOptionLabel}
-                                  style={{ visibility: "hidden" }}
-                                >
+                                <span className={styles.cabinetOptionLabel}>
                                   Height ({dimUnit})
                                 </span>
                                 <input
-                                  type="range"
+                                  type="number"
                                   min={heightRange.min}
                                   max={heightRange.max}
-                                  step={heightRange.step}
-                                  value={Math.max(
-                                    heightRange.min,
-                                    Math.min(
-                                      heightRange.max,
-                                      roomItemHeightDisplay,
-                                    ),
-                                  )}
-                                  onChange={handleRoomItemHeightSlider}
-                                  className={styles.roomItemSlider}
+                                  value={roomItemHeightDisplay}
+                                  onChange={handleRoomItemHeightInput}
+                                  className={styles.roomItemNumberInput}
+                                  step={isMetric ? 0.01 : 0.5}
                                 />
                               </div>
-                            </div>
-                          </>
-                        )}
-                        <div className={styles.roomItemOptionRow}>
-                          <span className={styles.cabinetOptionLabel}>
-                            Height on wall ({dimUnit})
-                          </span>
-                          <input
-                            type="number"
-                            min={heightOnWallRange.min}
-                            max={heightOnWallRange.max}
-                            value={roomItemHeightOnWallDisplay}
-                            onChange={handleRoomItemHeightOnWallInput}
-                            className={styles.roomItemNumberInput}
-                            step={isMetric ? 0.01 : 0.5}
-                            disabled={isDoor}
-                            title={isDoor ? "Door is fixed to floor" : undefined}
-                          />
-                        </div>
-                        <div className={styles.roomItemRangeControl}>
+                              <div className={styles.roomItemRangeControl}>
+                                <div className={styles.roomItemOptionRow}>
+                                  <span
+                                    className={styles.cabinetOptionLabel}
+                                    style={{ visibility: "hidden" }}
+                                  >
+                                    Height ({dimUnit})
+                                  </span>
+                                  <input
+                                    type="range"
+                                    min={heightRange.min}
+                                    max={heightRange.max}
+                                    step={heightRange.step}
+                                    value={Math.max(
+                                      heightRange.min,
+                                      Math.min(
+                                        heightRange.max,
+                                        roomItemHeightDisplay,
+                                      ),
+                                    )}
+                                    onChange={handleRoomItemHeightSlider}
+                                    className={styles.roomItemSlider}
+                                  />
+                                </div>
+                              </div>
+                            </>
+                          )}
                           <div className={styles.roomItemOptionRow}>
-                            <span
-                              className={styles.cabinetOptionLabel}
-                              style={{ visibility: "hidden" }}
-                            >
+                            <span className={styles.cabinetOptionLabel}>
                               Height on wall ({dimUnit})
                             </span>
                             <input
-                              type="range"
+                              type="number"
                               min={heightOnWallRange.min}
                               max={heightOnWallRange.max}
-                              step={heightOnWallRange.step}
-                              value={Math.max(
-                                heightOnWallRange.min,
-                                Math.min(
-                                  heightOnWallRange.max,
-                                  roomItemHeightOnWallDisplay,
-                                ),
-                              )}
-                              onChange={handleRoomItemHeightOnWallSlider}
-                              className={styles.roomItemSlider}
+                              value={roomItemHeightOnWallDisplay}
+                              onChange={handleRoomItemHeightOnWallInput}
+                              className={styles.roomItemNumberInput}
+                              step={isMetric ? 0.01 : 0.5}
                               disabled={isDoor}
+                              title={isDoor ? "Door is fixed to floor" : undefined}
                             />
                           </div>
-                        </div>
-                        {isDoor && (
-                          <p className={styles.roomItemHint}>
-                            Door base stays on floor.
+                          <div className={styles.roomItemRangeControl}>
+                            <div className={styles.roomItemOptionRow}>
+                              <span
+                                className={styles.cabinetOptionLabel}
+                                style={{ visibility: "hidden" }}
+                              >
+                                Height on wall ({dimUnit})
+                              </span>
+                              <input
+                                type="range"
+                                min={heightOnWallRange.min}
+                                max={heightOnWallRange.max}
+                                step={heightOnWallRange.step}
+                                value={Math.max(
+                                  heightOnWallRange.min,
+                                  Math.min(
+                                    heightOnWallRange.max,
+                                    roomItemHeightOnWallDisplay,
+                                  ),
+                                )}
+                                onChange={handleRoomItemHeightOnWallSlider}
+                                className={styles.roomItemSlider}
+                                disabled={isDoor}
+                              />
+                            </div>
+                          </div>
+                          {isDoor && (
+                            <p className={styles.roomItemHint}>
+                              Door base stays on floor.
+                            </p>
+                          )}
+                          <button
+                            type="button"
+                            className={styles.cabinetOptionZoomButton}
+                            onClick={handleZoomSelectedItem}
+                          >
+                            Zoom
+                          </button>
+                          <button
+                            type="button"
+                            className={styles.cabinetOptionDeleteButton}
+                            data-dragonfire-tutorial="remove-from-scene"
+                            onClick={handleRoomItemDelete}
+                          >
+                            Remove from scene (Del)
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <p className={styles.cabinetOptionText}>
+                            Select a room item (TV, Door, Window) in the room to edit
+                            its dimensions.
                           </p>
-                        )}
-                        <button
-                          type="button"
-                          className={styles.cabinetOptionZoomButton}
-                          onClick={handleZoomSelectedItem}
-                        >
-                          Zoom
-                        </button>
-                        <button
-                          type="button"
-                          className={styles.cabinetOptionDeleteButton}
-                          data-dragonfire-tutorial="remove-from-scene"
-                          onClick={handleRoomItemDelete}
-                        >
-                          Remove from scene (Del)
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <p className={styles.cabinetOptionText}>
-                          Select a room item (TV, Door, Window) in the room to edit
-                          its dimensions.
-                        </p>
-                        <p className={styles.emptyStateHint}>
-                          Click a TV, door, or window in the room to edit its size
-                          and position.
-                        </p>
-                      </>
-                    )}
-                  </div>
-                ) : (
-                  <div className={styles.cabinetOptionPanel}>
-                    {placement && (
-                      <p className={styles.selectionContext}>
-                        Editing: {reverseIdMap[placement.cabinetId]?.label}
-                      </p>
-                    )}
-                    {/* HEADER TABS */}
-                    <div className={styles.cabinetTabs}>
-                      <button
-                        className={`${styles.tabBtn} ${activeTab === "cabinet" ? styles.activeTab : ""}`}
-                        onClick={() => setActiveTab("cabinet")}
-                      >
-                        Cabinet options
-                      </button>
-
-                      <button
-                        className={`${styles.tabBtn} ${activeTab === "view" ? styles.activeTab : ""}`}
-                        onClick={() => setActiveTab("view")}
-                      >
-                        View options
-                      </button>
-
+                          <p className={styles.emptyStateHint}>
+                            Click a TV, door, or window in the room to edit its size
+                            and position.
+                          </p>
+                        </>
+                      )}
                     </div>
-                    {/* TAB CONTENT */}
-                    {activeTab === "cabinet" && (
-                      <>
-                        {isRoomItem && roomItemMeta && (
-                          <p className={styles.selectionContext} aria-live="polite">
-                            Editing: {roomItemMeta.label}
-                          </p>
-                        )}
-                        {/* PROPERTIES */}
-                        <div className={styles.sectionBlock}>
-                          <h4 className={styles.sectionTitle}>Properties</h4>
+                  ) : (
+                    <div className={styles.cabinetOptionPanel}>
+                      {placement && (
+                        <p className={styles.selectionContext}>
+                          Editing: {reverseIdMap[placement.cabinetId]?.label}
+                        </p>
+                      )}
+                      {/* HEADER TABS */}
+                      <div className={styles.cabinetTabs}>
+                        <button
+                          className={`${styles.tabBtn} ${activeTab === "cabinet" ? styles.activeTab : ""}`}
+                          onClick={() => setActiveTab("cabinet")}
+                        >
+                          Cabinet options
+                        </button>
 
-                          <label className={styles.toggleRow}>
-                            <span>Backsplash</span>
-                            <input
-                              type="checkbox"
-                              checked={placement?.backsplash ?? false}
-                              onChange={handleCabinetBacksplashChange}
-                            />
-                          </label>
+                        <button
+                          className={`${styles.tabBtn} ${activeTab === "view" ? styles.activeTab : ""}`}
+                          onClick={() => setActiveTab("view")}
+                        >
+                          View options
+                        </button>
 
-                          {showBase && (
-                            <div className={styles.cabinetOptionRow}>
-                              <span className={styles.cabinetOptionLabel}>Base</span>
+                      </div>
+                      {/* TAB CONTENT */}
+                      {activeTab === "cabinet" && (
+                        <>
+                          {isRoomItem && roomItemMeta && (
+                            <p className={styles.selectionContext} aria-live="polite">
+                              Editing: {roomItemMeta.label}
+                            </p>
+                          )}
+                          {/* PROPERTIES */}
+                          <div className={styles.sectionBlock}>
+                            <h4 className={styles.sectionTitle}>Properties</h4>
+
+                            <label className={styles.toggleRow}>
+                              <span>Backsplash</span>
+                              <input
+                                type="checkbox"
+                                checked={placement?.backsplash !== false}
+                                onChange={handleCabinetBacksplashChange}
+                              />
+                            </label>
+
+                            {is56Worktable && (
+                              <label className={styles.toggleRow}>
+                                <span>Legs</span>
+                                <input
+                                  type="checkbox"
+                                  checked={(placement?.baseOption ?? "smallLegs") !== "none"}
+                                  onChange={handle56WorktableLegsToggle}
+                                />
+                              </label>
+                            )}
+                            {is56WorktablePackage && (
+                              <label className={styles.toggleRow}>
+                                <span>Legs</span>
+                                <input
+                                  type="checkbox"
+                                  checked={(placement?.baseOption ?? "smallLegs") !== "none"}
+                                  onChange={handle56WorktablePackageLegsToggle}
+                                />
+                              </label>
+                            )}
+                            {showBase && (
+                              <div className={styles.cabinetOptionRow}>
+                                <span className={styles.cabinetOptionLabel}>Base</span>
+                                <select
+                                  value={placement.baseOption ?? "none"}
+                                  onChange={handleCabinetBaseOptionChange}
+                                  className={styles.cabinetOptionSelect}
+                                >
+                                  <option value="none">None</option>
+                                  <option value="wheel">Wheel</option>
+                                  <option value="riser">Leveling feet</option>
+                                  <option value="riserLowProfile">
+                                    Leveling feet low profile
+                                  </option>
+                                </select>
+                              </div>
+                            )}
+                          </div>
+                          {hasMiddleWorkbenchFeetOption && (
+                            <div
+                              className={`${styles.cabinetOptionRow} ${styles.packageFeetOptionRow}`}
+                            >
+                              <span className={styles.cabinetOptionLabel}>
+                                Middle workbench feet
+                              </span>
                               <select
-                                value={placement.baseOption ?? "none"}
-                                onChange={handleCabinetBaseOptionChange}
+                                value={placement.packageWorkbenchFeetOption ?? "riser"}
+                                onChange={handlePackageWorkbenchFeetChange}
                                 className={styles.cabinetOptionSelect}
                               >
-                                <option value="none">None</option>
-                                <option value="wheel">Wheel</option>
-                                <option value="riser">Leveling feet</option>
                                 <option value="riserLowProfile">
-                                  Leveling feet low profile
+                                  Low feet profile
                                 </option>
+                                <option value="riser">Standard feet</option>
                               </select>
                             </div>
                           )}
-                        </div>
-                        {hasMiddleWorkbenchFeetOption && (
-                          <div
-                            className={`${styles.cabinetOptionRow} ${styles.packageFeetOptionRow}`}
-                          >
-                            <span className={styles.cabinetOptionLabel}>
-                              Middle workbench feet
-                            </span>
-                            <select
-                              value={placement.packageWorkbenchFeetOption ?? "riser"}
-                              onChange={handlePackageWorkbenchFeetChange}
-                              className={styles.cabinetOptionSelect}
-                            >
-                              <option value="riserLowProfile">
-                                Low feet profile
-                              </option>
-                              <option value="riser">Standard feet</option>
-                            </select>
-                          </div>
-                        )}
-                        {/* COLORS */}
-                        {showLockerColorPicker && (
-                          <div className={styles.sectionBlock}>
-                            <h4 className={styles.sectionTitle}>Colors</h4>
+                          {/* COLORS */}
+                          {showLockerColorPicker && (
+                            <div className={styles.sectionBlock}>
+                              <h4 className={styles.sectionTitle}>Colors</h4>
 
-                            <div className={styles.colorRow}>
-                              {LOCKER_COLOR_OPTIONS.map((color) => {
-                                const isActive = selectedColor === color.value;
+                              <div className={styles.colorRow}>
+                                {LOCKER_COLOR_OPTIONS.map((color) => {
+                                  const isActive = selectedColor === color.value;
 
-                                return (
-                                  <div
-                                    key={color.value}
-                                    className={`${styles.colorItem} ${isActive ? styles.activeColor : ""
-                                      }`}
-                                    onClick={() => handleLockerColorChange({ target: { value: color.value } })}
-                                  >
-                                    <div className={styles.colorBox}>
-                                      <span style={{ background: color.hex }} />
+                                  return (
+                                    <div
+                                      key={color.value}
+                                      className={`${styles.colorItem} ${isActive ? styles.activeColor : ""
+                                        }`}
+                                      onClick={() => handleLockerColorChange({ target: { value: color.value } })}
+                                    >
+                                      <div className={styles.colorBox}>
+                                        <span style={{ background: color.hex }} />
+                                      </div>
                                     </div>
-                                  </div>
-                                );
-                              })}
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          )}
+                          {is56Worktable && (
+                            <div className={styles.sectionBlock}>
+                              <h4 className={styles.sectionTitle}>Bottom color</h4>
+                              <div className={styles.colorRow}>
+                                {LOCKER_COLOR_OPTIONS.map((opt) => {
+                                  const current =
+                                    placement.bottomColor === "black"
+                                      ? "glossBlack"
+                                      : placement.bottomColor ?? "gunmetal";
+                                  const active = current === opt.value;
+                                  return (
+                                    <div
+                                      key={opt.value}
+                                      className={`${styles.colorItem} ${active ? styles.activeColor : ""}`}
+                                      onClick={() =>
+                                        handleCabinetBottomColorChange({
+                                          target: { value: opt.value },
+                                        })
+                                      }
+                                    >
+                                      <div className={styles.colorBox}>
+                                        <span style={{ background: opt.hex }} />
+                                      </div>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          )}
+                        </>
+                      )}
+
+                      {activeTab === "view" && canRotateCabinet && (
+                        <div className={styles.viewOptionsPanel}>
+                          {/* CUSTOM ANGLE */}
+                          <div className={styles.sectionBlock}>
+                            <h4>Custom Angle</h4>
+
+                            <div className={styles.sliderRow}>
+                              <input
+                                type="range"
+                                min={-180}
+                                max={180}
+                                step={1}
+                                value={currentCabinetRotDeg}
+                                onChange={(e) =>
+                                  setCabinetRotationDeg(Number(e.target.value))
+                                }
+                                className={styles.customAngleSlider}
+                              />
+
+                              <input
+                                type="number"
+                                value={currentCabinetRotDeg}
+                                onChange={(e) =>
+                                  setCabinetRotationDeg(Number(e.target.value))
+                                }
+                                className={styles.angleInput}
+                              />
                             </div>
                           </div>
-                        )}
-                      </>
-                    )}
 
-                    {activeTab === "view" && canRotateCabinet && (
-                      <div className={styles.viewOptionsPanel}>
-                        {/* CUSTOM ANGLE */}
-                        <div className={styles.sectionBlock}>
-                          <h4>Custom Angle</h4>
+                          {/* PRESENCES */}
+                          <div className={styles.viewSection}>
+                            <h4>Presences</h4>
 
-                          <div className={styles.sliderRow}>
-                            <input
-                              type="range"
-                              min={-180}
-                              max={180}
-                              step={1}
-                              value={currentCabinetRotDeg}
-                              onChange={(e) =>
-                                setCabinetRotationDeg(Number(e.target.value))
-                              }
-                              className={styles.customAngleSlider}
-                            />
-
-                            <input
-                              type="number"
-                              value={currentCabinetRotDeg}
-                              onChange={(e) =>
-                                setCabinetRotationDeg(Number(e.target.value))
-                              }
-                              className={styles.angleInput}
-                            />
+                            <div className={styles.presenceButtons}>
+                              {[0, 90, 180, 270].map((deg) => (
+                                <button
+                                  key={deg}
+                                  className={`${styles.presenceBtn} ${Math.round(currentCabinetRotDeg) === deg
+                                    ? styles.activePresence
+                                    : ""
+                                    }`}
+                                  onClick={() => setCabinetRotationDeg(deg)}
+                                >
+                                  {deg}°
+                                </button>
+                              ))}
+                            </div>
                           </div>
                         </div>
-
-                        {/* PRESENCES */}
-                        <div className={styles.viewSection}>
-                          <h4>Presences</h4>
-
-                          <div className={styles.presenceButtons}>
-                            {[0, 90, 180, 270].map((deg) => (
-                              <button
-                                key={deg}
-                                className={`${styles.presenceBtn} ${Math.round(currentCabinetRotDeg) === deg
-                                  ? styles.activePresence
-                                  : ""
-                                  }`}
-                                onClick={() => setCabinetRotationDeg(deg)}
-                              >
-                                {deg}°
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    {placement ? (
-                      <>
-                        <button
-                          type="button"
-                          className={styles.cabinetOptionZoomButton}
-                          onClick={handleZoomSelectedItem}
-                        >
-                          Zoom
-                        </button>
-                        <button
-                          type="button"
-                          className={styles.cabinetOptionDeleteButton}
-                          data-dragonfire-tutorial="remove-from-scene"
-                          onClick={handleCabinetDelete}
-                        >
-                          Remove from scene (Del)
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <p className={styles.cabinetOptionText}>
-                          Select a cabinet in the room to edit its options
-                          (backsplash, base, color).
-                        </p>
-                        <p className={styles.emptyStateHint}>
-                          Click a cabinet in the room to select it, then options
-                          appear here.
-                        </p>
-                      </>
-                    )}
+                      )}
+                      {placement ? (
+                        <>
+                          <button
+                            type="button"
+                            className={styles.cabinetOptionZoomButton}
+                            onClick={handleZoomSelectedItem}
+                          >
+                            Zoom
+                          </button>
+                          <button
+                            type="button"
+                            className={styles.cabinetOptionDeleteButton}
+                            data-dragonfire-tutorial="remove-from-scene"
+                            onClick={handleCabinetDelete}
+                          >
+                            Remove from scene (Del)
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <p className={styles.cabinetOptionText}>
+                            Select a cabinet in the room to edit its options
+                            (backsplash, base, color).
+                          </p>
+                          <p className={styles.emptyStateHint}>
+                            Click a cabinet in the room to select it, then options
+                            appear here.
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  )
+                ) : activeSection === "walls" ? (
+                  <div className={`${styles.wallsPanel} ${styles.panelSection}`}>
+                    <div className={styles.roomPresetSection}>
+                      <p className={styles.roomPresetTitle}>Room size presets</p>
+                      <p className={styles.roomPresetHint}>
+                        Width x Length (ft)
+                      </p>
+                      <select
+                        className={styles.roomPresetSelect}
+                        value={roomPresetId}
+                        onChange={handleRoomPresetChange}
+                      >
+                        <option value="">Select preset</option>
+                        {ROOM_SIZE_PRESETS.map((preset) => (
+                          <option key={preset.id} value={preset.id}>
+                            {preset.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <CustomSidebar
+                      data={sectionData.walls}
+                      customStyles={`${styles.sidebarOverride} ${styles.sidebarWhiteTheme}`}
+                    />
                   </div>
-                )
-              ) : activeSection === "walls" ? (
-                <div className={styles.wallsPanel}>
-                  <div className={styles.roomPresetSection}>
-                    <p className={styles.roomPresetTitle}>Room size presets</p>
-                    <p className={styles.roomPresetHint}>
-                      Width x Length (ft)
-                    </p>
-                    <select
-                      className={styles.roomPresetSelect}
-                      value={roomPresetId}
-                      onChange={handleRoomPresetChange}
-                    >
-                      <option value="">Select preset</option>
-                      {ROOM_SIZE_PRESETS.map((preset) => (
-                        <option key={preset.id} value={preset.id}>
-                          {preset.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <CustomSidebar
-                    data={sectionData.walls}
-                    customStyles={`${styles.sidebarOverride} ${styles.sidebarWhiteTheme}`}
-                  />
-                </div>
-              ) : activeSection === "help" ? (
-              <div className={styles.helpPanel}>
+                ) : activeSection === "help" ? (
+                  <div className={`${styles.helpPanel} ${styles.panelSection}`}>
 
-                {/* HEADER */}
-                <div className={styles.helpHeader}>
-                  <h3>Need Help?</h3>
-                  <p>Learn how to use the tool step by step.</p>
-                </div>
+                    {/* HEADER */}
+                    <div className={styles.helpHeader}>
+                      <h3>Need Help?</h3>
+                      <p>Learn how to use the tool step by step.</p>
+                    </div>
 
-                {/* MAIN BUTTON */}
-                <button
-                  className={styles.helpMainBtn}
-                  onClick={() => {
-                    openFullTutorial();
-                    setActiveSection(null);
-                  }}
-                >
-                  Replay full tutorial
-                </button>
-
-                {/* TOPICS */}
-                <div className={styles.helpTopics}>
-                  {TUTORIAL_STEPS.map((step, index) => (
-                    <div
-                      key={step.id}
-                      className={styles.helpCard}
+                    {/* MAIN BUTTON */}
+                    <button
+                      className={styles.helpMainBtn}
                       onClick={() => {
-                        openTopicByStepId(step.id);
+                        openFullTutorial();
                         setActiveSection(null);
                       }}
                     >
-                      <div className={styles.helpCardNumber}>
-                        {index + 1}
-                      </div>
+                      Replay full tutorial
+                    </button>
 
-                      <div className={styles.helpCardText}>
-                        {step.title}
-                      </div>
+                    {/* TOPICS */}
+                    <div className={styles.helpTopics}>
+                      {TUTORIAL_STEPS.map((step, index) => (
+                        <div
+                          key={step.id}
+                          className={styles.helpCard}
+                          onClick={() => {
+                            openTopicByStepId(step.id);
+                            setActiveSection(null);
+                          }}
+                        >
+                          <div className={styles.helpCardNumber}>
+                            {index + 1}
+                          </div>
+
+                          <div className={styles.helpCardText}>
+                            {step.title}
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
 
+                  </div>
+
+                ) : activeSection === "scale" ? (
+                  <div className={`${styles.roomItemOptionPanel} ${styles.panelSection}`}>
+                    <p className={styles.cabinetOptionTitle}>Scale Character</p>
+                    <label className={styles.cabinetOptionRow}>
+                      <input
+                        type="checkbox"
+                        checked={showScaleCharacter}
+                        onChange={handleShowScaleCharacterToggle}
+                      />
+                      <span>Show scale character</span>
+                    </label>
+                    <p className={styles.cabinetOptionText}>
+                      This reference character is shown at room center by default.
+                      You can drag it in the scene to reposition.
+                    </p>
+                  </div>
+                ) : activeSection === "quote" ? (
+                  <DragonfireQuoteSidebarPanel />
+                ) : (
+                  sectionData[activeSection] && (
+                    <div className={styles.panelSection}>
+                      <CustomSidebar
+                        data={sectionData[activeSection]}
+                        customStyles={`${styles.sidebarOverride} ${styles.sidebarWhiteTheme}`}
+                      />
+                    </div>
+                  )
+                )}
               </div>
-              
-              ) : activeSection === "scale" ? (
-              <div className={styles.roomItemOptionPanel}>
-                <p className={styles.cabinetOptionTitle}>Scale Character</p>
-                <label className={styles.cabinetOptionRow}>
-                  <input
-                    type="checkbox"
-                    checked={showScaleCharacter}
-                    onChange={handleShowScaleCharacterToggle}
-                  />
-                  <span>Show scale character</span>
-                </label>
-                <p className={styles.cabinetOptionText}>
-                  This reference character is shown at room center by default.
-                  You can drag it in the scene to reposition.
-                </p>
-              </div>
-              ) : activeSection === "quote" ? (
-              <DragonfireQuoteSidebarPanel />
-              ) : (
-              sectionData[activeSection] && (
-              <CustomSidebar
-                data={sectionData[activeSection]}
-                customStyles={`${styles.sidebarOverride} ${styles.sidebarWhiteTheme}`}
-              />
-              )
-              )}
-            </div>
-            {/* {CUSTOM_CONTENT_SECTION_IDS.includes(activeSection) && (
+              {/* {CUSTOM_CONTENT_SECTION_IDS.includes(activeSection) && (
               <div className={styles.sectionPanelFooter}>
                 Powered by{" "}
                 <img
@@ -1464,9 +1534,10 @@ export default function DragonfireToolsSidebar() {
                 />
               </div>
             )} */}
+            </div>
           </div>
         )}
       </div>
-    </div >
+    </div>
   );
 }

@@ -17,6 +17,7 @@
   left: 20px;
   display: flex;
   align-items: center;
+  gap: 14px;
 }
 
 .toolbarContainer {
@@ -31,6 +32,25 @@
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
+.iconWrapper {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.iconWrapper svg {
+  width: 100%;
+  height: 100%;
+}
+
 .toolBtn {
   width: 44px;
   height: 44px;
@@ -42,15 +62,63 @@
   justify-content: center;
   cursor: pointer;
   transition: 0.2s ease;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .toolBtn:hover,
 .toolBtnActive {
-  background: #7ea6afa9;
+  background: #6a9099;
+  color: #fff;
+  transform: scale(1.05);
 }
 
 .resetBtn {
   margin-top: auto;
+}
+
+/* ===== NEW PANEL SYSTEM ===== */
+
+.panelContent {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* har section ko card feel dene ke liye */
+.panelSection {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 14px;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+
+/* header divider */
+.panelDivider {
+  margin-top: 10px;
+  height: 1px;
+  background: #e5e5e5;
+}
+
+/* ===== GLOBAL INPUT STYLE ===== */
+
+.panelSection input[type="number"],
+.panelSection select {
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 0 10px;
+  font-size: 13px;
+  width: 100%;
+  background: #f9f9f9;
+}
+
+.panelSection input:focus,
+.panelSection select:focus {
+  border-color: #6a9099;
+  box-shadow: 0 0 0 2px rgba(106, 144, 153, 0.15);
+  outline: none;
 }
 
 /* PANEL */
@@ -64,6 +132,10 @@
   border-radius: 20px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
   overflow: hidden;
+
+  transform: translateX(-10px);
+  opacity: 0;
+  animation: panelSlideIn 0.25s ease forwards;
 }
 
 .sectionPanelHeader {
@@ -89,10 +161,10 @@
 }
 
 .sidebarInner {
-  width: 280px;
+  width: 300px;
   flex: 1;
   overflow-y: auto;
-  padding: 16px;
+  padding: 18px 16px;
 }
 
 /* CABINET PANEL */
@@ -171,12 +243,43 @@
   width: 100%;
 }
 
-.cabinetOptionRow {
+/* 🔥 UNIVERSAL FORM ROW (sab same size ho jayenge) */
+.cabinetOptionRow,
+.roomItemOptionRow,
+.toggleRow {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
+/* label fix */
+.cabinetOptionLabel,
+.toggleRow span {
+  flex: 1;
+  min-width: 130px;
+  font-size: 13px;
+  color: #444;
+}
+
+/* inputs same size */
+.cabinetOptionRow input,
+.cabinetOptionRow select,
+.roomItemOptionRow input,
+.roomItemOptionRow select {
+  flex: 1;
+  height: 40px;
+}
+.roomItemRangeControl {
+  display: flex;
+  align-items: center;
+  margin-top: -4px;
+  margin-bottom: 10px;
+}
+
+.roomItemSlider {
+  width: 100%;
+}
 .cabinetOptionLabel {
   font-size: 13px;
   color: #444;
@@ -515,6 +618,39 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+@keyframes panelSlideIn {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Override CustomSidebar's float-on-screen positioning so it renders
+   inline inside the section panel instead of absolutely on the viewport. */
+.sidebarOverride {
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  width: 100% !important;
+  max-height: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  z-index: auto !important;
+  color: inherit !important;
+  overflow-y: visible !important;
+  overflow-x: visible !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+}
+
+/* The base .sidebar rule adds 30px h-padding to every direct child;
+   remove it so items fill the narrow panel without clipping. */
+.sidebarOverride > * {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 .sidebarWhiteTheme :global(select) {
