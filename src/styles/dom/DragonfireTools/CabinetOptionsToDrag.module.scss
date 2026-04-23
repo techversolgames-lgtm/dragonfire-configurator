@@ -204,7 +204,7 @@
   width: 100%;
   padding: 11px;
 
-  background: linear-gradient(135deg, #2F566B, #3c6f88);
+  background: linear-gradient(135deg, #6a9099, #4a6f81);
   color: #fff;
 
   border: none;
@@ -216,6 +216,7 @@
 }
 
 .exploreBtn:hover {
+  background: #ac0a0a;
   transform: translateY(-1px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }

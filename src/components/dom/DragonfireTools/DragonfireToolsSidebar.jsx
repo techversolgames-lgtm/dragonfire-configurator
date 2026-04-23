@@ -14,6 +14,7 @@ import {
   FaUser,
   FaQuestionCircle,
 } from "react-icons/fa";
+import { BiSolidCabinet } from "react-icons/bi";
 import {
   FLOOR_MATERIALS,
   DEFAULT_FLOOR_MATERIAL_ID,
@@ -47,6 +48,7 @@ const TOOLBAR_SECTIONS = [
   { id: "scale", label: "Scale Character", icon: FaUser },
   { id: "items", label: "Cabinet / Room item options", icon: FaToolbox },
   { id: "quote", label: "Quote", icon: FaFileAlt },
+  { id: "config", label: "Configuration", icon: BiSolidCabinet },
 ];
 // const TOOLBAR_SECTIONS = [
 //   { id: "help", label: "Help", icon: '/icons/help.png' },
@@ -56,7 +58,7 @@ const TOOLBAR_SECTIONS = [
 //   { id: "scale", label: "Scale Character", icon: '/icons/character.png' },
 //   { id: "items", label: "Cabinet / Room item options", icon: FaToolbox },
 //   { id: "quote", label: "Quote", icon: '/icons/form.png' },
-//   { id: "config", label: "Configuration", icon: '/icons/items.png' },
+//   
 // ];
 
 /** Section IDs that render custom content (no CustomSidebar). These get the shared Spokbee footer; add new tool sections here. */
@@ -1446,18 +1448,14 @@ export default function DragonfireToolsSidebar() {
                         ))}
                       </select>
                     </div>
-                    <CustomSidebar
-                      data={sectionData.walls}
-                      customStyles={`${styles.sidebarOverride} ${styles.sidebarWhiteTheme}`}
-                    />
                   </div>
                 ) : activeSection === "help" ? (
-                  <div className={`${styles.helpPanel} ${styles.panelSection}`}>
+                  <div className={`${styles.helpPanel}`}>
 
                     {/* HEADER */}
                     <div className={styles.helpHeader}>
                       <h3>Need Help?</h3>
-                      <p>Learn how to use the tool step by step.</p>
+                      <p>Open a topic to play that part of thr tutorial or replay the full.</p>
                     </div>
 
                     {/* MAIN BUTTON */}
@@ -1496,17 +1494,19 @@ export default function DragonfireToolsSidebar() {
                   </div>
 
                 ) : activeSection === "scale" ? (
-                  <div className={`${styles.roomItemOptionPanel} ${styles.panelSection}`}>
-                    <p className={styles.cabinetOptionTitle}>Scale Character</p>
-                    <label className={styles.cabinetOptionRow}>
+                  <div className={styles.scalePanel}>
+
+                    <label className={styles.scaleRow}>
+
+                      <span>Show scale character</span>
                       <input
                         type="checkbox"
                         checked={showScaleCharacter}
                         onChange={handleShowScaleCharacterToggle}
                       />
-                      <span>Show scale character</span>
                     </label>
-                    <p className={styles.cabinetOptionText}>
+
+                    <p className={styles.scaleText}>
                       This reference character is shown at room center by default.
                       You can drag it in the scene to reposition.
                     </p>
@@ -1515,12 +1515,12 @@ export default function DragonfireToolsSidebar() {
                   <DragonfireQuoteSidebarPanel />
                 ) : (
                   sectionData[activeSection] && (
-                    <div className={styles.panelSection}>
-                      <CustomSidebar
+                    // <div className={styles.panelSection}>
+                    {/* <CustomSidebar
                         data={sectionData[activeSection]}
                         customStyles={`${styles.sidebarOverride} ${styles.sidebarWhiteTheme}`}
-                      />
-                    </div>
+                      /> */}
+                    // </div>
                   )
                 )}
               </div>

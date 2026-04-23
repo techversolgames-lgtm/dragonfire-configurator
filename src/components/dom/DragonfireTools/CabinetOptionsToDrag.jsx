@@ -234,7 +234,7 @@ const CabinetOptionsToDrag = () => {
                 else if (step === 2 && selection.subCategory) goNext();
               }}
             >
-              Continue
+              Explore
             </button>
           )}
 

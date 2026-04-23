@@ -343,14 +343,14 @@ function Sidebar({
         {children}
         <br />
         <br />
-        <div className={styles.poweredBy}>
+        {/* <div className={styles.poweredBy}>
           Powered by{" "}
           <img
             className={styles.spokbeeLogo}
             alt="spokbee logo"
             src="/logos/spokbee.png"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

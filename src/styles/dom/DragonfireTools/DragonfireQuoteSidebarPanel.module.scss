@@ -1,134 +1,186 @@
 .panel {
-  padding: 16px 0 8px;
+  padding: 14px 0 10px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  animation: fadeIn 0.25s ease;
 }
 
+/* ================= HEADER ================= */
 .header {
+  font-size: 15px;
   padding: 0;
 }
 
 .title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #1a202c;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.5;
+  color: #111827;
   margin-bottom: 4px;
 }
 
 .subtitle {
-  font-size: 12px;
-  color: #4a5568;
-  line-height: 1.4;
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.5;
 }
 
+/* ================= FORM ================= */
 .form {
-  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+/* ================= INPUTS ================= */
 .input,
 .textarea {
-  display: block;
   width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  font-size: 13px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
   background: #f9fafb;
-  box-sizing: border-box;
+  font-size: 13px;
+  transition: 0.2s ease;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #6a9099;
+  box-shadow: 0 0 0 3px rgba(106, 144, 153, 0.15);
+  background: #ffffff;
 }
 
 .textarea {
-  min-height: 90px;
+  min-height: 95px;
   resize: vertical;
 }
 
+/* ================= PRIMARY BUTTON (HELP STYLE) ================= */
 .downloadButton {
   width: 100%;
-  background: rgb(255, 147, 21);
-  color: #fff;
-  font-weight: 800;
-  font-size: 13px;
-  padding: 12px 0;
+  padding: 12px 14px;
+  border-radius: 14px;
   border: none;
-  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.2s;
 
-  &:disabled {
-    opacity: 0.75;
-    cursor: not-allowed;
-  }
+  background: linear-gradient(135deg, #6a9099, #4a6f81);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 13px;
 
-  &:hover:not(:disabled) {
-    background: rgb(245, 135, 18);
-  }
+  box-shadow: 0 10px 20px rgba(106, 144, 153, 0.25);
+  transition: 0.25s ease;
 }
 
+.downloadButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #ac0a0add;
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.18);
+}
+
+.downloadButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ================= SUCCESS MESSAGE (HELP CARD STYLE) ================= */
 .successMessage {
   margin: 0;
-  color: #218838;
-  background: #e9fbe8;
-  border: 1px solid #b6e2b7;
-  border-radius: 10px;
   padding: 12px 14px;
+  border-radius: 12px;
+
+  background: #e8f7f3;
+  border: 1px solid #b7e4d9;
+  color: #0f766e;
+
   font-size: 13px;
   font-weight: 700;
   text-align: center;
 }
 
+/* ================= ERROR MESSAGE ================= */
 .errorMessage {
   margin: 0;
-  color: #b71c1c;
-  background: #fbeaea;
-  border: 1px solid #e2b6b6;
-  border-radius: 10px;
   padding: 12px 14px;
+  border-radius: 12px;
+
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+
   font-size: 13px;
   font-weight: 700;
   text-align: center;
 }
 
 .errorText {
-  margin: -4px 0 0 10px;
-  color: #b71c1c;
+  margin: -4px 0 0 8px;
+  color: #b91c1c;
   font-size: 12px;
 }
 
+/* ================= LOADING OVERLAY ================= */
 .generatingOverlay {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: auto;
 }
 
 .generatingCard {
   background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
   padding: 18px 22px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-  width: min(560px, calc(100vw - 32px));
+  width: min(520px, calc(100vw - 32px));
+
   text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+
+  animation: pop 0.25s ease;
 }
 
 .generatingTitle {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
-  color: #1a202c;
-  margin: 0 0 6px 0;
+  color: #111827;
+  margin-bottom: 6px;
 }
 
 .generatingSubtitle {
   font-size: 13px;
-  color: #4a5568;
-  margin: 0;
+  color: #6b7280;
 }
 
+/* ================= ANIMATIONS ================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
