@@ -1448,6 +1448,10 @@ export default function DragonfireToolsSidebar() {
                         ))}
                       </select>
                     </div>
+                    <CustomSidebar
+                      data={sectionData.walls}
+                      customStyles={`${styles.sidebarOverride} ${styles.sidebarWhiteTheme}`}
+                    />
                   </div>
                 ) : activeSection === "help" ? (
                   <div className={`${styles.helpPanel}`}>
@@ -1515,12 +1519,10 @@ export default function DragonfireToolsSidebar() {
                   <DragonfireQuoteSidebarPanel />
                 ) : (
                   sectionData[activeSection] && (
-                    // <div className={styles.panelSection}>
-                    {/* <CustomSidebar
-                        data={sectionData[activeSection]}
-                        customStyles={`${styles.sidebarOverride} ${styles.sidebarWhiteTheme}`}
-                      /> */}
-                    // </div>
+                    <CustomSidebar
+                      data={sectionData[activeSection]}
+                      customStyles={`${styles.sidebarOverride} ${styles.sidebarWhiteTheme}`}
+                    />
                   )
                 )}
               </div>
