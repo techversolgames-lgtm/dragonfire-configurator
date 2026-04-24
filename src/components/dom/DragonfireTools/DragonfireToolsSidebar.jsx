@@ -29,6 +29,7 @@ import {
   TV_SIZE_INCHES,
   tvDiagonalInchesToWidthHeightM,
 } from "@/data/DragonfireTools/roomItems";
+import Select from "@/components/dom/Select";
 import styles from "@/styles/dom/DragonfireTools/DragonfireToolsSidebar.module.scss";
 import DragonfireQuoteSidebarPanel from "./DragonfireQuoteSidebarPanel";
 import { useDragonfireTutorial } from "./DragonfireTutorialContext";
@@ -316,13 +317,6 @@ export default function DragonfireToolsSidebar() {
       text: "Apply to all walls",
       defaultValue: handleApplyToAllWalls,
     },
-    showFloorGrid: {
-      type: "boolean",
-      name: "showFloorGrid",
-      label: "Show Grid",
-      defaultValue: true,
-      currentValue: showFloorGrid !== false,
-    },
     dimensionUnits: {
       name: "dimensionUnits",
       label: "Dimension line unit",
@@ -344,6 +338,13 @@ export default function DragonfireToolsSidebar() {
       step: 1,
       min: 8,
       max: 72,
+    },
+    showFloorGrid: {
+      type: "boolean",
+      name: "showFloorGrid",
+      label: "Show Floor Grid",
+      defaultValue: true,
+      currentValue: showFloorGrid !== false,
     },
 
     toggleDimensionLinesButton: {
@@ -393,10 +394,11 @@ export default function DragonfireToolsSidebar() {
     units: {
       unitSystem: sidebarData.unitSystem,
       measurementUnits: sidebarData.measurementUnits,
-      showFloorGrid: sidebarData.showFloorGrid,
       dimensionUnits: sidebarData.dimensionUnits,
-      toggleDimensionLinesButton: sidebarData.toggleDimensionLinesButton,
       dimensionLabelFontSize: sidebarData.dimensionLabelFontSize,
+      toggleDimensionLinesButton: sidebarData.toggleDimensionLinesButton,
+      showFloorGrid: sidebarData.showFloorGrid,
+
     },
     walls: {
       selectedWallHeightValue: sidebarData.selectedWallHeightValue,
@@ -1435,18 +1437,27 @@ export default function DragonfireToolsSidebar() {
                       <p className={styles.roomPresetHint}>
                         Width x Length (ft)
                       </p>
-                      <select
-                        className={styles.roomPresetSelect}
-                        value={roomPresetId}
-                        onChange={handleRoomPresetChange}
-                      >
-                        <option value="">Select preset</option>
-                        {ROOM_SIZE_PRESETS.map((preset) => (
-                          <option key={preset.id} value={preset.id}>
-                            {preset.label}
-                          </option>
-                        ))}
-                      </select>
+                      <Select
+                        options={ROOM_SIZE_PRESETS.map((preset) => ({
+                          label: preset.label,
+                          value: preset.id,
+                        }))}
+                        value={
+                          ROOM_SIZE_PRESETS.find((p) => p.id === roomPresetId)
+                            ? {
+                              label: ROOM_SIZE_PRESETS.find((p) => p.id === roomPresetId).label,
+                              value: roomPresetId,
+                            }
+                            : null
+                        }
+                        name="roomPreset"
+                        setData={(name, val) => {
+                          setRoomPresetId(val);
+                          const preset = ROOM_SIZE_PRESETS.find((p) => p.id === val);
+                          if (preset) handleApplyRoomSizePreset(preset);
+                        }}
+                        className={styles.select}
+                      />
                     </div>
                     <CustomSidebar
                       data={sectionData.walls}

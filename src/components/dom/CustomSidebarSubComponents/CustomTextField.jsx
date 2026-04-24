@@ -48,7 +48,6 @@ const CustomTextField = ({ styles, value, setData }) => {
           {value.tooltip && <CustomTooltip content={value.tooltip} />}
           <div>{renderContent()}</div>
         </div>
-        <br />
       </div>
     );
   }
@@ -62,7 +61,6 @@ const CustomTextField = ({ styles, value, setData }) => {
         {value.tooltip && <CustomTooltip content={value.tooltip} />}
       </div>
       <div className={styles.inputContainer}>{renderContent()}</div>
-      <br />
     </div>
   );
 };

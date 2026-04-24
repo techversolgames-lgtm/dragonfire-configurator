@@ -11,26 +11,20 @@ const CustomCheckbox = ({ key, styles, value, setData }) => {
   const currentValue = useAnimationStore((state) => state[value.name]);
 
   return (
-    <div key={key} className={styles.optionContainer}>
+    <div key={key} className={styles.checkboxRow}>
       <div className={styles.labelContainer}>
         <label>{value.label}</label>
         {value.tooltip && <CustomTooltip content={value.tooltip} />}
       </div>
-
-      {/* <br /> */}
-      <div className={styles.inputContainer} style={{ width: "8%" }}>
-        <input
-          type="checkbox"
-          checked={currentValue !== undefined ? currentValue : value.defaultValue}
-          disabled={condition}
-          onChange={(e) => {
-            setData(value.name, e.target.checked);
-          }}
-        />
-      </div>
-      {/* 
-              <hr />*/}
-      <br />
+      <input
+        type="checkbox"
+        checked={currentValue !== undefined ? currentValue : value.defaultValue}
+        disabled={condition}
+        onChange={(e) => {
+          setData(value.name, e.target.checked);
+        }}
+        className={styles.checkboxInput}
+      />
     </div>
   );
 };

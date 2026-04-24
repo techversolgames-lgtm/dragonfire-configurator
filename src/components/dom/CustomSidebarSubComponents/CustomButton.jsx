@@ -15,10 +15,10 @@ const CustomButton = ({ key, styles, value }) => {
       </div>
 
       <div className={styles.inputContainer}>
-        <div style={{ display: 'flex', width:"100%", alignItems: 'center', gap: 10 }}>
+        <div style={{ display: 'flex', width: "100%", alignItems: 'center', gap: 10 }}>
           {value.inlineAdornment}
           <button
-            style={{ backgroundColor: value.color || "#3790f6", flex: 1, textAlign: 'center' }}
+           
             className={styles.normalButton}
             onClick={value.defaultValue}
             disabled={condition}
@@ -27,10 +27,6 @@ const CustomButton = ({ key, styles, value }) => {
           </button>
         </div>
       </div>
-
-      <br />
-      <hr />
-      <br />
     </div>
   );
 };

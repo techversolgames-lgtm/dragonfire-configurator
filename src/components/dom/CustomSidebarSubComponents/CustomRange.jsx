@@ -22,12 +22,13 @@ const CustomRange = ({ key, styles, value, setData, measurementUnits }) => {
   // Note: condition logic removed as it was tied to useAnimationStore
 
   const inputStyle = {
-    backgroundColor: condition ? "#040404" : "#3b61764d",
-    padding: "8px",
-    marginTop: "-7px",
+    backgroundColor: condition ? "#040404" : "#9aa4aa4d",
+    // padding: "2px 4px",
+    paddingLeft: "10px",
+    // marginTop: "0px",
     borderRadius: "3px",
     fontSize: "11px",
-    width: "60px",
+    // width: "45px",
     border: "none",
     color: "inherit",
     textAlign: "center",
@@ -44,6 +45,7 @@ const CustomRange = ({ key, styles, value, setData, measurementUnits }) => {
       </div>
       <div className={styles.inputContainer}>
         <Range
+          style={{ flex: 1, minWidth: 0 }}
           name={value.name}
           min={value.min}
           step={value.step || defaults.step}
@@ -57,38 +59,42 @@ const CustomRange = ({ key, styles, value, setData, measurementUnits }) => {
         <input
           type="number"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          step={value.step || 1}
+          min={value.min * conversionFactor}
+          max={value.max * conversionFactor}
+          onChange={(e) => {
+            const val = Number(e.target.value);
+            setInputValue(e.target.value);
+
+            if (!isNaN(val)) {
+              let meterValue = val / conversionFactor;
+
+              if (meterValue < value.min) meterValue = value.min;
+              if (meterValue > value.max) meterValue = value.max;
+
+              setData(value.name, meterValue);
+            }
+          }}
           onBlur={(e) => {
             let val = Number(e.target.value);
             if (isNaN(val)) {
               val = value.defaultValue * conversionFactor;
             }
 
-            // Convert from the selected display unit back to meters.
             let meterValue = val / conversionFactor;
 
             if (meterValue < value.min) meterValue = value.min;
             if (meterValue > value.max) meterValue = value.max;
 
-            // Update display value
             const newDisplayValue = (meterValue * conversionFactor).toFixed(2);
             setInputValue(newDisplayValue);
             setData(value.name, meterValue);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.target.blur();
-            }
           }}
           disabled={condition}
           className={styles.numberInput}
           style={inputStyle}
         />
       </div>
-
-      {/* 
-              <hr />*/}
-      <br />
     </div>
   );
 };

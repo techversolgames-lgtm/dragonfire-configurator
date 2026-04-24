@@ -86,7 +86,7 @@
 }
 
 .panelSection {
-  background:transparent;
+  background: transparent;
   padding: 2px;
 }
 
@@ -127,7 +127,7 @@
   background: #f4f4f4;
   border-radius: 20px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-  
+
   overflow: hidden;
 
   transform: translateX(-10px);
@@ -282,6 +282,41 @@
 
 .roomItemSlider {
   width: 100%;
+}
+
+.roomPresetSection {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 12px;
+}
+
+.roomPresetTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.roomPresetHint {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.roomPresetSelect {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: #6366f1;
+    background: #fff;
+  }
 }
 
 .cabinetOptionLabel {

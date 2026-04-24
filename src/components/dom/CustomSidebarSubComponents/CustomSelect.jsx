@@ -72,7 +72,6 @@ const CustomSelect = ({
             isDisabled={condition}
           />
         </div>
-        <br />
       </div>
       {value.children &&
         value.children.map((child, index) => renderItem(index, child))}
