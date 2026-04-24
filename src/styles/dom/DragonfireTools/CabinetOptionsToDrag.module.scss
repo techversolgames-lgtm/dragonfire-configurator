@@ -4,8 +4,13 @@
   position: fixed;
   right: 20px;
   top: 100px;
-  z-index: 10;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+
+  @media (max-width: 768px) {
+    right: 10px;
+    left: 10px; // full width feel
+    top: auto;
+    bottom: 20px;
+  }
 }
 
 .open {
@@ -23,7 +28,9 @@
 /* PANEL */
 .panel {
   width: 325px;
-  height: 30vh;
+  height: auto;
+  min-height: 200px;
+
   border-radius: 18px;
   padding: 14px;
 
@@ -35,12 +42,17 @@
   justify-content: space-between;
 
   backdrop-filter: blur(12px);
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    border-radius: 14px;
+  }
 }
 
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: space-between;
   position: relative;
 }
 
@@ -48,7 +60,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-left: auto; 
+  margin-left: auto;
 }
 
 .dragIcon {
@@ -145,7 +157,7 @@
 }
 
 .card {
-  min-width: 115px;
+  min-width: 100px;
   background: #ffffff;
   border-radius: 16px;
   border: 1.5px solid #dcdcdc;
@@ -157,6 +169,11 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
 
   transform: translateY(0) scale(1);
+
+  @media (max-width: 480px) {
+    min-width: 85px;
+    padding: 10px;
+  }
 }
 
 /* hover stays same but softer */
@@ -223,6 +240,10 @@
   cursor: pointer;
   transition: 0.25s;
   z-index: 5;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .navBtnLeft:hover,
