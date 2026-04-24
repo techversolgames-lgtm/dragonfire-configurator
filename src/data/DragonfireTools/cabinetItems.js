@@ -268,7 +268,7 @@ const workbenchAllOptions = [
   ...shortCabinetOptions,
   ...mediumCabinetOptions,
   ...cabinetPackageOptions,
-    withoutCabinetOptions,
+  
 ];
 
 /* ---------------- CATEGORIES ---------------- */
@@ -309,7 +309,7 @@ reverseIdMap[103] = {
   id: 103,
   label: "Scale Character",
   itemType: "floor",
-  
+
   boundingBox: { width: 0.6, height: 1.75, depth: 0.45 },
   scale: 1,
 };
@@ -326,6 +326,6 @@ export {
   roomItemsOptions,
   mainCategories,
   reverseIdMap,
-  withoutCabinetOptions,
   
+
 };
