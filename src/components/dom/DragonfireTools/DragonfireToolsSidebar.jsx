@@ -981,7 +981,7 @@ export default function DragonfireToolsSidebar() {
             <FaTrash size={22} aria-hidden />
           </button>
         </div>
-        {activeSection && (
+        {activeSection && activeSection !== "config" && (
           <div className={styles.sectionPanel}>
             <button
               type="button"
@@ -1551,6 +1551,10 @@ export default function DragonfireToolsSidebar() {
           </div>
         )}
       </div>
+      <CabinetOptionsToDrag
+        isOpen={activeSection === "config"}
+        onClose={() => setActiveSection(null)}
+      />
     </div>
   );
 }

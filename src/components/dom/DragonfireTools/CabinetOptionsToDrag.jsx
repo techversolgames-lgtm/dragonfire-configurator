@@ -36,7 +36,7 @@ const ChevronRight = () => (
   </svg>
 );
 
-const CabinetOptionsToDrag = () => {
+const CabinetOptionsToDrag = ({ isOpen = false, onClose }) => {
   /* ---------------- STATE ---------------- */
   const [step, setStep] = useState(1);
 
@@ -176,7 +176,7 @@ const CabinetOptionsToDrag = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${isOpen ? styles.open : styles.closed}`}>
       <div className={styles.panel}>
         {/* HEADER */}
         <div className={styles.header}>
@@ -191,6 +191,12 @@ const CabinetOptionsToDrag = () => {
             {step === 2 && "Choose Configuration"}
             {step === 3 && "Drag & Place Item"}
           </h3>
+
+          {onClose && (
+            <button className={styles.closeBtn} onClick={onClose} aria-label="Close panel">
+              ✕
+            </button>
+          )}
         </div>
 
         {/* SLIDER */}
@@ -249,4 +255,5 @@ const CabinetOptionsToDrag = () => {
   );
 };
 
+export { CabinetOptionsToDrag };
 export default CabinetOptionsToDrag;

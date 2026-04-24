@@ -26,7 +26,7 @@ const NavCubeContainer = ({
       controlsRef.current.setTarget(...target);
     }
   }, [controlsRef, target, renderPriority]);
-  const camX = size.width / 2 - 100 + leftOffset;
+  const camX = size.width / 2 - 80;
   return (
     <>
       <Hud renderPriority={!renderPriority ? 3 : renderPriority}>
@@ -707,7 +707,7 @@ const CameraAnimations = ({ controlsRef, orbitRadius }) => {
       invalidate();
     }
 
-    return () => {};
+    return () => { };
   }, [navCubeMeshNameSelect, controlsRef, orbitRadius]);
 
   return <></>;

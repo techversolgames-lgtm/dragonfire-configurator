@@ -5,6 +5,19 @@
   right: 20px;
   top: 100px;
   z-index: 10;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.closed {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
 }
 
 /* PANEL */
@@ -28,8 +41,6 @@
 .header {
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
 
   padding-bottom: 15px;
   margin-bottom: 5px;
@@ -57,6 +68,31 @@
   color: #496991;
   padding: 5px 10px;
   transition: 0.2s;
+}
+
+/* CLOSE BUTTON */
+.closeBtn {
+  position: absolute;
+  right: 0;
+  top: 30%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 8px;
+  background: #eaeaea;
+  color: #555;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.closeBtn:hover {
+  background: #ac0a0add;
+  color: #fff;
 }
 
 
