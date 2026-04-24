@@ -126,7 +126,7 @@ function NavCubeMesh(props) {
         RevertToPreviousColor(selectedMeshName, selectedMesh);
 
         //Apply the material to currently selected mesh
-        ApplyMaterialColor(mesh, "#f08322");
+        ApplyMaterialColor(mesh, "#7793a1");
 
         //Update to latest selected mesh
         setSelectedMesh(mesh);
@@ -136,7 +136,7 @@ function NavCubeMesh(props) {
       setSelectedMeshName(meshName);
       setSelectedMesh(mesh);
       //Apply the material to currently selected mesh
-      ApplyMaterialColor(mesh, "#f08322");
+      ApplyMaterialColor(mesh, "#abbdc6");
     }
     useAnimationStore.setState({ navCubeMeshNameSelect: meshName });
     invalidate();
@@ -150,7 +150,7 @@ function NavCubeMesh(props) {
 
     // Create a new material with a darker highlighted appearance
     if (selectedMesh !== mesh) {
-      ApplyMaterialColor(mesh, "#914f14");
+      ApplyMaterialColor(mesh, "#93b4c498");
       invalidate();
     }
 
