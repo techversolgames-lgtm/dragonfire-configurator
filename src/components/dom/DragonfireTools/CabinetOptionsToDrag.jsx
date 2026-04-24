@@ -161,7 +161,10 @@ const CabinetOptionsToDrag = ({ isOpen = false, onClose }) => {
 
         case "corner":
           return standingCabinetOptions.filter((i) => i.bIsCornerCabinet);
-
+        case "locker":
+          return standingCabinetOptions.filter((i) =>
+            i.label.toLowerCase().includes("locker")
+          );
 
         default:
           return [];

@@ -140,16 +140,6 @@ const standingCabinetOptions = [
     boundingBox: { width: 1.18, height: 1.02, depth: 0.66 },
     scale: 1,
   },
-  {
-    label: "Locker Cabinet",
-    image: "/images/dragonfire-tools/tool_cabinets/webp/Locker-cabinet.webp",
-    id: 8,
-    type: "cabinet",
-    itemType: "floor",
-    modelURL: "/models/dragonfire-tools/chair_blue.glb",
-    boundingBox: { width: 1.18, height: 1.02, depth: 0.66 },
-    scale: 1,
-  },
   // Wall cabinets
   {
     label: "Wall Cabinet",
@@ -190,7 +180,6 @@ const standingCabinetOptions = [
     type: "cabinet",
     itemType: "floor",
     bIsCornerCabinet: true,
-    bIsCornerCabinet: true,
     boundingBox: {
       width: 1.031,
       height: 0.95,
@@ -215,6 +204,16 @@ const standingCabinetOptions = [
     boundingBox: { width: 0.9, height: 0.6, depth: 0.9 },
     scale: 1,
   },
+  {
+    label: "Locker Cabinet",
+    image: "/images/dragonfire-tools/tool_cabinets/locker_cabinet.png",
+    id: 16,
+    type: "cabinet",
+    itemType: "floor",
+    modelURL: "/models/dragonfire-tools/locker.glb",
+    boundingBox: { width: 0.9, height: 1.8, depth: 0.6 },
+    scale: 1,
+  }
 ];
 
 /* ---------------- PACKAGES ---------------- */
@@ -255,6 +254,11 @@ const cabinetSubCategories = [
     label: "Corner Cabinets",
     type: "corner",
     image: "/images/dragonfire-tools/tool_cabinets/webp/lower-corner-cabinet.webp",
+  },
+  {
+    label: "Locker Cabinets",
+    type: "locker",
+    image: "/images/dragonfire-tools/tool_cabinets/locker_cabinet.png",
   },
 ];
 
@@ -304,6 +308,7 @@ reverseIdMap[103] = {
   id: 103,
   label: "Scale Character",
   itemType: "floor",
+  
   boundingBox: { width: 0.6, height: 1.75, depth: 0.45 },
   scale: 1,
 };
