@@ -1256,18 +1256,29 @@ export default function DragonfireToolsSidebar() {
                             {showBase && (
                               <div className={styles.cabinetOptionRow}>
                                 <span className={styles.cabinetOptionLabel}>Base</span>
-                                <select
-                                  value={placement.baseOption ?? "none"}
-                                  onChange={handleCabinetBaseOptionChange}
-                                  className={styles.cabinetOptionSelect}
-                                >
-                                  <option value="none">None</option>
-                                  <option value="wheel">Wheel</option>
-                                  <option value="riser">Leveling feet</option>
-                                  <option value="riserLowProfile">
-                                    Leveling feet low profile
-                                  </option>
-                                </select>
+                                <Select
+                                  options={[
+                                    { label: "None", value: "none" },
+                                    { label: "Option 1", value: "option1" },
+                                    { label: "Option 2", value: "option2" },
+                                    // apni actual options yahan daalo
+                                  ]}
+                                  value={
+                                    placement.baseOption
+                                      ? {
+                                        label: placement.baseOption, // agar label different hai to map karo
+                                        value: placement.baseOption,
+                                      }
+                                      : { label: "None", value: "none" }
+                                  }
+                                  name="baseOption"
+                                  setData={(name, val) => {
+                                    handleCabinetBaseOptionChange({
+                                      target: { value: val }
+                                    });
+                                  }}
+                                  className={styles.select}
+                                />
                               </div>
                             )}
                           </div>

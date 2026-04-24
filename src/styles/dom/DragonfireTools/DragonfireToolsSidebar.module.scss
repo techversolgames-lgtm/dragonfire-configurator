@@ -158,7 +158,7 @@
 }
 
 .panelCloseButton:hover {
-  background: #051728;
+  background: #082C4C;
   color: #fff;
 }
 
@@ -443,12 +443,18 @@
   padding: 12px;
   border-radius: 10px;
   border: none;
-  background: linear-gradient(180deg, #d32f2f, #b71c1c);
+  background: linear-gradient(135deg, #6a9099, #4a6f81);
   color: #fff;
   font-weight: 600;
   cursor: pointer;
 }
 
+.cabinetOptionZoomButton:hover {
+  background: #082C4C;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
 .cabinetOptionDeleteButton {
   width: 100%;
   padding: 12px;
@@ -611,7 +617,7 @@
 }
 
 .helpMainBtn:hover {
-  background: #051728;
+  background: #082C4C;
   transform: translateY(-1px);
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
 }
