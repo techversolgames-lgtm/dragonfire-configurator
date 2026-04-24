@@ -48,6 +48,9 @@ const CabinetOptionsToDrag = ({ isOpen = false, onClose }) => {
   });
 
   const sliderRef = useRef(null);
+  const wrapperRef = useRef(null);
+  const isDraggingRef = useRef(false);
+  const dragOffsetRef = useRef({ x: 0, y: 0 });
 
   const setSelectedDeckItem = useDragNDropStore(
     (state) => state.setSelectedDeckItem
@@ -71,6 +74,42 @@ const CabinetOptionsToDrag = ({ isOpen = false, onClose }) => {
 
   const goNext = () => setStep((s) => Math.min(s + 1, 3));
   const goBack = () => setStep((s) => Math.max(s - 1, 1));
+
+  /* ---------------- DRAG ICON HANDLER ---------------- */
+  const handleDragIconMouseDown = (e) => {
+    e.preventDefault();
+    const el = wrapperRef.current;
+    if (!el) return;
+
+    const rect = el.getBoundingClientRect();
+    dragOffsetRef.current = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    };
+    isDraggingRef.current = true;
+    el.style.transition = "none";
+    el.style.right = "auto";
+
+    const onMouseMove = (moveEvent) => {
+      if (!isDraggingRef.current) return;
+      const x = moveEvent.clientX - dragOffsetRef.current.x;
+      const y = moveEvent.clientY - dragOffsetRef.current.y;
+      const maxX = window.innerWidth - el.offsetWidth;
+      const maxY = window.innerHeight - el.offsetHeight;
+      el.style.left = Math.max(0, Math.min(x, maxX)) + "px";
+      el.style.top = Math.max(0, Math.min(y, maxY)) + "px";
+    };
+
+    const onMouseUp = () => {
+      isDraggingRef.current = false;
+      el.style.transition = "";
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+  };
 
   /* ---------------- OPTIONS LOGIC ---------------- */
   const optionsToShow = useMemo(() => {
@@ -177,7 +216,7 @@ const CabinetOptionsToDrag = ({ isOpen = false, onClose }) => {
   };
 
   return (
-    <div className={`${styles.wrapper} ${isOpen ? styles.open : styles.closed}`}>
+    <div ref={wrapperRef} className={`${styles.wrapper} ${isOpen ? styles.open : styles.closed}`}>
       <div className={styles.panel}>
         {/* HEADER */}
         <div className={styles.header}>
@@ -189,7 +228,10 @@ const CabinetOptionsToDrag = ({ isOpen = false, onClose }) => {
 
           <div className={styles.headerRight}>
             {/* Drag icon */}
-            <GrDrag className={styles.dragIcon} />
+            <GrDrag
+              className={styles.dragIcon}
+              onMouseDown={handleDragIconMouseDown}
+            />
 
             {/* Close button */}
             {onClose && (
