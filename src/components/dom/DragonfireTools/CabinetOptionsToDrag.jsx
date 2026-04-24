@@ -10,7 +10,8 @@ import {
   roomItemsOptions,
   withoutCabinetOptions,
 } from "@/data/DragonfireTools/cabinetItems";
-
+import { GrDrag } from "react-icons/gr";
+import { IoArrowBack, IoClose } from "react-icons/io5";
 /* ICONS */
 const ChevronLeft = () => (
   <svg viewBox="0 0 24 24" fill="none">
@@ -182,23 +183,33 @@ const CabinetOptionsToDrag = ({ isOpen = false, onClose }) => {
         <div className={styles.header}>
           {step > 1 && (
             <button className={styles.backBtn} onClick={goBack}>
-              Back
+              <IoArrowBack />
             </button>
           )}
 
-          <h3 className={styles.title}>
+          <div className={styles.headerRight}>
+            {/* Drag icon */}
+            <GrDrag className={styles.dragIcon} />
+
+            {/* Close button */}
+            {onClose && (
+              <button
+                className={styles.closeBtn}
+                onClick={onClose}
+                aria-label="Close panel"
+              >
+                <IoClose />
+              </button>
+            )}
+          </div>
+        </div>
+        <div className={styles.contentHeader}>
+          <h3>
             {step === 1 && "Select Category"}
             {step === 2 && "Choose Configuration"}
             {step === 3 && "Drag & Place Item"}
           </h3>
-
-          {onClose && (
-            <button className={styles.closeBtn} onClick={onClose} aria-label="Close panel">
-              ✕
-            </button>
-          )}
         </div>
-
         {/* SLIDER */}
         <div className={styles.sliderWrapper}>
           <button onClick={slideLeft} className={styles.navBtnLeft}>
