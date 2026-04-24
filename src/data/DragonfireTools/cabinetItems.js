@@ -210,7 +210,7 @@ const standingCabinetOptions = [
     id: 16,
     type: "cabinet",
     itemType: "floor",
-    modelURL: "/models/dragonfire-tools/locker.glb",
+    modelURL: "/models/dragonfire-tools/locker_full.glb",
     boundingBox: { width: 0.9, height: 1.8, depth: 0.6 },
     scale: 1,
   }
@@ -268,6 +268,7 @@ const workbenchAllOptions = [
   ...shortCabinetOptions,
   ...mediumCabinetOptions,
   ...cabinetPackageOptions,
+    withoutCabinetOptions,
 ];
 
 /* ---------------- CATEGORIES ---------------- */
@@ -326,4 +327,5 @@ export {
   mainCategories,
   reverseIdMap,
   withoutCabinetOptions,
+  
 };
