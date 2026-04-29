@@ -589,6 +589,9 @@ export default function DragonfireToolsSidebar() {
   const is6Drawer = placement?.cabinetId === 9;
   const is11Drawer = placement?.cabinetId === 10;
   const isLowerCorner = placement?.cabinetId === 11;
+  const is7ftOr9ftWorkbench = [2, 3, 4, 5, 6, 7].includes(
+    placement?.cabinetId,
+  );
   const isUpperCorner = placement?.cabinetId === 12;
   const isWallCabinet = placement?.cabinetId === 13;
   const is3WallCabinets = placement?.cabinetId === 14;
@@ -1200,8 +1203,8 @@ export default function DragonfireToolsSidebar() {
                           <div className={styles.sectionBlock}>
                             <h4 className={styles.sectionTitle}>Properties</h4>
 
-                            {/* Show backsplash only for lower corner cabinet */}
-                            {isLowerCorner && (
+                            {/* Show backsplash for lower corner + 7ft/9ft workbenches */}
+                            {(isLowerCorner || is7ftOr9ftWorkbench) && (
                               <label className={styles.toggleRow}>
                                 <span>Backsplash</span>
                                 <input
