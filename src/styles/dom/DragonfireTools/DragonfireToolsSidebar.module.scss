@@ -245,6 +245,49 @@
   width: 100%;
 }
 
+.roomItemOptionPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; 
+}
+
+.roomItemOptionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* FIX number input look */
+.roomItemNumberInput {
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  padding: 0 10px;
+  font-size: 13px;
+  width: 100%;
+
+  &:focus {
+    border-color: #6a9099;
+    box-shadow: 0 0 0 2px rgba(106, 144, 153, 0.15);
+    outline: none;
+  }
+}
+
+/* slider spacing fix */
+.roomItemRangeControl {
+  // margin-top: -3px;
+  // margin-bottom: 5cap;
+}
+
+/* hint text */
+.roomItemHint {
+  font-size: 12px;
+  color: #777;
+  // margin-top: -6px;
+}
+
 /* 🔥 UNIVERSAL FORM ROW (sab same size ho jayenge) */
 .cabinetOptionRow,
 .roomItemOptionRow,
@@ -455,6 +498,7 @@
   transform: translateY(-1px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }
+
 .cabinetOptionDeleteButton {
   width: 100%;
   padding: 12px;

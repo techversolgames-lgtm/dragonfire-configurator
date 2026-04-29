@@ -3,12 +3,8 @@ import styles from "@/styles/dom/DragonfireTools/CabinetOptionsToDrag.module.scs
 import useDragNDropStore from "@/stores/useDragNDropStore";
 import {
   mainCategories,
-  cabinetSubCategories,
-  shortCabinetOptions,
-  mediumCabinetOptions,
-  standingCabinetOptions,
-  roomItemsOptions,
-  withoutCabinetOptions,
+  subCategoriesByCategory,
+  getItems,
 } from "@/data/DragonfireTools/cabinetItems";
 import { GrDrag } from "react-icons/gr";
 import { IoArrowBack, IoClose } from "react-icons/io5";
@@ -116,60 +112,11 @@ const CabinetOptionsToDrag = ({ isOpen = false, onClose }) => {
     if (step === 1) return mainCategories;
 
     if (step === 2) {
-      if (selection.category === "cabinet") return cabinetSubCategories;
-
-      if (selection.category === "workbench") {
-        return [
-          {
-            label: "7ft Workbench",
-            type: "7ft",
-            image: "/images/dragonfire-tools/7ft_workbench/12D.png",
-          },
-          {
-            label: "9ft Workbench",
-            type: "9ft",
-            image: "/images/dragonfire-tools/9ft_workbenches/18D.png",
-          },
-          { label: "With Cabinet", type: "with", image: "/images/dragonfire-tools/combo/worktable_package.png", },
-          { label: "Without Cabinet", type: "without", image: "/images/dragonfire-tools/pro-series-worktable.png", },
-
-        ];
-      }
+      return subCategoriesByCategory[selection.category] || [];
     }
 
     if (step === 3) {
-      if (selection.category === "room") {
-        return roomItemsOptions;
-      }
-      switch (selection.subCategory) {
-        case "7ft":
-          return shortCabinetOptions;
-
-        case "9ft":
-          return mediumCabinetOptions;
-
-        case "without":
-          return withoutCabinetOptions;
-
-        case "drawer":
-          return standingCabinetOptions.filter((i) =>
-            i.label.toLowerCase().includes("drawer")
-          );
-
-        case "wall":
-          return standingCabinetOptions.filter((i) => i.itemType === "wall");
-
-        case "corner":
-          return standingCabinetOptions.filter((i) => i.bIsCornerCabinet);
-        case "locker":
-          return standingCabinetOptions.filter((i) =>
-            i.label.toLowerCase().includes("locker")
-          );
-
-        default:
-          return [];
-      }
-
+      return getItems(selection.category, selection.subCategory);
     }
 
     return [];
@@ -187,13 +134,16 @@ const CabinetOptionsToDrag = ({ isOpen = false, onClose }) => {
   const handleClick = (option) => {
     if (step === 1) {
       updateSelection("category", option.type);
+      updateSelection("subCategory", null);
+      updateSelection("item", null);
 
-      if (option.type === "room") {
-        setSelection({
-          category: "room",
+      if ((subCategoriesByCategory[option.type] || []).length === 0) {
+        setSelection((prev) => ({
+          ...prev,
+          category: option.type,
           subCategory: null,
           item: null,
-        });
+        }));
         setStep(3);
       }
 
@@ -203,6 +153,7 @@ const CabinetOptionsToDrag = ({ isOpen = false, onClose }) => {
 
     if (step === 2) {
       updateSelection("subCategory", option.type);
+      updateSelection("item", null);
 
       // UX smooth transition
       setTimeout(() => {

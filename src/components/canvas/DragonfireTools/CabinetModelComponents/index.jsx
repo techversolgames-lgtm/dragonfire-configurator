@@ -20,6 +20,7 @@ import EighteenDrawerPTemplate from "./cabinetPackages/18DrawerPTemplate";
 import TwentyDrawerPTemplate from "./cabinetPackages/20DrawerPTemplate";
 import TwentyFourDrawerPTemplate from "./cabinetPackages/24DrawerPTemplate";
 import ThirtyDrawerPTemplate from "./cabinetPackages/30DrawerPTemplate";
+import ElevenDrawerPackageTemplate from "./cabinetPackages/11DrawerPackageTemplate";
 import TVModel from "../RoomItemModels/TVModel";
 import DoorModel from "../RoomItemModels/DoorModel";
 import WindowModel from "../RoomItemModels/WindowModel";
@@ -33,23 +34,22 @@ const cabinetModelsMap = {
   5: EighteenDrawersTemplate,
   6: TwentyDrawersTemplate,
   7: ThirtyDrawersTemplate,
-
-  // 🔥 FIXED SECTION
+  8: LockerTemplate,
   9: SixDrawersTemplate,
-
-  // ❗ yeh galat hai agar 22 drawer hai
-  10: ElevenDrawersTemplate, // replace with correct template
-
+  10: ElevenDrawersTemplate,
   11: LowerCornerTemplate,
   12: UpperCornerTemplate,
   13: WallCabinetTemplate,
   14: ThreeWallCabinetsTemplate,
   15: FourWallCabinetsTemplate,
-
-  16: LockerTemplate,
-
+  16: FiftySixInchWorktablePTemplate,
   17: TwelveDrawerPTemplate,
-
+  18: SeventeenDrawerPTemplate,
+  19: EighteenDrawerPTemplate,
+  20: TwentyDrawerPTemplate,
+  21: TwentyFourDrawerPTemplate,
+  22: ThirtyDrawerPTemplate,
+  23: ElevenDrawerPackageTemplate,
   100: TVModel,
   101: DoorModel,
   102: WindowModel,

@@ -48,7 +48,7 @@ const endMousePosition = new THREE.Vector2();
 const wallDragDisplacementVector = new THREE.Vector3();
 
 const minAllowedOrbitDistance = 1; //pixel
-const minWallCabinetY = 1.37 ;
+const minWallCabinetY = 1.37;
 const dragFallbackRaycaster = new THREE.Raycaster();
 
 function isUpperCornerCabinet(meta) {
@@ -92,7 +92,7 @@ const RoomModel = () => {
   const floorMaterialDef = resolveFloorMaterial(floorMaterialId);
   const defaultFloorMaterial = getDefaultFloorMaterial();
   const useExrFallback = floorMaterialDef.useExrFallback === true;
-  const { camera } = useThree();
+  const { camera, gl } = useThree();
 
   let isPointerDown = false;
 
@@ -368,11 +368,11 @@ const RoomModel = () => {
       const boundedPosition =
         !isRoomItem && !isUpperCorner && activeWallIsActual
           ? clampWallCabinetPositionToWallBounds(
-              position,
-              activeWallLabel,
-              wallWidthMap,
-              width,
-            )
+            position,
+            activeWallLabel,
+            wallWidthMap,
+            width,
+          )
           : position;
 
       const candidatePlacement = {
@@ -517,34 +517,46 @@ const RoomModel = () => {
   ]);
 
   const handleClick = (e, wallLabel) => {
-    //measure distance to prevent orbit clicks
+    e.stopPropagation();
+
     const distance = startMousePosition.distanceTo(endMousePosition);
+
     if (distance < minAllowedOrbitDistance) {
-      // Don't clear cabinet selection if the user clicked a cabinet and released over floor/wall (keep outline)
       const wasPlacedItemClick = pointerDownOnPlacedItemRef.current;
       pointerDownOnPlacedItemRef.current = false;
 
       if (wallLabel === "floor") {
-        useAnimationStore.setState({ selectedWall: null });
+        useAnimationStore.setState({
+          selectedWall: null,
+          selectedWallName: null,
+        });
+
         if (!wasPlacedItemClick) {
           useDragNDropStore.setState({
             activeSceneItem: null,
             selectedPlacedIndex: null,
           });
         }
-      } else if (selectedWall === wallRefs[wallLabel]) {
-        useAnimationStore.setState({ selectedWall: null });
+
+      } else if (selectedWallName === wallLabel) {
+        useAnimationStore.setState({
+          selectedWall: null,
+          selectedWallName: null,
+        });
+
         if (!wasPlacedItemClick) {
           useDragNDropStore.setState({
             activeSceneItem: null,
             selectedPlacedIndex: null,
           });
         }
+
       } else {
         useAnimationStore.setState({
-          selectedWall: wallRefs[wallLabel],
+          selectedWall: wallRefs[wallLabel], 
           selectedWallName: wallLabel,
         });
+
         if (!wasPlacedItemClick) {
           useDragNDropStore.setState({
             activeSceneItem: null,
@@ -552,8 +564,6 @@ const RoomModel = () => {
           });
         }
       }
-    } else {
-      // console.log("too big");
     }
   };
 
@@ -695,10 +705,10 @@ const RoomModel = () => {
       const isRoomItem = id === 100 || id === 101 || id === 102;
       const pointOnWall = isRoomItem
         ? snapPointToWallPlane(
-            { x: e.point.x, y: e.point.y, z: e.point.z },
-            activeWallLabel,
-            wallWidthMap,
-          )
+          { x: e.point.x, y: e.point.y, z: e.point.z },
+          activeWallLabel,
+          wallWidthMap,
+        )
         : null;
       let cornerSnapped = null;
       if (isUpperCorner) {
@@ -751,31 +761,31 @@ const RoomModel = () => {
       const gapZ = isRoomItem || isUpperCorner ? 0 : inwardNormal.z * WALL_SNAP_GAP;
       const position = isRoomItem
         ? {
-            x: pointOnWall.x,
-            y: isDoor
-              ? FLOOR_Y + height / 2
-              : tvOrWindow
-                ? pointOnWall.y
-                : Math.max(minWallCabinetY, pointOnWall.y),
-            z: pointOnWall.z,
-          }
+          x: pointOnWall.x,
+          y: isDoor
+            ? FLOOR_Y + height / 2
+            : tvOrWindow
+              ? pointOnWall.y
+              : Math.max(minWallCabinetY, pointOnWall.y),
+          z: pointOnWall.z,
+        }
         : {
-            x: (cornerSnapped ? cornerSnapped.position.x : e.point.x) + offset.x + gapX,
-            y: isDoor
-              ? FLOOR_Y + height / 2
-              : tvOrWindow
-                ? e.point.y + offset.y
-                : Math.max(minWallCabinetY, e.point.y + offset.y),
-            z: (cornerSnapped ? cornerSnapped.position.z : e.point.z) + offset.z + gapZ,
-          };
+          x: (cornerSnapped ? cornerSnapped.position.x : e.point.x) + offset.x + gapX,
+          y: isDoor
+            ? FLOOR_Y + height / 2
+            : tvOrWindow
+              ? e.point.y + offset.y
+              : Math.max(minWallCabinetY, e.point.y + offset.y),
+          z: (cornerSnapped ? cornerSnapped.position.z : e.point.z) + offset.z + gapZ,
+        };
       const boundedPosition =
         !isRoomItem && !isUpperCorner
           ? clampWallCabinetPositionToWallBounds(
-              position,
-              activeWallLabel,
-              wallWidthMap,
-              width,
-            )
+            position,
+            activeWallLabel,
+            wallWidthMap,
+            width,
+          )
           : position;
       const candidatePlacement = {
         cabinetId: selectedDeckItem.id,
@@ -805,7 +815,6 @@ const RoomModel = () => {
       });
       useDragNDropStore.setState({
         floorPoint: { x: 10000000000000, y: 10000000000000, z: 10000000000000 },
-        selectedDeckItem: null,
       });
 
       isPointerDown = false;
@@ -880,7 +889,22 @@ const RoomModel = () => {
       isPointerDown = true;
     }
   }, [selectedDeckItem]);
+  useEffect(() => {
+    const handleMissClick = (e) => {
+      if (e.target !== gl.domElement) return;
+      useAnimationStore.setState({ selectedWall: null });
+      useDragNDropStore.setState({
+        activeSceneItem: null,
+        selectedPlacedIndex: null,
+      });
+    };
 
+    gl.domElement.addEventListener("pointerdown", handleMissClick);
+
+    return () => {
+      gl.domElement.removeEventListener("pointerdown", handleMissClick);
+    };
+  }, [gl]);
   return (
     <>
       {/* Front Wall (closest to camera) — wrapper so clicks on overlay meshes also place */}
@@ -906,8 +930,8 @@ const RoomModel = () => {
         >
           <custom4PointPlane args={frontWallArgs} />
           {disabledWallMap.front ||
-          (!selectedDeckItem && !isWallDragEnabled) ||
-          (selectedDeckItem?.itemType !== "wall" && !isWallDragEnabled) ? (
+            (!selectedDeckItem && !isWallDragEnabled) ||
+            (selectedDeckItem?.itemType !== "wall" && !isWallDragEnabled) ? (
             hiddenWallMaterial
           ) : (
             <meshBasicMaterial
@@ -963,8 +987,8 @@ const RoomModel = () => {
         >
           <custom4PointPlane args={backWallArgs} />
           {disabledWallMap.back ||
-          (!selectedDeckItem && !isWallDragEnabled) ||
-          (selectedDeckItem?.itemType !== "wall" && !isWallDragEnabled) ? (
+            (!selectedDeckItem && !isWallDragEnabled) ||
+            (selectedDeckItem?.itemType !== "wall" && !isWallDragEnabled) ? (
             hiddenWallMaterial
           ) : (
             <meshBasicMaterial
@@ -1020,8 +1044,8 @@ const RoomModel = () => {
         >
           <custom4PointPlane args={leftWallArgs} />
           {disabledWallMap.left ||
-          (!selectedDeckItem && !isWallDragEnabled) ||
-          (selectedDeckItem?.itemType !== "wall" && !isWallDragEnabled) ? (
+            (!selectedDeckItem && !isWallDragEnabled) ||
+            (selectedDeckItem?.itemType !== "wall" && !isWallDragEnabled) ? (
             hiddenWallMaterial
           ) : (
             <meshBasicMaterial
@@ -1077,8 +1101,8 @@ const RoomModel = () => {
         >
           <custom4PointPlane args={rightWallArgs} />
           {disabledWallMap.right ||
-          (!selectedDeckItem && !isWallDragEnabled) ||
-          (selectedDeckItem?.itemType !== "wall" && !isWallDragEnabled) ? (
+            (!selectedDeckItem && !isWallDragEnabled) ||
+            (selectedDeckItem?.itemType !== "wall" && !isWallDragEnabled) ? (
             hiddenWallMaterial
           ) : (
             <meshBasicMaterial
@@ -1138,7 +1162,7 @@ const RoomModel = () => {
             map={floorDiffMap}
             normalMap={floorNormMap}
             roughnessMap={floorRoughMap}
-            roughness={ 1}
+            roughness={1}
             metalness={floorMaterialDef.metalness ?? 0}
             envMapIntensity={0}
             reflectivity={0}

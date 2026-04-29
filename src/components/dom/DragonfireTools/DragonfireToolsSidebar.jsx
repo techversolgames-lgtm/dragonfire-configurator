@@ -106,8 +106,8 @@ const CABINET_12D_ID = 2;
 const CABINET_17D_ID = 3;
 const WORKTABLE_56_ID = 1;
 const LOCKER_ID = 8;
-const isCabinetId = (id) => id >= 1 && id <= 22;
-const baseOptionCabinetIds = [2, 3, 4, 5, 6, 7, 11];
+const isCabinetId = (id) => id >= 1 && id <= 23;
+const baseOptionCabinetIds = [2, 3, 4, 5, 6, 7, 8, 10, 11, 23];
 const MIDDLE_WORKBENCH_PACKAGE_IDS = [17, 18, 19, 20, 21, 22];
 const FT_TO_M = 0.3048;
 const ROOM_SIZE_PRESETS = [
@@ -641,7 +641,8 @@ export default function DragonfireToolsSidebar() {
       value !== "none" &&
       value !== "wheel" &&
       value !== "riser" &&
-      value !== "riserLowProfile"
+      value !== "riserLowProfile" &&
+      value !== "legs"
     )
       return;
     if (selectedPlacedIndex == null || !placement) return;
@@ -803,6 +804,10 @@ export default function DragonfireToolsSidebar() {
         y: 10000000000000,
         z: 10000000000000,
       },
+    });
+    //scale character disappear when reset triggers
+    useAnimationStore.setState({
+      showScaleCharacter: false,
     });
 
     setActiveSection(null);
@@ -1032,127 +1037,98 @@ export default function DragonfireToolsSidebar() {
                             </div>
                           ) : (
                             <>
-                              <div className={styles.roomItemOptionRow}>
-                                <span className={styles.cabinetOptionLabel}>
-                                  Length ({dimUnit})
-                                </span>
+                              <span className={styles.cabinetOptionLabel}>
+                                Length ({dimUnit})
+                              </span>
+                              <div className={styles.sliderRow}>
+                                <input
+                                  type="range"
+                                  min={widthRange.min}
+                                  max={widthRange.max}
+                                  step={widthRange.step}
+                                  value={Math.max(
+                                    widthRange.min,
+                                    Math.min(
+                                      widthRange.max,
+                                      roomItemWidthDisplay,
+                                    ),
+                                  )}
+                                  onChange={handleRoomItemWidthSlider}
+                                  className={styles.customAngleSlider}
+                                />
                                 <input
                                   type="number"
                                   min={widthRange.min}
                                   max={widthRange.max}
                                   value={roomItemWidthDisplay}
                                   onChange={handleRoomItemWidthInput}
-                                  className={styles.roomItemNumberInput}
+                                  className={styles.angleInput}
                                   step={isMetric ? 0.01 : 0.5}
                                 />
                               </div>
-                              <div className={styles.roomItemRangeControl}>
-                                <div className={styles.roomItemOptionRow}>
-                                  <span
-                                    className={styles.cabinetOptionLabel}
-                                    style={{ visibility: "hidden" }}
-                                  >
-                                    Length ({dimUnit})
-                                  </span>
-                                  <input
-                                    type="range"
-                                    min={widthRange.min}
-                                    max={widthRange.max}
-                                    step={widthRange.step}
-                                    value={Math.max(
-                                      widthRange.min,
-                                      Math.min(
-                                        widthRange.max,
-                                        roomItemWidthDisplay,
-                                      ),
-                                    )}
-                                    onChange={handleRoomItemWidthSlider}
-                                    className={styles.roomItemSlider}
-                                  />
-                                </div>
-                              </div>
-                              <div className={styles.roomItemOptionRow}>
-                                <span className={styles.cabinetOptionLabel}>
-                                  Height ({dimUnit})
-                                </span>
+
+                              <span className={styles.cabinetOptionLabel}>
+                                Height ({dimUnit})
+                              </span>
+                              <div className={styles.sliderRow}>
+                                <input
+                                  type="range"
+                                  min={heightRange.min}
+                                  max={heightRange.max}
+                                  step={heightRange.step}
+                                  value={Math.max(
+                                    heightRange.min,
+                                    Math.min(
+                                      heightRange.max,
+                                      roomItemHeightDisplay,
+                                    ),
+                                  )}
+                                  onChange={handleRoomItemHeightSlider}
+                                  className={styles.customAngleSlider}
+                                />
                                 <input
                                   type="number"
                                   min={heightRange.min}
                                   max={heightRange.max}
                                   value={roomItemHeightDisplay}
                                   onChange={handleRoomItemHeightInput}
-                                  className={styles.roomItemNumberInput}
+                                  className={styles.angleInput}
                                   step={isMetric ? 0.01 : 0.5}
                                 />
                               </div>
-                              <div className={styles.roomItemRangeControl}>
-                                <div className={styles.roomItemOptionRow}>
-                                  <span
-                                    className={styles.cabinetOptionLabel}
-                                    style={{ visibility: "hidden" }}
-                                  >
-                                    Height ({dimUnit})
-                                  </span>
-                                  <input
-                                    type="range"
-                                    min={heightRange.min}
-                                    max={heightRange.max}
-                                    step={heightRange.step}
-                                    value={Math.max(
-                                      heightRange.min,
-                                      Math.min(
-                                        heightRange.max,
-                                        roomItemHeightDisplay,
-                                      ),
-                                    )}
-                                    onChange={handleRoomItemHeightSlider}
-                                    className={styles.roomItemSlider}
-                                  />
-                                </div>
-                              </div>
                             </>
                           )}
-                          <div className={styles.roomItemOptionRow}>
-                            <span className={styles.cabinetOptionLabel}>
-                              Height on wall ({dimUnit})
-                            </span>
+                          <span className={styles.cabinetOptionLabel}>
+                            Height on wall ({dimUnit})
+                          </span>
+                          <div className={styles.sliderRow}>
+                            <input
+                              type="range"
+                              min={heightOnWallRange.min}
+                              max={heightOnWallRange.max}
+                              step={heightOnWallRange.step}
+                              value={Math.max(
+                                heightOnWallRange.min,
+                                Math.min(
+                                  heightOnWallRange.max,
+                                  roomItemHeightOnWallDisplay,
+                                ),
+                              )}
+                              onChange={handleRoomItemHeightOnWallSlider}
+                              className={styles.customAngleSlider}
+                              disabled={isDoor}
+                            />
                             <input
                               type="number"
                               min={heightOnWallRange.min}
                               max={heightOnWallRange.max}
                               value={roomItemHeightOnWallDisplay}
                               onChange={handleRoomItemHeightOnWallInput}
-                              className={styles.roomItemNumberInput}
+                              className={styles.angleInput}
                               step={isMetric ? 0.01 : 0.5}
                               disabled={isDoor}
                               title={isDoor ? "Door is fixed to floor" : undefined}
                             />
-                          </div>
-                          <div className={styles.roomItemRangeControl}>
-                            <div className={styles.roomItemOptionRow}>
-                              <span
-                                className={styles.cabinetOptionLabel}
-                                style={{ visibility: "hidden" }}
-                              >
-                                Height on wall ({dimUnit})
-                              </span>
-                              <input
-                                type="range"
-                                min={heightOnWallRange.min}
-                                max={heightOnWallRange.max}
-                                step={heightOnWallRange.step}
-                                value={Math.max(
-                                  heightOnWallRange.min,
-                                  Math.min(
-                                    heightOnWallRange.max,
-                                    roomItemHeightOnWallDisplay,
-                                  ),
-                                )}
-                                onChange={handleRoomItemHeightOnWallSlider}
-                                className={styles.roomItemSlider}
-                                disabled={isDoor}
-                              />
-                            </div>
                           </div>
                           {isDoor && (
                             <p className={styles.roomItemHint}>
@@ -1224,14 +1200,17 @@ export default function DragonfireToolsSidebar() {
                           <div className={styles.sectionBlock}>
                             <h4 className={styles.sectionTitle}>Properties</h4>
 
-                            <label className={styles.toggleRow}>
-                              <span>Backsplash</span>
-                              <input
-                                type="checkbox"
-                                checked={placement?.backsplash !== false}
-                                onChange={handleCabinetBacksplashChange}
-                              />
-                            </label>
+                            {/* Show backsplash only for lower corner cabinet */}
+                            {isLowerCorner && (
+                              <label className={styles.toggleRow}>
+                                <span>Backsplash</span>
+                                <input
+                                  type="checkbox"
+                                  checked={placement?.backsplash !== false}
+                                  onChange={handleCabinetBacksplashChange}
+                                />
+                              </label>
+                            )}
 
                             {is56Worktable && (
                               <label className={styles.toggleRow}>
@@ -1256,105 +1235,108 @@ export default function DragonfireToolsSidebar() {
                             {showBase && (
                               <div className={styles.cabinetOptionRow}>
                                 <span className={styles.cabinetOptionLabel}>Base</span>
-                                <Select
-                                  options={[
-                                    { label: "None", value: "none" },
-                                    { label: "Option 1", value: "option1" },
-                                    { label: "Option 2", value: "option2" },
-                                    // apni actual options yahan daalo
-                                  ]}
-                                  value={
-                                    placement.baseOption
-                                      ? {
-                                        label: placement.baseOption, // agar label different hai to map karo
-                                        value: placement.baseOption,
-                                      }
-                                      : { label: "None", value: "none" }
-                                  }
-                                  name="baseOption"
-                                  setData={(name, val) => {
-                                    handleCabinetBaseOptionChange({
-                                      target: { value: val }
-                                    });
-                                  }}
-                                  className={styles.select}
-                                />
+                                <select
+                                  value={placement.baseOption ?? "none"}
+                                  onChange={handleCabinetBaseOptionChange}
+                                  className={styles.cabinetOptionSelect}
+                                >
+                                  <option value="none" title="No base option">
+                                    None
+                                  </option>
+                                  {/* Remove 'legs' for 7ft/9ft workbenches (IDs 2-7) */}
+                                  {![2, 3, 4, 5, 6, 7].includes(placement.cabinetId) && (
+                                    <option value="legs" title="Adjustable legs">
+                                      Legs
+                                    </option>
+                                  )}
+                                  <option value="wheel" title="Casters for mobility">
+                                    Casters
+                                  </option>
+
+                                  <option value="riser" title="Adjustable leveling feet">
+                                    Leveling Feet
+                                  </option>
+
+                                  <option value="riserLowProfile" title="Low profile leveling feet">
+                                    Low Profile Leveling Feet
+                                  </option>
+                                </select>
+                              </div>
+                            )}
+                            {hasMiddleWorkbenchFeetOption && (
+                              <div
+                                className={`${styles.cabinetOptionRow} ${styles.packageFeetOptionRow}`}
+                              >
+                                <span className={styles.cabinetOptionLabel}>
+                                  Middle workbench feet
+                                </span>
+                                <select
+                                  value={placement.packageWorkbenchFeetOption ?? "riser"}
+                                  onChange={handlePackageWorkbenchFeetChange}
+                                  className={styles.cabinetOptionSelect}
+                                >
+                                  <option value="riserLowProfile">
+                                    Low feet profile
+                                  </option>
+                                  <option value="riser">Standard feet</option>
+                                </select>
+                              </div>
+                            )}
+                            {/* COLORS */}
+                            {showLockerColorPicker && (
+                              <div className={styles.sectionBlock}>
+                                <h4 className={styles.sectionTitle}>Colors</h4>
+
+                                <div className={styles.colorRow}>
+                                  {LOCKER_COLOR_OPTIONS.map((color) => {
+                                    const isActive = selectedColor === color.value;
+
+                                    return (
+                                      <div
+                                        key={color.value}
+                                        className={`${styles.colorItem} ${isActive ? styles.activeColor : ""
+                                          }`}
+                                        onClick={() => handleLockerColorChange({ target: { value: color.value } })}
+                                      >
+                                        <div className={styles.colorBox}>
+                                          <span style={{ background: color.hex }} />
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            )}
+                            {is56Worktable && (
+                              <div className={styles.sectionBlock}>
+                                <h4 className={styles.sectionTitle}>Bottom color</h4>
+                                <div className={styles.colorRow}>
+                                  {LOCKER_COLOR_OPTIONS.map((opt) => {
+                                    const current =
+                                      placement.bottomColor === "black"
+                                        ? "glossBlack"
+                                        : placement.bottomColor ?? "gunmetal";
+                                    const active = current === opt.value;
+                                    return (
+                                      <div
+                                        key={opt.value}
+                                        className={`${styles.colorItem} ${active ? styles.activeColor : ""}`}
+                                        onClick={() =>
+                                          handleCabinetBottomColorChange({
+                                            target: { value: opt.value },
+                                          })
+                                        }
+                                      >
+                                        <div className={styles.colorBox}>
+                                          <span style={{ background: opt.hex }} />
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
                               </div>
                             )}
                           </div>
-                          {hasMiddleWorkbenchFeetOption && (
-                            <div
-                              className={`${styles.cabinetOptionRow} ${styles.packageFeetOptionRow}`}
-                            >
-                              <span className={styles.cabinetOptionLabel}>
-                                Middle workbench feet
-                              </span>
-                              <select
-                                value={placement.packageWorkbenchFeetOption ?? "riser"}
-                                onChange={handlePackageWorkbenchFeetChange}
-                                className={styles.cabinetOptionSelect}
-                              >
-                                <option value="riserLowProfile">
-                                  Low feet profile
-                                </option>
-                                <option value="riser">Standard feet</option>
-                              </select>
-                            </div>
-                          )}
-                          {/* COLORS */}
-                          {showLockerColorPicker && (
-                            <div className={styles.sectionBlock}>
-                              <h4 className={styles.sectionTitle}>Colors</h4>
-
-                              <div className={styles.colorRow}>
-                                {LOCKER_COLOR_OPTIONS.map((color) => {
-                                  const isActive = selectedColor === color.value;
-
-                                  return (
-                                    <div
-                                      key={color.value}
-                                      className={`${styles.colorItem} ${isActive ? styles.activeColor : ""
-                                        }`}
-                                      onClick={() => handleLockerColorChange({ target: { value: color.value } })}
-                                    >
-                                      <div className={styles.colorBox}>
-                                        <span style={{ background: color.hex }} />
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
-                          {is56Worktable && (
-                            <div className={styles.sectionBlock}>
-                              <h4 className={styles.sectionTitle}>Bottom color</h4>
-                              <div className={styles.colorRow}>
-                                {LOCKER_COLOR_OPTIONS.map((opt) => {
-                                  const current =
-                                    placement.bottomColor === "black"
-                                      ? "glossBlack"
-                                      : placement.bottomColor ?? "gunmetal";
-                                  const active = current === opt.value;
-                                  return (
-                                    <div
-                                      key={opt.value}
-                                      className={`${styles.colorItem} ${active ? styles.activeColor : ""}`}
-                                      onClick={() =>
-                                        handleCabinetBottomColorChange({
-                                          target: { value: opt.value },
-                                        })
-                                      }
-                                    >
-                                      <div className={styles.colorBox}>
-                                        <span style={{ background: opt.hex }} />
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
                         </>
                       )}
 

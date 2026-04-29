@@ -59,7 +59,11 @@ const isUnderDrawerOrDoorNode = (node) => {
 const isHardwareMesh = (name) =>
   /handle|lock|latch|pull|knob/i.test((name || "").trim());
 
-const ElevenDrawersTemplate = ({ isGhost = false, placement }) => {
+const ElevenDrawersTemplate = ({
+  isGhost = false,
+  placement,
+  isPartOfPackage = false,
+}) => {
   const cabinetRef = useRef();
   const setSelectedObject = useDragNDropStore(
     (state) => state.setSelectedObject,
@@ -79,7 +83,9 @@ const ElevenDrawersTemplate = ({ isGhost = false, placement }) => {
     : isGhost
       ? getFloorOffsetY(baseOption)
       : 0;
-  const feetPlacement = placement
+  const feetPlacement = isPartOfPackage
+    ? null
+    : placement
     ? { ...placement, baseOption }
     : isGhost
       ? { cabinetId: 10, baseOption }

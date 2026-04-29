@@ -707,7 +707,7 @@ const GenerateAllCabinetsInScene = () => {
                 boundingBoxYOffset: isOnWall ? 0 : getFloorOffsetY(
                   getBaseOptionForFloorCabinet(onePosition.cabinetId, onePosition.baseOption)
                 ),
-                isCabinet: onePosition.cabinetId >= 1 && onePosition.cabinetId <= 22,
+                isCabinet: onePosition.cabinetId >= 1 && onePosition.cabinetId <= 23,
                 isRoomItem:
                   onePosition.cabinetId === 100 ||
                   onePosition.cabinetId === 101 ||

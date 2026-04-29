@@ -6,8 +6,8 @@ import CasterWheel from "./CasterWheel";
 
 const FOOT_Z_OFFSET = 0.0545;
 
-/** Cabinet ids that use 6 feet/wheels (7ft/9ft workbenches). Others use 4. Number of feet and wheels is the same per model. */
-export const SIX_FEET_CABINET_IDS = [2, 3, 4, 5, 6, 7];
+/** Cabinet ids that use 6 feet/wheels (7ft/9ft workbenches + 11 Drawer Package). Others use 4. Number of feet and wheels is the same per model. */
+export const SIX_FEET_CABINET_IDS = [2, 3, 4, 5, 6, 7, 23];
 
 /** World Y of the room floor (must match RoomModel floor plane). Cabinets are positioned so their base/feet sit on this level. */
 export const FLOOR_Y = -0.1;
@@ -15,7 +15,7 @@ export const FLOOR_Y = -0.1;
 /** Y offset: none = flush to floor; riser/wheel/legs/smallLegs = cabinet sits on top of feet. */
 export const FLOOR_OFFSET_NONE = 0;
 export const FLOOR_OFFSET_RISER = 0.07;
-/** Leveling feet low profile: 2 in. lower than standard riser. */
+/** Low Profile Leveling Feet: 2 in. lower than standard riser. */
 export const FLOOR_OFFSET_RISER_LOWPROFILE = 0.07 - 0.0508;
 export const FLOOR_OFFSET_WHEEL = 0.166;
 
@@ -81,7 +81,7 @@ const LEVELING_FEET_FLOOR_Y = -0.098;
 /** Lift so leveling-feet model bottom sits on floor (model origin is above bottom in level_feet_only.glb). */
 const LEVELING_FEET_LIFT = 0.17;
 
-/** Leveling feet low profile (2 in. lower): cabinet base Y so foot bottom sits on floor. */
+/** Low Profile Leveling Feet: 2 in. lower than standard riser. */
 const LEVELING_FEET_LOWPROFILE_FLOOR_Y = -0.0972;
 /** Lift so level_feet_lowprofile.glb bottom sits on floor. */
 const LEVELING_FEET_LOWPROFILE_LIFT = 0.17 - 0.0508;
@@ -125,7 +125,9 @@ export function getFloorCabinetBaseY(baseOption, placement = null) {
   if (baseOption === "legs") {
     const floorY =
       placement?.legFloorYOverride ??
-      (placement?.cabinetId === 10 ? LEGS_11D_FLOOR_Y : LEGS_FLOOR_Y);
+      (placement?.cabinetId === 10 || placement?.cabinetId === 23
+        ? LEGS_11D_FLOOR_Y
+        : LEGS_FLOOR_Y);
     return FLOOR_Y - floorY;
   }
   if (baseOption === "smallLegs") return FLOOR_Y - SMALLLEGS_FLOOR_Y;
@@ -145,6 +147,8 @@ export function getBaseOptionForFloorCabinet(cabinetId, baseOption) {
     if (baseOption === "none") return "none";
     return "smallLegs";
   }
+  // 11 Drawer Package (23): honour user baseOption ("legs" or "wheel"); default to "legs".
+  if (cabinetId === 23) return baseOption ?? "legs";
   if (PACKAGE_CABINET_IDS.includes(cabinetId)) return "legs";
   return baseOption ?? "none";
 }
