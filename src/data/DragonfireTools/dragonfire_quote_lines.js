@@ -26,7 +26,7 @@ export function aggregateCabinetLines(placedPositions) {
     if (base === "none") return "None";
     if (base === "wheel") return "Wheels";
     if (base === "riser") return "Leveling Feet";
-    if (base === "riserlowprofile") return "Leveling Feet Low Profile";
+    if (base === "riserlowprofile") return "Low Profile Levelling Feet";
     if (base === "legs") return "Legs";
     if (base === "smalllegs") return "Small Legs";
     return String(placement?.baseOption ?? "None");
