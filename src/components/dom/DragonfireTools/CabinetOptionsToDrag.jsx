@@ -69,7 +69,17 @@ const CabinetOptionsToDrag = ({ isOpen = false, onClose }) => {
   };
 
   const goNext = () => setStep((s) => Math.min(s + 1, 3));
-  const goBack = () => setStep((s) => Math.max(s - 1, 1));
+  const goBack = () => {
+    const isRoomCase =
+      selection.category &&
+      (subCategoriesByCategory[selection.category] || []).length === 0;
+
+    if (step === 3 && isRoomCase) {
+      setStep(1); // skip step 2
+    } else {
+      setStep((s) => Math.max(s - 1, 1));
+    }
+  };
 
   /* ---------------- DRAG ICON HANDLER ---------------- */
   const handleDragIconMouseDown = (e) => {
@@ -77,7 +87,7 @@ const CabinetOptionsToDrag = ({ isOpen = false, onClose }) => {
     const el = wrapperRef.current;
     if (!el) return;
 
-    const rect = el.getBoundingClientRect();
+    const rect = el.getBoundingClientRect(); 
     dragOffsetRef.current = {
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
