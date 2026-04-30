@@ -11,24 +11,24 @@ const subtleConfig = {
   blur: false,
   edgeStrength: 4,
   kernelSize: 0,
-  visibleEdgeColor: "#b0b0b0",
-  hiddenEdgeColor: "#b0b0b0",
+  visibleEdgeColor: "#8B0000",
+  hiddenEdgeColor: "#8B0000",
 };
 
 const dragConfig = {
   blur: false,
   edgeStrength: 7,
   kernelSize: 0,
-  visibleEdgeColor: "#9090a0",
-  hiddenEdgeColor: "#9090a0",
+  visibleEdgeColor: "#8B0000",
+  hiddenEdgeColor: "#8B0000",
 };
 
 const overlapConfig = {
   blur: false,
   edgeStrength: 10,
   kernelSize: 0,
-  visibleEdgeColor: "#ff2222",
-  hiddenEdgeColor: "#ff2222",
+  visibleEdgeColor: "#8B0000",
+  hiddenEdgeColor: "#8B0000",
 };
 
 function collectMeshesFromObject(object) {
